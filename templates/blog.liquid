@@ -1,0 +1,79 @@
+{% paginate blog.articles by 5 %}
+<section id="columns" class="columns-container">
+    <div class="container">
+        <div class="row">
+            <div id="left_column" class="left_column sidebar col-md-3">
+                <div class="blog-sidebar" role="complementary">
+                    {% include 'blog-sidebar' %}
+                </div>
+            </div>
+            <div id="center_column" class="center_column col-md-9">
+                <div id="content">
+                    <div id="blog-listing" class="blogs-container">
+                        <div class="heading-blog">
+                            <div class="pull-left">
+                                {% include 'breadcrumb' %}
+                            </div>
+                            <div class="pull-right">
+                                {% if current_tags %}
+                                    <h1>{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h1>
+                                {% else %}
+                                    <h1>{{ blog.title }}</h1>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="inner">                        
+                            {% for article in blog.articles %}
+                                <div class="blog-item">                          
+                                    <div class="rte">
+                                        {% if article.content contains '<img' %}
+                                            <div class="image">
+                                                {% assign image-size = '1024x1024' %}
+                                                {% assign content_blog_home = article.content %}
+                                                <img src="{% include 'blog-src-image' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                                    {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+                                    {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}                          
+                                    <div class="blog-meta clearfix">
+                                        <div class="postby">
+                                            {{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}
+                                        </div>
+                                        {% if blog.comments_enabled? %}
+                                            <div class="comment-meta">
+                                                <a href="{{ article.url }}#Comments">
+                                                    {{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                        <div class="blog-tags">
+                                            {% include 'tags-article' %}
+                                        </div>
+                                    </div>
+                                    <div class="rte">
+                                        {% if article.excerpt.size > 0 %}
+                                            {{ article.excerpt }}
+                                        {% else %}
+                                            <p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <hr>
+                                    {% comment %}{% unless forloop.last %}<hr>{% endunless %}{% endcomment %}
+                                </div>
+                            {% endfor %}
+                            {% if paginate.pages > 1 %}
+                                <div class="text-center">
+                                    {% include 'pagination-custom' %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endpaginate %}

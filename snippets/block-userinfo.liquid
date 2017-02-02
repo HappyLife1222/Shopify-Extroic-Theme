@@ -1,0 +1,25 @@
+{% if shop.customer_accounts_optional %}
+	<div class="header_user_info e-scale popup-over btn-group">
+		<div data-toggle="dropdown" class="popup-title dropdown-toggle">
+          	<i class="fa fa-user hidden-lg"></i>
+			<span class="hidden-xs hidden-sm text-label">{{'layout.customer.account' | t}}</span>
+          	<span class="fa fa-angle-down"></span>
+		</div>
+		<ul class="links dropdown-menu dropdown-menu-right">
+			{% if settings.theme_wishlist_enable %}
+				<li>
+					<a id="wishlist-total" title="My wishlists" href="/pages/wish-list">Wishlist</a>
+				</li>
+			{% endif %}
+			<li>
+				<a class="account" rel="nofollow" href="/account" title="{{ 'customer.account.title' | t }}"> {{ 'customer.account.title' | t }}</a>
+			</li>
+			<li>
+				<a class="account" rel="nofollow" href="/cart" title="{{ 'layout.cart.title' | t }}"> {{ 'layout.cart.title' | t }}</a>
+			</li>
+			<li>
+				<a href="/cart" title="{{ 'cart.general.title' | t }}"> {{ 'cart.general.checkout' | t }}</a>
+			</li>
+		</ul>
+	</div>
+{% endif %}

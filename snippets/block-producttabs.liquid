@@ -1,0 +1,338 @@
+<div id="productTabs{{ block-producttabs }}" class="products_block exclusive block">
+	<div class="block_content box-line">
+		<ul id="productTabsNav" class="nav nav-tabs flex hidden-xs">
+			{% if settings.home_producttabs_icontab_1 != blank %}
+				<li class="active"><a href="#categorytab-1" data-toggle="tab" class="t-color1">                  
+                  {% if settings.producttabs_eimage_1 %}                  	
+                  	{{'tab1_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_1 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+			{% endif %}
+			{% if settings.home_producttabs_icontab_2 != blank %}
+          		<li><a href="#categorytab-2" data-toggle="tab" class="t-color2">
+                  {% if settings.producttabs_eimage_2 %}
+                  	{{'tab2_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_2 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+			{% endif %}
+      		{% if settings.home_producttabs_icontab_3 != blank %}
+          		<li>
+                  <a href="#categorytab-3" data-toggle="tab" class="t-color3">
+                  {% if settings.producttabs_eimage_3 %}
+                  	{{'tab3_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_3 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+  			{% endif %}
+      		{% if settings.home_producttabs_icontab_4 != blank %}
+      			<li><a href="#categorytab-4" data-toggle="tab" class="t-color4">
+                  {% if settings.producttabs_eimage_4 %}
+                  	{{'tab4_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_4 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+      		{% endif %}
+          	{% if settings.home_producttabs_icontab_5 != blank %}
+      			<li><a href="#categorytab-5" data-toggle="tab" class="t-color5">
+                  {% if settings.producttabs_eimage_5 %}
+                  	{{'tab5_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_5 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+      		{% endif %}
+            {% if settings.home_producttabs_icontab_6 != blank %}
+            	<li><a href="#categorytab-6" data-toggle="tab" class="t-color6">
+                  {% if settings.producttabs_eimage_6 %}
+                  	{{'tab6_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_6 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+            {% endif %}
+          	{% if settings.home_producttabs_icontab_7 != blank %}
+      			<li><a href="#categorytab-7" data-toggle="tab" class="t-color7">
+                  {% if settings.producttabs_eimage_7 %}
+                  	{{'tab7_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_7 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+      		{% endif %}
+          	{% if settings.home_producttabs_icontab_8 != blank %}
+      			<li><a href="#categorytab-8" data-toggle="tab" class="t-color8">
+                  {% if settings.producttabs_eimage_8 %}
+                  	{{'tab8_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_8 }} fa-2x"></i>
+                  {% endif %}
+                  </a></li>
+      		{% endif %}
+          	{% if settings.home_producttabs_icontab_9 != blank %}
+      			<li><a href="#categorytab-9" data-toggle="tab" class="t-color9">
+                  {% if settings.producttabs_eimage_9 %}
+                  	{{'tab9_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_9 }} fa-2x"></i>
+                  {% endif %}</a></li>
+      		{% endif %}
+		</ul>
+      	<div id="productTabsOwl" class="owl-carousel hidden-lg hidde-md hidden-sm">
+          	{% if settings.home_producttabs_icontab_1 != blank %}
+       		<div class="tab-item active">
+              <a href="#categorytab-1" data-toggle="tab" class="t-color1">
+                  {% if settings.producttabs_eimage_1 %}
+                  	{{'tab1_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_1 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          	{% if settings.home_producttabs_icontab_2 != blank %}
+       		<div class="tab-item">
+              	<a href="#categorytab-2" data-toggle="tab" class="t-color2">
+                  {% if settings.producttabs_eimage_2 %}
+                  	{{'tab2_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_2 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          	{% if settings.home_producttabs_icontab_3 != blank %}
+       		<div class="tab-item">
+              	<a href="#categorytab-3" data-toggle="tab" class="t-color3">
+                  {% if settings.producttabs_eimage_3 %}
+                  	{{'tab3_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_3 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          	{% if settings.home_producttabs_icontab_4 != blank %}
+       		<div class="tab-item">
+              	<a href="#categorytab-4" data-toggle="tab" class="t-color4">
+                  {% if settings.producttabs_eimage_4 %}
+                  	{{'tab4_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_4 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          	{% if settings.home_producttabs_icontab_5 != blank %}
+       		<div class="tab-item">
+               	<a href="#categorytab-5" data-toggle="tab" class="t-color5">
+                  {% if settings.producttabs_eimage_5 %}
+                  	{{'tab5_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_5 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          	{% if settings.home_producttabs_icontab_6 != blank %}
+       		<div class="tab-item">
+              	<a href="#categorytab-6" data-toggle="tab" class="t-color6">
+                  {% if settings.producttabs_eimage_6 %}
+                  	{{'tab6_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_6 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          {% if settings.home_producttabs_icontab_7 != blank %}
+       		<div class="tab-item">
+              	<a href="#categorytab-7" data-toggle="tab" class="t-color7">
+                  {% if settings.producttabs_eimage_7 %}
+                  	{{'tab7_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_7 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          {% if settings.home_producttabs_icontab_8 != blank %}
+       		<div class="tab-item">
+              	<a href="#categorytab-8" data-toggle="tab" class="t-color8">
+                  {% if settings.producttabs_eimage_8 %}
+                  	{{'tab8_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_8 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+          	{% if settings.home_producttabs_icontab_9 != blank %}
+       		<div class="tab-item">
+              	<a href="#categorytab-9" data-toggle="tab" class="t-color9">
+                  {% if settings.producttabs_eimage_9 %}
+                  	{{'tab9_img.png' | asset_url | img_tag: "img-responsive" }}
+                  {% else %}
+                  	<i class="fa fa-{{ settings.home_producttabs_icontab_9 }} fa-2x"></i>
+                  {% endif %}
+              </a>
+          	</div>
+          	{% endif %}
+      	</div>
+		<div id="product_tab_content">
+			<div class="product_tab_content tab-content {% if settings.home_producttabs_type != 'boostrap_carousel' %}owl-row{% endif %}">
+              	{% assign item_in_page = settings.home_producttabs_itempage %}
+                {% assign columns_product = settings.home_producttabs_columntab %}
+                {% assign product_in_tab = settings.home_producttabs_limit %}
+              	{% assign row_in_tab = 1 %}
+				{% if settings.home_producttabs_icontab_1 != blank %}
+					<div class="tab-pane active" id="categorytab-1">
+						{% assign collection_produclists = collections[settings.home_producttabs_collection_1].products %}
+                      	{% capture product_carousel %}producttab01{{ block-producttabs }}{% endcapture %}
+						{% if settings.home_producttabs_type == 'boostrap_carousel' %}							
+							{% include 'product-carousel' %}
+						{% else %}
+							{% include 'product-carousel-owl' %}
+						{% endif %}
+	              	</div>
+              	{% endif %}
+              	{% if settings.home_producttabs_icontab_2 != blank %}
+					<div class="tab-pane" id="categorytab-2">
+						{% assign collection_produclists = collections[settings.home_producttabs_collection_2].products %}
+                      	{% capture product_carousel %}producttab02{{ block-producttabs }}{% endcapture %}
+						{% if settings.home_producttabs_type == 'boostrap_carousel' %}							
+							{% include 'product-carousel' %}
+						{% else %}
+							{% include 'product-carousel-owl' %}
+						{% endif %}
+	              	</div>
+              	{% endif %}
+              	{% if settings.home_producttabs_icontab_3 != blank %}
+					<div class="tab-pane" id="categorytab-3">
+						{% assign collection_produclists = collections[settings.home_producttabs_collection_3].products %}
+                      	{% capture product_carousel %}producttab03{{ block-producttabs }}{% endcapture %}
+						{% if settings.home_producttabs_type == 'boostrap_carousel' %}							
+							{% include 'product-carousel' %}
+						{% else %}
+							{% include 'product-carousel-owl' %}
+						{% endif %}
+	              	</div>
+              	{% endif %}
+              	{% if settings.home_producttabs_icontab_4 != blank %}
+					<div class="tab-pane" id="categorytab-4">
+						{% assign collection_produclists = collections[settings.home_producttabs_collection_4].products %}
+                      	{% capture product_carousel %}producttab04{{ block-producttabs }}{% endcapture %}
+						{% if settings.home_producttabs_type == 'boostrap_carousel' %}							
+							{% include 'product-carousel' %}
+						{% else %}
+							{% include 'product-carousel-owl' %}
+						{% endif %}
+	              	</div>
+              	{% endif %}
+              	{% if settings.home_producttabs_icontab_5 != blank %}
+                  <div class="tab-pane" id="categorytab-5">
+                    {% assign collection_produclists = collections[settings.home_producttabs_collection_5].products %}
+                    {% capture product_carousel %}producttab05{{ block-producttabs }}{% endcapture %}
+                    {% if settings.home_producttabs_type == 'boostrap_carousel' %}                    
+                    {% include 'product-carousel' %}
+                    {% else %}
+                    {% include 'product-carousel-owl' %}
+                    {% endif %}
+                  </div>
+              	{% endif %} 
+              	{% if settings.home_producttabs_icontab_6 != blank %}
+					<div class="tab-pane" id="categorytab-6">
+						{% assign collection_produclists = collections[settings.home_producttabs_collection_6].products %}
+                      	{% capture product_carousel %}producttab06{{ block-producttabs }}{% endcapture %}
+						{% if settings.home_producttabs_type == 'boostrap_carousel' %}							
+							{% include 'product-carousel' %}
+						{% else %}
+							{% include 'product-carousel-owl' %}
+						{% endif %}
+	              	</div>
+              	{% endif %} 
+                {% if settings.home_producttabs_icontab_7 != blank %}
+                <div class="tab-pane" id="categorytab-7">
+                  {% assign collection_produclists = collections[settings.home_producttabs_collection_7].products %}
+                  {% capture product_carousel %}producttab07{{ block-producttabs }}{% endcapture %}
+                  {% if settings.home_producttabs_type == 'boostrap_carousel' %}                  
+                  {% include 'product-carousel' %}
+                  {% else %}
+                  {% include 'product-carousel-owl' %}
+                  {% endif %}
+                </div>
+                {% endif %} 
+                {% if settings.home_producttabs_icontab_8 != blank %}
+                <div class="tab-pane" id="categorytab-8">
+                  {% assign collection_produclists = collections[settings.home_producttabs_collection_8].products %}
+                  {% capture product_carousel %}producttab08{{ block-producttabs }}{% endcapture %}
+                  {% if settings.home_producttabs_type == 'boostrap_carousel' %}                  
+                  {% include 'product-carousel' %}
+                  {% else %}
+                  {% include 'product-carousel-owl' %}
+                  {% endif %}
+                </div>
+                {% endif %}
+              	{% if settings.home_producttabs_icontab_9 != blank %}
+                <div class="tab-pane" id="categorytab-9">
+                  {% assign collection_produclists = collections[settings.home_producttabs_collection_9].products %}
+                  {% capture product_carousel %}producttab09{{ block-producttabs }}{% endcapture %}
+                  {% if settings.home_producttabs_type == 'boostrap_carousel' %}                  
+                  {% include 'product-carousel' %}
+                  {% else %}
+                  {% include 'product-carousel-owl' %}
+                  {% endif %}
+                </div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function() {
+      $("#productTabsOwl").owlCarousel({
+          itemsCustom : [
+            [0, 5],
+            [450, 5],
+            [480, 5],
+            [700, 5],            
+          ],
+          });
+          $("#productTabsOwl").find('.owl-item').first().addClass('active');
+          $("#productTabsOwl .owl-item").click(function(){
+          $('.owl-item',"#productTabsOwl").removeClass('active');
+          $(this).addClass('active');
+          });
+		{% if settings.home_producttabs_type == 'boostrap_carousel' %}
+		    $('#productTabs{{ block-producttabs }} .carousel').each(function(){
+		        $(this).carousel({
+		            pause: 'hover',
+		            interval: {{ settings.home_producttabs_interval }}
+		        });
+		    });
+	    {% else %}
+	    	$('#productTabs{{ block-producttabs }} .owl-carousel').each(function(){
+    		  	$(this).owlCarousel({
+    		      	items : {{ columns_product }},            		
+    		      	lazyLoad : true,
+    		      	navigation : true,
+              		navigationText : false,
+            		addClassActive: true,
+            		afterInit : SetOwlCarouselFirstLast,
+			        afterAction : SetOwlCarouselFirstLast,
+                    itemsDesktop: [1199, 3],
+                	itemsDesktopSmall: [979, 2],
+                	itemsTablet: [768, 2],
+                	itemsTabletSmall: [550, 2],
+                	itemsMobile: [549, 1],
+		      	}); 
+    		});
+            
+	    {% endif %}		
+	});
+</script>

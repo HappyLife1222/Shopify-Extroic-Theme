@@ -1,0 +1,119 @@
+{% assign columns_manucarousel = 6 %}
+{% assign arrayItems = "6,12,18,24,30,36" | split: ',' %}
+{% assign grid_manucarousel = 'col-sp-12 col-xs-6 col-sm-4 col-md-2 col-lg-2' %}
+
+<div id="manucarousel{{ block-manucarousel }}" class="block-manufacture">
+  	{% if settings.home_vendor_carousel_title != blank %}
+          <h4 class="page-subheading">{{settings.home_vendor_carousel_title}}</h4>
+      {% endif %}
+  	<div class="box-line">      
+      <div class="block_content {% if settings.home_vendor_carousel_type != 'boostrap_carousel' %}owl-row{% endif %}">
+		{% if settings.home_vendor_carousel_type == 'boostrap_carousel' %}
+			<div class="carousel slide" id="manu-carousel{{ block-manucarousel }}">
+				{% assign manu_counter = 1 %}
+				{% for i in (1..12) %}
+					{% capture vendor %}home_vendor_enable_{{i}}{% endcapture %}
+					{% if settings[vendor] %}
+						{% assign manu_index = manu_counter | times: 1 %}
+						{% capture manu_counter %}{{ manu_counter | plus: 1 }}{% endcapture %}
+					{% endif %}
+			 	{% endfor %}
+			 	{% if manu_index > columns_manucarousel %}
+					<a class="carousel-control middle left" href="#manu-carousel{{ block-manucarousel }}" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+					<a class="carousel-control middle right" href="#manu-carousel{{ block-manucarousel }}" data-slide="next"><i class="fa fa-angle-right"></i></a>
+				{% endif %}
+				<div class="carousel-inner">
+					{% for i in (1..12) %}
+						{% capture vendor %}home_vendor_enable_{{i}}{% endcapture %}
+						{% capture vendor_name %}home_vendor_name_{{i}}{% endcapture %}
+						{% capture vendor_logo %}vendor_logo_{{i}}.png{% endcapture %}
+						{% capture index %}{{ forloop.index }}{% endcapture %}
+						{% if forloop.first %}
+							<div class="item active">
+								<div class="row">
+						{% endif %}
+						{% if arrayItems contains index and forloop.last %}
+									{% if settings[vendor] %}
+									<div class="logo-manu {{ grid_manucarousel }}">
+										<a href="/collections/vendors?q={{ settings[vendor_name] }}" title="{{ settings[vendor_name] }}">
+											{{ vendor_logo | asset_url | img_tag: settings[vendor_name], "replace-2x img-responsive" }}
+										</a>
+									</div>
+									{% endif %}
+								</div>
+							</div>
+						{% elsif arrayItems contains index %}
+									{% if settings[vendor] %}
+									<div class="logo-manu {{ grid_manucarousel }}">
+										<a href="/collections/vendors?q={{ settings[vendor_name] }}" title="{{ settings[vendor_name] }}">
+											{{ vendor_logo | asset_url | img_tag: settings[vendor_name], "replace-2x img-responsive" }}
+										</a>
+									</div>
+									{% endif %}
+								</div>
+							</div>
+							<div class="item">
+								<div class="row">
+						{% elsif forloop.last %}
+									{% if settings[vendor] %}
+									<div class="logo-manu {{ grid_manucarousel }}">
+										<a href="/collections/vendors?q={{ settings[vendor_name] }}" title="{{ settings[vendor_name] }}">
+											{{ vendor_logo | asset_url | img_tag: settings[vendor_name], "replace-2x img-responsive" }}
+										</a>
+									</div>
+									{% endif %}
+								</div>
+							</div>
+						{% else %}
+							{% if settings[vendor] %}
+								<div class="logo-manu {{ grid_manucarousel }}">
+									<a href="/collections/vendors?q={{ settings[vendor_name] }}" title="{{ settings[vendor_name] }}">
+										{{ vendor_logo | asset_url | img_tag: settings[vendor_name], "replace-2x img-responsive" }}
+									</a>
+								</div>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		{% else %}
+			<div class="owl-carousel slide">
+				{% for i in (1..10) %}
+					{% capture vendor %}home_vendor_enable_{{i}}{% endcapture %}
+					{% capture vendor_name %}home_vendor_name_{{i}}{% endcapture %}
+					{% capture vendor_logo %}vendor_logo_{{i}}.png{% endcapture %}
+					{% if settings[vendor] %}
+						<div class="item">
+							<div class="logo-manu">
+								<a href="/collections/vendors?q={{ settings[vendor_name] }}" title="{{ settings[vendor_name] }}">
+									{{ vendor_logo | asset_url | img_tag: settings[vendor_name], "replace-2x img-responsive" }}
+								</a>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	   </div>
+	</div>
+</div>
+<script>
+	$(document).ready(function() {
+		{% if settings.home_vendor_carousel_type == 'boostrap_carousel' %}
+		    $('#manucarousel{{ block-manucarousel }} .carousel').each(function(){
+		        $(this).carousel({
+		            pause: 'hover',
+		            interval: {{ settings.home_vendor_carousel_interval }}
+		        });
+		    });
+	    {% else %}
+	    	$('#manucarousel{{ block-manucarousel }} .owl-carousel').each(function(){
+    		  	$(this).owlCarousel({
+    		      	items : {{ columns_manucarousel }},
+    		      	lazyLoad : true,
+    		      	navigation : true
+		      	}); 
+    		});
+	    {% endif %}
+	});
+</script>

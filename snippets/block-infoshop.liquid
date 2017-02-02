@@ -1,0 +1,7 @@
+{% if settings.contactinfo_enable %}
+<p class="welcome pull-left"> 
+  Phone: <span class="text-theme">
+  {{ settings.toptext_phone}}</span> &nbsp; &nbsp; &nbsp;
+  Email: <a href="mailto:{{ settings.toptext_email }}">{{ settings.toptext_email }}</a>
+</p>
+{% endif%}

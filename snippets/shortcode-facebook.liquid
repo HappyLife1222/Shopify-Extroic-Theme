@@ -1,0 +1,33 @@
+{% capture class %}{% include 'shortcode-render' render:'class' default:'hr-default' %}{% endcapture %}
+{% capture idPage %}{% include 'shortcode-render' render:'idPage' default:'' %}{% endcapture %}
+{% capture height %}{% include 'shortcode-render' render:'height' default:'' %}{% endcapture %}
+{% capture width %}{% include 'shortcode-render' render:'width' default:'' %}{% endcapture %}
+{% capture showFace %}{% include 'shortcode-render' render:'showFace' default:'true' %}{% endcapture %}
+{% capture stream %}{% include 'shortcode-render' render:'stream' default:'' %}{% endcapture %}
+{% capture showBorder %}{% include 'shortcode-render' render:'showBorder' default:'true' %}{% endcapture %}
+<div class="facebook-block {{ class }} ">
+	<div id="fb-root"></div>
+    {% if idPage != blank %}
+    <script type="text/javascript">
+    // Check avoid include duplicate library Facebook SDK
+    if($("#facebook-jssdk").length == 0) {
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    }
+    </script>
+    
+    <div class="fb-like-box" data-href="https://www.facebook.com/{{ idPage }}" 
+    	{% if height != blank %}data-height="{{ height }}"{% endif %} 
+    	{% if width != blank %}data-height="{{ width }}"{% endif %}
+    	data-show-faces="{% if showFace != blank %}true{% else %}false{% endif %}" 
+    	data-header="{% if showFace != blank %}true{% else %}false{% endif %}" 
+    	data-stream="{% if stream != blank %}true{% else %}false{% endif %}" 
+    	data-show-border="{% if showBorder != blank %}true{% else %}false{% endif %}" 
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,30 @@
+{% capture accordion %}{% include 'shortcode-render' render:'action' %}{% endcapture %}
+{% capture accordionTitle %}{% include 'shortcode-render' render:'title' default:'Accordion Title'%}{% endcapture %}
+{% capture accordionActive %}{% include 'shortcode-render' render:'active' default:'0'%}{% endcapture %}
+{% capture accordionClass %}{% include 'shortcode-render' render:'class' default:'' %}{% endcapture %}
+{% case accordion %}
+    {% when 'new accordions' %}
+        {% capture shortCodeId %}{{shortCodeId}}-{{ 'now' | date: "%N" }}{% endcapture %}
+        <div class="panel-group{% if accordionClass != '' %} {{accordionClass}}{% endif %}" id="accordion-{{shortCodeId | split : '-' | last}}" role="tablist" aria-multiselectable="true">
+    {% when 'end accordions' %}
+        {% capture lastTime %}-{{shortCodeId | split : '-' | last}}{% endcapture %}
+        {% capture shortCodeId %}{{shortCodeId | remove: lastTime}}{% endcapture %}
+        </div>
+    {% when 'new accordion' %}
+        <div class="panel panel-default">
+    	   {% capture headingId %}{{ 'now' | date: "%N" }}{% endcapture %}
+            <div class="panel-heading" role="tab" id="heading-{{headingId}}">
+                <h4 class="panel-title">
+        	        <a data-toggle="collapse" data-parent="#accordion-{{shortCodeId | split : '-' | last}}" href="#collapse{{headingId}}" aria-expanded="true" aria-controls="collapseOne">
+                        {% if accordionTitle != '' %}{{accordionTitle}}{% endif %}
+        	        </a>
+                </h4>
+            </div>
+            <div id="collapse{{headingId}}" class="panel-collapse collapse{% if accordionActive == '1' %} in{% endif %}" role="tabpanel" aria-labelledby="heading-{{headingId}}">
+      		    <div class="panel-body">
+    {% when 'end accordion' %}
+                </div>
+    	   </div>
+	   </div> 
+    {% else %}
+  {% endcase %}

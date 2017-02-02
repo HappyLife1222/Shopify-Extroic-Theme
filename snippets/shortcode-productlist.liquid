@@ -1,0 +1,34 @@
+{% capture handle %}{% include 'shortcode-render' render:'handle' %}{% endcapture %}
+{% capture class %}{% include 'shortcode-render' render:'class' %}{% endcapture %}
+{% capture id %}{% include 'shortcode-render' render:'id' %}{% endcapture %}
+{% capture columnsProduct %}{% include 'shortcode-render' render:'columnsProduct' %}{% endcapture %}
+{% capture limit %}{% include 'shortcode-render' render:'limit' %}{% endcapture %}
+{% assign firstId = '' %}
+{% assign grid_item_width = 'col-md-3 col-sm-6 col-xs-6 col-sp-12' %}
+{% if columnsProduct == '3' %}
+    {% assign grid_item_width = 'col-md-4 col-sm-6 col-xs-6 col-sp-12' %}
+{% endif %}
+
+{% if limit != blank %}
+    {% assign product_per_page = limit %}
+{% else if settings.collection_product_per_page != blank %}
+    {% assign product_per_page = settings.collection_product_per_page %}
+{% else %}
+    {% assign product_per_page = 12 %}
+{% endif %}
+{% paginate collections %}
+    {% for collection in collections %}
+        {% if handle != ''%}
+            {% if collection.handle ==  handle %}
+                {% assign products = collection.products %}
+                {% include 'shortcode-productlistitem' %}
+                {% break%}
+            {% endif%}
+        {% else if firstId == '' %}
+            {% assign firstId = collection.id %}
+            {% assign products = collection.products %}
+            {% include 'shortcode-productlistitem' %}
+            {% break %}
+        {% endif%}
+    {% endfor %}
+{% endpaginate %}

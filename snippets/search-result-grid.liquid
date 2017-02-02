@@ -1,0 +1,91 @@
+{% assign on_sale = false %}
+{% if item.compare_at_price > item.price %}
+    {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if item.available  %}
+    {% assign sold_out = false %}
+{% endif %}
+{% assign imagesize = settings.home_product_imagesize %}
+
+<div class="product_block {{ grid_item_width }} product-col border">
+    {% if on_sale %}
+      <span class="product-label sale-exist">
+        <span class="product-label-special">{{ 'products.product.on_sale_from_html' | t }}</span>
+      </span>
+    {% endif %}
+    <div class="product-container item-full product-block">
+        <div class="block-img">
+          <div class="img">
+            <a class="product_img_link" href="{{ item.url | within: collection }}" title="{{ item.title }}">
+                <img class="replace-2x img-responsive" src="{{ item.featured_image | product_img_url: imagesize }}" alt="{{ item.title }}">
+                {% if settings.theme_more_pimages_enable and settings.theme_more_pimages_option == 'showone' %}
+                    {% include 'product-more-image' %}
+                {% endif %}
+            </a>
+            {% if settings.theme_more_pimages_enable and settings.theme_more_pimages_option == 'showmore' %}
+                {% include 'product-more-image' %}
+            {% endif %}
+            {% if dealTime %}
+                {% include 'block-productdeal' %}
+            {% endif %}
+          </div>
+          <div class="functional-buttons">
+              <div class="view_detail">
+                <a class="btn lnk_view btn-outline dark" href="{{ item.url | within: collection }}" title="View" data-placement="right" data-toggle="tooltip">
+                  <i class="fa fa-info"></i><span></span>
+                </a>
+              </div>
+              {% if settings.theme_wishlist_enable %}
+              	{% include 'wishlist-product' %}
+              {% endif %}
+              {% if settings.theme_quickview_enable %}
+              <div class="quickview">
+                <a class="quick-view dark btn-outline btn" href="#quick-view-product" data-placement="right" data-toggle="tooltip" data-handle="{{ item.handle }}" title="{{ 'general.quickview.title' | t }}">
+                  <i class="fa fa-eye"></i>                  
+                </a>
+              </div>
+              {% endif %}
+          </div>
+        </div>
+        <div class="product-meta">
+            
+            <h3 class="name">
+                <a class="product-name" href="{{ item.url | within: collection }}" title="{{ item.title }}">{{ item.title }}</a>
+            </h3>
+          	<div class="product-desc">{{ item.description }}</div>            
+            
+            <blockquote {% if item-type == 'item-full' %}class="pull-left"{% endif %}>
+              <div class="content_price prices clearfix">
+                <span class="product-price {% if on_sale %}sale-price{% endif %}">
+                  {{ item.price | money }}
+                </span>
+                {% if on_sale %}
+                <span class="old-price product-price">{{ item.compare_at_price | money }}</span>
+                {% endif %}
+              </div>
+              {% if settings.product_reviews_enable %}
+              <div class="review">
+                <span class="shopify-product-reviews-badge" data-id="{{ item.id }}"></span>
+              </div>
+              {% endif %}
+            </blockquote>
+          
+            <div class="cart">
+              {% assign variantCount = item.variants | size %}                
+              <form action="/cart/add" method="post" enctype="multipart/form-data" class="form-ajaxtocart">
+                <input type="hidden" name="id" value="{{ item.variants.first.id }}" />
+                {% if sold_out %}
+                <input type="submit" value="{{ 'products.product.unavailable' | t }}" class="button ajax_addtocart disabled" />
+                {% else %}
+                {% if variantCount > 1 %}
+                <a class="button ajax_addtocart" href="{{ item.url | within: collection }}" title="{{ item.title }}">{{ 'products.product.select_options' | t }}</a>
+                {% else %}
+                <input type="submit" value="{{ 'products.product.add_to_cart' | t }}" class="button ajax_addtocart" />
+                {% endif %}
+                {% endif %}
+              </form>                 
+          	</div> 
+        </div>
+    </div>
+</div>

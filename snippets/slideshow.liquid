@@ -1,0 +1,70 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#iview').iView({
+      fx: 'random',
+      easing: 'linear',
+      strips: 20,
+      blockCols: 10, // Number of block columns for block animations
+      blockRows: 5, // Number of block rows for block animations
+      pauseTime: {{ settings.slider_pause_times }},
+      directionNav: false,
+      directionNavHide: false,
+      sliderWidth: '2000px',
+      sliderHeight: '451px',
+      controlNavNextPrev: false,
+      {% if settings.slider_hover_pause %}
+      pauseOnHover: true,
+      {% endif %}
+      {% if settings.slider_type_Nav == 'bullet'%}
+      controlNav: true,
+      {% elsif settings.slider_type_Nav == 'none'%}
+      controlNav: false,
+      {% endif %}
+      tooltipY: -15
+    });
+  });
+</script>
+<div id="iview" class="{{ settings.slider_group_class }}" style="width:100%;height:450px;">    
+        {% for i in (1..6) %}
+            {% capture slide %}slide_{{ i }}{% endcapture %}
+            {% capture slide_img %}slider_img_{{ i }}.jpg{% endcapture %}
+            {% capture slide_url %}slideshow_url_{{ i }}{% endcapture %}
+  			{% capture slide_txt1 %}slideshow_txtfirst_{{ i }}{% endcapture %}
+  			{% capture slide_txt1_effect %}slideshow_txtfirst_effect_{{i}}{% endcapture %}
+  			{% capture slide_txt1_delay %}slideshow_txtfirst_delay_{{i}}{% endcapture %}
+  			{% capture slide_txt2 %}slideshow_txtsecond_{{i}}{% endcapture %}
+  			{% capture slide_txt2_effect %}slideshow_txtsecond_effect_{{ i }}{% endcapture %}
+  			{% capture slide_txt2_delay %}slideshow_txtsecond_delay_{{i}}{% endcapture %}
+            {% capture slide_title %}slideshow_title_{{ i }}{% endcapture %}
+  			{% capture slide_title_effect %}slideshow_title_effect_{{ i }}{% endcapture %}  			
+  			{% capture slide_title_delay %}slideshow_title_delay_{{i}}{% endcapture %}
+            {% capture slide_des %}slideshow_des_{{ i }}{% endcapture %}
+  			{% capture slide_des_effect %}slideshow_des_effect_{{ i }}{% endcapture %}
+  			{% capture slide_des_delay %}slideshow_des_delay_{{i}}{% endcapture %}
+            {% capture slide_textlink %}slideshow_textlink_{{ i }}{% endcapture %}
+  			{% capture slide_textlink_effect %}slideshow_button_effect_{{ i }}{% endcapture %}  			
+  			{% capture slide_textlink_delay %}slideshow_button_delay_{{i}}{% endcapture %}
+            {% capture slide_urllink %}slideshow_urllink_{{ i }}{% endcapture %}              			
+            
+            {% if settings[slide] %}  				
+    			<div data-iview-thumbnail="{{ slide_img | asset_img_url }}" data-iview-image="{{ slide_img | asset_img_url: '2000x' }}" data-iview-transition="slice-top-fade,slice-right-fade">                                   
+  					 <!-- Caption -->        			
+  					<div class="iview-caption text-hind-light-13" data-x="58" data-y="70" data-speed="{{settings[slide_txt1_delay]}}" data-transition="{{ settings[slide_txt1_effect] }}">
+                      	{{ settings[slide_txt1] }}
+  					</div>
+                  	<div class="iview-caption text-hind-bold-60" data-x="48" data-y="116" data-speed="{{settings[slide_txt2_delay]}}" data-transition="{{ settings[slide_txt2_effect] }}">
+                      {{ settings[slide_txt2] }}
+                  	</div>
+  					<div class="iview-caption  text-hind-regular-40" data-x="51" data-y="271" data-speed="{{settings[slide_title_delay]}}" data-transition="{{ settings[slide_title_effect] }}">
+                      	{{ settings[slide_title] }}
+  					</div>
+  					<div class="iview-caption text-hind-light-18" style="" data-x="51" data-y="206" data-speed="{{settings[slide_des_delay]}}" data-transition="{{ settings[slide_des_effect] }}">
+                      	{{ settings[slide_des] }}
+  					</div>  					
+  					<div class="iview-caption" data-x="51" data-y="271" data-speed="{{settings[slide_textlink_delay]}}" data-transition="{{ settings[slide_textlink_effect] }}">
+                      <a href="{{ settings[slide_urllink] }}" class="btn btn-danger btn-lg">{{ settings[slide_textlink] }}</a>
+  					</div>
+                </div>
+            {% endif %}
+        {% endfor %}    
+</div>

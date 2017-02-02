@@ -1,0 +1,43 @@
+{% if settings.theme_more_pimages_option == 'showone' %}
+	<span class="product-additional" data-idproduct="{{ product.id }}">
+	    {% for image in product.images %}
+	        {% if forloop.first != true %}
+	            <img class="replace-2x img-responsive" alt="{{ product.title }}" src="{{ image.src | product_img_url: imagesize }}">
+	            {% break %}
+	        {% endif %}
+	    {% endfor %}
+	</span>
+{% else %}
+	<div class="leo-more-info" data-idproduct="{{ product.id }}">
+		<div class="col-1">
+			<div class="views_block">
+				{% assign images_count = product.images | size %}
+				{% if images_count > 2 %}
+					<span class="view_scroll_spacer">
+						<a class="view_scroll_left view_scroll_left_8" rel="{{ product.id }}" title="Other views" href="javascript:{}">
+							<i class="fa fa-chevron-up"></i>
+						</a>
+					</span>
+				{% endif %}
+				<div class="thumbs_list thumbs_list_{{ product.id }}">
+					<ul class="thumbs_list_frame thumbs_list_frame_{{ product.id }}">
+						{% for image in product.images %}
+					        {% if forloop.first != true %}
+					            <li>
+									<a href="#" data-idproduct="{{ product.id }}" data-bimg="{{ image.src | product_img_url: imagesize }}" rel="other-views" class="thickbox-ajax-{{ product.id }} hover-bimg" title="{{ product.title }}">
+										<img src="{{ image.src | product_img_url: 'small' }}" alt="{{ product.title }}" class="leo-hover-image">
+									</a>
+								</li>
+					        {% endif %}
+					    {% endfor %}
+					</ul>
+				</div>
+				{% if images_count > 2 %}
+					<a class="view_scroll_right view_scroll_right_8" rel="8" title="Other views" href="javascript:{}">
+						<i class="fa fa-chevron-down"></i>
+					</a>
+				{% endif %}	
+			</div>
+		</div>
+	</div>
+{% endif %}

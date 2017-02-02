@@ -1,0 +1,35 @@
+{% capture class %}{% include 'shortcode-render' render:'class' default:'box-default' %}{% endcapture %}
+{% capture action %}{% include 'shortcode-render' render:'action' default:'' %}{% endcapture %}
+{% capture width %}{% include 'shortcode-render' render:'width' default:'3' %}{% endcapture %}
+{% case width %}
+    {% when '1' %}
+    	{% assign width_column = 'col-md-12 col-sm-12 col-xs-12' %}
+    {% when '2' %}
+    	{% assign width_column = 'col-md-6 col-sm-6 col-xs-12' %}
+    {% when '3' %}
+    	{% assign width_column = 'col-md-4 col-sm-4 col-xs-12' %}
+    {% when '4' %}
+    	{% assign width_column = 'col-md-3 col-sm-3 col-xs-12' %}
+    {% when '6' %}
+    	{% assign width_column = 'col-md-2 col-sm-2 col-xs-12' %}
+	{% when '12' %}
+    	{% assign width_column = 'col-md-12 col-sm-12 col-xs-12' %}
+    {% else %}
+{% endcase %}
+{% case action %}
+    {% when 'new box' %}
+        <div class="{{width_column}}">
+            <div class="leo-box {{ class }}" style="border: 1px solid #333;">
+    {% when 'new header' %}
+                <div class="box-heading" style="background-color: rgb(184, 255, 200); padding: 5px 20px; text-align: center; color: #333; font-weight: bold;">
+    {% when 'end header' %}
+                </div>
+    {% when 'new content' %}
+                <div class="box-content" style="padding: 20px;">
+    {% when 'end content' %}
+                </div>
+    {% when 'end box' %}
+            </div>
+        </div>
+    {% else %}
+{% endcase %}

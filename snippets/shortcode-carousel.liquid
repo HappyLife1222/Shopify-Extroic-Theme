@@ -1,0 +1,63 @@
+{% capture carousel %}{% include 'shortcode-render' render:'action' %}{% endcapture %}
+{% capture active %}{% include 'shortcode-render' render:'active' %}{% endcapture %}
+{% capture class %}{% include 'shortcode-render' render:'class' %}{% endcapture %}
+{% capture total %}{% include 'shortcode-render' render:'total' %}{% endcapture %}
+{% capture interval %}{% include 'shortcode-render' render:'interval' %}{% endcapture %}
+
+{% assign total = total | plus: 0 %}
+{% case carousel %}
+    {% when 'new slider' %}
+    {% capture carouselId %}{{ carouselId }}-{{ 'now' | date: "%N" }}{% endcapture %}
+	<div id="{{ carouselId | split : '-' | last }}" class="carousel slide {{ class }}" data-ride="carousel">
+		<script>
+			$(function() {
+				$("#{{ carouselId | split : '-' | last }}").carousel({interval: {{interval}}});
+				{% if interval != '' %}
+					$("#{{ carouselId | split : '-' | last }} .carousel-indicators").css("display", "none");
+				{% endif %}
+			});
+		</script>
+    {% when 'end slider' %}
+    	{% capture lastTime %}-{{ carouselId | split : '-' | last}}{% endcapture %}
+    	{% capture carouselId %}{{ carouselId | remove: lastTime}}{% endcapture %}
+	</div>
+	{% when 'new list slide' %}
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner" role="listbox">
+	{% when 'end list slide' %}
+		</div>
+	{% when 'display control' %}
+		<!-- Controls -->
+		{% capture lastTime %}{{ carouselId | split : '-' | last}}{% endcapture %}
+		<a class="left carousel-control" href="#{{ lastTime }}" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#{{ lastTime }}" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	{% when 'display indicators' %}
+		{% if total > 0 %}
+			{% assign active = active | plus: 0 %}
+			<!-- Indicators -->
+			{% if active == '' %}
+				{% assign active = 0 %}
+			{% endif %}
+			{% capture lastTime %}{{ carouselId | split : '-' | last}}{% endcapture %}
+			<ol class="carousel-indicators">
+				{% for i in (0..total) %}
+					{% if i < total %}
+					<li data-target="#{{ lastTime }}" data-slide-to="{{i}}" class="{% if i == active %}active{% endif %}"></li>
+					{% endif %}
+				{% endfor %}
+			</ol>
+		{% endif %}
+	{% when 'end control' %}
+		</div>
+    {% when 'new slide' %}
+    	<div class="item {% if active != ''%}active{% endif %}">
+    {% when 'end slide' %}
+    	</div>
+    {% else %}
+{% endcase %}

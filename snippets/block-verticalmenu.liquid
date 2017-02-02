@@ -1,0 +1,63 @@
+<div id="apollo-verticalmenu{{block-verticalmenu}}" class="block fix-top apollo-verticalmenu{% if block-verticalmenu == 'slideshow' %} hidden-xs hidden-sm{% endif %}">
+  <div class="block-content">
+    <div id="verticalmenu{{block-verticalmenu}}" class="verticalmenu" role="navigation">
+      <div class="navbar">
+        <div class="navbar-ex1-collapse">
+          <ul class="nav navbar-nav nav-verticalmenu">
+            {% for link in linklists[settings.verticalmenu_linklist].links %}
+            {% assign hasMega = false %}
+            {% assign intMega = 0 %}
+            {% assign link_title = link.title | downcase %}
+            {% capture apvericon %}vermenuicon_eimage_{{ forloop.index }}{% endcapture %}
+            {% capture apverfonticon %}vermenuicon_font_{{ forloop.index }}{% endcapture %}
+            {% for i in (1..10) %}
+              {% capture apvermenu %}vermenuitem_enable_{{ i }}{% endcapture %}
+              {% capture apvermenu_title %}vermenuitem_title_{{ i }}{% endcapture %}
+              {% assign vermenu_title = settings[apvermenu_title] | strip | downcase %}
+              {% if settings[apvermenu] %}
+                {% if link_title == vermenu_title %}
+                {% assign hasMega = true %}
+                {% assign intMega = i %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% if hasMega %}
+            <li class=" parent dropdown{% if link.active %} active{% endif %}">
+              <a class="dropdown-toggle has-category" data-toggle="dropdown" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+                {% if settings.vermenuicon_enable %}
+                  {% if settings[apvericon] %}
+                    <span class="menu-icon has-icon menu-icon-{{ forloop.index }}">
+                      <span class="menu-title">{{ link.title }}</span>
+                    </span>
+                  {% else %}
+                    <span class="menu-icon has-icon">
+                      <i class="fa fa-{{ settings[apverfonticon] }}"></i>
+                      <span class="menu-title">{{ link.title }}</span>
+                    </span>
+                  {% endif %}
+                {% else %}
+                  <span class="menu-icon">
+                    <span class="menu-title">{{ link.title }}</span>
+                  </span>
+                {% endif %}
+              </a>
+              <b class="caret"></b>
+              {% assign mega_link_handle = link.handle %}
+              {% include 'vermenu-megamenu' %}
+            </li>
+        
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <script type="text/javascript">	
+  	$("#verticalmenu{{block-verticalmenu}} .caret").click(function(){
+    	var $parent  = $(this).parent();
+    	$parent.toggleClass('open');
+    	return false;
+    });  	
+</script> -->

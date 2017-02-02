@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+<link href='//fonts.googleapis.com/css?family=Noticia+Text:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+{% if settings.theme_font_family contains 'Google' %}
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family={{ settings.theme_font_family | remove: 'Google+' }}:300,400,700">
+{% endif %}
+{% if settings.theme_font_family_tertiary contains 'Google' %}
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family={{ settings.theme_font_family_tertiary | remove: 'Google+' }}:300,400,700">
+{% endif %}
+{% if settings.theme_font_family_septenary contains 'Google' %}
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family={{ settings.theme_font_family_septenary | remove: 'Google+' }}:300,400,700">
+{% endif %}
+{% if settings.theme_font_family_senary contains 'Google' %}
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family={{ settings.theme_font_family_senary | remove: 'Google+' }}:300,400,700">
+{% endif %}
+{{ 'fonts.scss.css' | asset_url | stylesheet_tag }}
+{% capture font_family_text %}Noticia Text{% endcapture %}
+{% capture font_family_secondary_text %}Brandon{% endcapture %}
+{% assign font_family = font_family_text %}
+{% assign font_family_secondary = font_family_secondary_text %}
+{% if settings.ajax_cart_enable %}
+    {{ 'ajaxify.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if settings.product_page_jqzoom_enable %}
+	{{ 'jquery.jqzoom.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{{ 'animate.css' | asset_url | stylesheet_tag }}
+{{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
+{{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+{{ 'block-theme.scss.css' | asset_url | stylesheet_tag }}
+{{ 'slideshow.scss.css' | asset_url | stylesheet_tag }}
+{{ 'menu.scss.css' | asset_url | stylesheet_tag }}
+{{ 'product.scss.css' | asset_url | stylesheet_tag }}
+{{ 'contact-form.scss.css' | asset_url | stylesheet_tag }}
+{{ 'blog.scss.css' | asset_url | stylesheet_tag }}
+{{ 'wishlist.scss.css' | asset_url | stylesheet_tag }}
+{{ 'collections.scss.css' | asset_url | stylesheet_tag }}
+{{ 'paneltool.scss.css' | asset_url | stylesheet_tag }}
+{{ 'global.scss.css' | asset_url | stylesheet_tag }}
+{{ 'site_temp.scss.css' | asset_url | stylesheet_tag }}
+{{ 'skins.scss.css' | asset_url | stylesheet_tag }}
+{{ 'responsive.scss.css' | asset_url | stylesheet_tag }}
+{% if settings.theme_retine_enable %}
+	{{ 'retina-responsive.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if settings.theme_rtl_enable %}
+	{{ 'rtl.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}

@@ -1,0 +1,13 @@
+<div class="media-icon user pull-left hidden-xs hidden-sm">
+  <div class="icon user-icon"></div>
+  <div class="media-text">
+    <p>
+      {% if customer  %}
+      	<a href="/account/logout"><span class="text-danger">Logout</span></a>
+      {% else %}
+      	<a href="/account/login"><span class="text-danger">Login</span></a> | <a href="/account/register">Register</a>
+      {% endif %}
+    </p>
+  </div>
+  <i class="fa fa-bell" aria-hidden="true"></i>
+</div>

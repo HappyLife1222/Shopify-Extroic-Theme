@@ -1,0 +1,68 @@
+{% if settings.show_multiple_currencies %}
+    {{ "/services/javascripts/currencies.js" | script_tag }}
+    {{ "jquery.currencies.min.js" | asset_url | script_tag }}   
+    <script>
+        // Pick your format here:  
+        // Can be 'money_format' or 'money_with_currency_format'
+        Currency.format = 'money_format';
+        var shopCurrency = '{{ shop.currency }}';
+        var cookieCurrency = Currency.cookie.read();
+        // Fix for customer account pages 
+        jQuery('span.money span.money').each(function() {
+            jQuery(this).parent('span.money').removeClass('money');
+        });
+        // Add precalculated shop currency to data attribute 
+        jQuery('span.money').each(function() {
+            jQuery(this).attr('data-currency-{{ shop.currency }}', jQuery(this).html());
+        });
+        // Select all your currencies buttons.
+        var buttons = jQuery('#currencies a');
+        var currentCurrencies = jQuery('#pre-currencies');
+        // When the page loads.
+        if (cookieCurrency == null || cookieCurrency == shopCurrency) {
+            Currency.currentCurrency = shopCurrency;
+        }
+        else {
+            Currency.currentCurrency = cookieCurrency;
+            Currency.convertAll(shopCurrency, cookieCurrency);
+            buttons.removeClass('selected');
+            jQuery('#currencies a[data-currency=' + cookieCurrency + ']').addClass('selected');
+            var htmlCurrently = jQuery('#currencies a[data-currency=' + cookieCurrency + ']').html();
+            currentCurrencies.html(htmlCurrently);
+            do_multi_currency_warning(Currency.currentCurrency, shopCurrency);
+        }
+        // When customer clicks on a currency button.
+        buttons.click(function() {
+            buttons.removeClass('selected');
+            jQuery(this).addClass('selected');
+            var newCurrency =  jQuery(this).attr('data-currency');
+            var htmlCurrently = jQuery(this).html();
+            currentCurrencies.html(htmlCurrently);
+            Currency.convertAll(Currency.currentCurrency, newCurrency);
+            do_multi_currency_warning(Currency.currentCurrency, shopCurrency);
+        });
+        // For product options.
+        var original_selectCallback = window.selectCallback;
+        var selectCallback = function(variant, selector) {
+            original_selectCallback(variant, selector);
+            Currency.convertAll(shopCurrency, jQuery('#currencies a.selected').attr('data-currency'));
+            do_multi_currency_warning(Currency.currentCurrency, shopCurrency);
+        };
+        // do this each time you recalculate or page load
+        do_multi_currency_warning(Currency.currentCurrency, shopCurrency);
+        // a function to make the cart better when choosing different currencies
+        // explained in step 7 below
+        function do_multi_currency_warning(currentCurrency, shopCurrency)
+        {
+            jQuery('.selected-currency').text(Currency.currentCurrency);
+            if (currentCurrency != shopCurrency){
+                jQuery('.multi-currency-warning').text('*');
+                jQuery('.multi-currency-warning-bottom').show();
+            }
+            else{
+                jQuery('.multi-currency-warning').text('');
+                jQuery('.multi-currency-warning-bottom').hide();
+            }
+        }
+    </script>
+{% endif %}

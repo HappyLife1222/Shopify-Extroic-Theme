@@ -1,0 +1,42 @@
+{% capture class %}{% include 'shortcode-render' render:'class' default:'' %}{% endcapture %}
+{% capture block_title %}{% include 'shortcode-render' render:'title' default:'' %}{% endcapture %}
+{% capture instagram_clientId %}{% include 'shortcode-render' render:'clientId' default:'981ec7c9426149c5b01a775543b9ade0' %}{% endcapture %}
+{% capture instagram_accessToken %}{% include 'shortcode-render' render:'accessToken' default:'' %}{% endcapture %}
+{% capture instagram_get %}{% include 'shortcode-render' render:'get' default:'popular' %}{% endcapture %}
+{% capture instagram_tag %}{% include 'shortcode-render' render:'tagName' default:'' %}{% endcapture %}
+{% capture instagram_locationId %}{% include 'shortcode-render' render:'locationId' default:'' %}{% endcapture %}
+{% capture instagram_userId %}{% include 'shortcode-render' render:'userId' default:'' %}{% endcapture %}
+{% capture instagram_limit %}{% include 'shortcode-render' render:'limit' default:'8' %}{% endcapture %}
+{% capture instagram_resolution %}{% include 'shortcode-render' render:'resolution' default:'low_resolution' %}{% endcapture %}
+<div class="instagram-block {{ class }}">
+  	{% if block_title != blank %}
+        <div class="block-title">
+            <h3>{{ block_title }}</h3>
+        </div>
+  	{% endif %}
+  	<div class="block-content">
+      	<div class="row">
+  			<div id="instafeed"></div>
+        </div>
+  	</div>
+  	<script type="text/javascript">
+        var feed = new Instafeed({
+            clientId: "{{ instagram_clientId }}",
+            {% if instagram_accessToken != blank %}accessToken: '{{ instagram_accessToken }}', {% endif %}
+            get: "{{ instagram_get }}",    
+            {% if instagram_tag != blank %} tagName: "{{ instagram_tag }}", {% endif %}
+            {% if instagram_locationId != blank %} locationId: "{{ instagram_locationId }}", {% endif %}
+            {% if instagram_userId != blank %} userId: {{ instagram_userId }}, {% endif %}
+            limit: "{{ instagram_limit }}",
+          	resolution: "{{ instagram_resolution }}",
+            after: function() {
+                jQuery("#instafeed").owlCarousel({
+                	navigation : true,
+                	itemsTablet: [768,3],
+                	itemsTabletSmall: [650,2]
+          	     });
+          	}
+        });
+        feed.run();
+    </script>
+</div>

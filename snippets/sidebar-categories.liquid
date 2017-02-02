@@ -1,0 +1,40 @@
+{% if settings.categories_block_enable %}
+<div id="categories_block" class="block box">
+	{% if settings.categories_block_title != blank %}
+		<h4 class="title_block">{{ settings.categories_block_title }}</h4>
+	{% endif %}
+	<div class="block_content">
+		<ul class="list-block list-group list-unstyled">
+			{% if settings.categories_block_style == 'show_all' %}
+				{% for category in collections limit:settings.categories_block_number %}
+					<li {% if collection.handle == category.handle %} class="active" {% endif %}>
+						<a href="{{ category.url }}" title="{{ category.title }}">
+							{{ category.title }}
+							{% if category.all_products_count > 0 %}
+								 ({{ category.all_products_count }})
+							{% endif %}
+						</a>
+					</li>
+				{% endfor %}
+			{% else %}
+				{% assign category_items = settings.categories_block_items | split:"," | strip | downcase %}
+				{% for category in category_items %}
+					{% for category_site in collections %}
+						{% assign cat = category_site.title | downcase %}
+						{% if category contains cat %}
+							<li {% if collection.handle == category_site.handle %} class="active" {% endif %}>
+								<a href="{{ category.url }}" title="{{ category_site.title }}">
+									{{ category_site.title }}
+									{% if category_site.all_products_count > 0 %}
+										({{ category_site.all_products_count }})
+									{% endif %}
+								</a>
+							</li>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			{% endif %}
+		</ul>
+	</div>
+</div>
+{% endif %}

@@ -1,0 +1,22 @@
+{% if settings.sidebar_products_enable %}
+	{% assign collection_product_sidebar = collections[settings.sidebar_products_collection].products %}
+	{% assign product_sidebar_limit = settings.sidebar_products_number %}
+	<div id="products_sider_block{{ sidebar-products }}" class="block products_block nopadding">
+		{% if settings.sidebar_products_title != blank %}
+			<h4 class="title_block">
+				<a href="{{ collection_product_sidebar.url }}" title="{{ settings.sidebar_products_title }}">{{ settings.sidebar_products_title }}</a>
+			</h4>
+		{% endif %}
+		<div class="block_content products-block">
+			<div class="row products-row">
+				{% for product in collection_product_sidebar limit:product_sidebar_limit %}
+					<div class="col-xs-12 product-col border">
+						{% include 'product-sidebar-item' with '' %}
+					</div>
+				{% endfor %}
+			</div>
+			{% assign size_products = collection_product_sidebar | size %}
+			{% assign size_config = settings.sidebar_products_number | plus:1 %}			
+		</div>
+	</div>
+{% endif %}

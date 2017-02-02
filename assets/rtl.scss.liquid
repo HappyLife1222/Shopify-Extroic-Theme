@@ -1,0 +1,2372 @@
+//========== GENERAL VARS ==========//
+$app-brand-prefix        : leo;
+
+$block-prefix 			 : block;
+$block-selector          : block;
+$block-heading-selector  : title_block;
+$block-content-selector  : block_content;
+
+/***********************************************************************/
+// some basic colors
+$white:			 				    #FFFFFF; 
+$black:							    #000000;
+$blue:                              #6087D2;  // Skin blue
+$wild-sand:                         #ffffff;  
+$silver:                            #f5f5f5;  
+$red:            					#ff0000;
+$red-light:            				#ff9999;
+$yellow-light:           			#ffdc73;
+$nocolor:							transparent;
+
+// Variables paths 
+// ========================================================================
+$font-family:						 {{ settings.theme_font_family | remove: 'Google+' | replace: '+', ' ' }};
+$font-family-tertiary  :             {{ settings.theme_font_family_tertiary | remove: 'Google+' | replace: '+', ' ' }};		// font for menu
+$font-family-septenary : 			 {{ settings.theme_font_family_septenary | remove: 'Google+' | replace: '+', ' ' }}; 		// font for slideshow
+$font-family-senary    : 		 	 {{ settings.theme_font_family_senary | remove: 'Google+' | replace: '+', ' ' }};		// font for Price
+$font-icon 	   		   : 			 "FontAwesome";
+
+$theme-font-size: 					{{ settings.theme_font_size }}px;
+$theme-font-size-medium: 			18px;
+//////////////////// Variables defined for Themes + Skins //////////////// 
+$theme-color-default: 			    {{ settings.theme_color_primary }};
+$theme-color-secondary:				{{ settings.theme_color_secondary }};
+$theme-color-tertiary:              {{ settings.theme_color_tertiary }};
+$theme-color-four:					{{ settings.theme_color_four }};
+
+$theme-bg-color:					{{ settings.theme_color_body_bg }};
+
+$theme-text-color:					{{ settings.theme_text_color_primary }};
+$theme-text-color-secondary:		{{ settings.theme_text_color_secondary }};
+$theme-text-color-tertiary:			{{ settings.theme_text_color_tertiary }};
+$theme-text-banner-color:			{{ settings.theme_text_color_banner }};
+
+//-------- BORDERS
+$border-color:						{{ settings.theme_color_borders }};
+$main-border:						1px solid $border-color;
+$main-border-hover:                 1px solid $theme-color-secondary;
+
+//--------- BUTTON
+$theme-button-one-color:      {{ settings.theme_text_color_buttonone }};
+$theme-button-one-bg:       {{ settings.theme_bg_color_buttonone }};
+$theme-button-one-border:     {{ settings.theme_border_color_buttonone }};
+$theme-button-one-hover-color:    {{ settings.theme_text_color_buttonone_hover }};
+$theme-button-one-hover-bg:     {{ settings.theme_bg_color_buttonone_hover }};
+$theme-button-one-hover-border:   {{ settings.theme_border_color_buttonone_hover }};
+$theme-button-two-color:      {{ settings.theme_text_color_buttontwo }};
+$theme-button-two-bg:       {{ settings.theme_bg_color_buttontwo }};
+$theme-button-two-border:     {{ settings.theme_border_color_buttontwo }};
+$theme-button-two-hover-color:    {{ settings.theme_text_color_buttontwo_hover }};
+$theme-button-two-hover-bg:     {{ settings.theme_bg_color_buttontwo_hover }};
+$theme-button-two-hover-border:   {{ settings.theme_border_color_buttontwo_hover }};
+
+//--------- BACKGROUNDS
+$dark-background:                   $black;
+$light-background:                  $white;
+// Variables
+// --------------------------------------------------
+$rtl-left : left;
+$rtl-right : right;
+$theme-gutter-width: 20px;
+
+//========== MIXINS ==========//
+@mixin clearfix() {
+	&:before,
+	&:after {
+		content: " "; // 1
+		display: table; // 2
+	}
+	&:after {
+		clear: both;
+	}
+}
+@mixin tab-focus() {
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+@mixin center-block() {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+@mixin size($width, $height) {
+	width: $width;
+	height: $height;
+}
+@mixin square($size) {
+	@include size($size, $size);
+}
+@mixin placeholder($color: $input-color-placeholder) {
+	&::-moz-placeholder           { color: $color;   // Firefox
+	                              opacity: 1; } // See https://github.com/twbs/bootstrap/pull/11526
+	&:-ms-input-placeholder       { color: $color; } // Internet Explorer 10+
+	&::-webkit-input-placeholder  { color: $color; } // Safari and Chrome
+}
+@mixin text-overflow() {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+@mixin hide-text() {
+	font: #{0/0} a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+@mixin text-hide() {
+	@include hide-text();
+}
+@mixin border-top-radius($radius) {
+	border-top-right-radius: $radius;
+	border-top-left-radius: $radius;
+}
+@mixin border-right-radius($radius) {
+	border-bottom-right-radius: $radius;
+	border-top-right-radius: $radius;
+}
+@mixin border-bottom-radius($radius) {
+	border-bottom-right-radius: $radius;
+	border-bottom-left-radius: $radius;
+}
+@mixin border-left-radius($radius) {
+	border-bottom-left-radius: $radius;
+	border-top-left-radius: $radius;
+}
+@mixin box-shadow($shadow...) {
+	-webkit-box-shadow: $shadow; // iOS <4.3 & Android <4.1
+	box-shadow: $shadow;
+}
+@mixin transition($transition...) {
+	-webkit-transition: $transition;
+			transition: $transition;
+}
+@mixin transition-property($transition-property...) {
+	-webkit-transition-property: $transition-property;
+			transition-property: $transition-property;
+}
+@mixin transition-delay($transition-delay) {
+  -webkit-transition-delay: $transition-delay;
+          transition-delay: $transition-delay;
+}
+@mixin transition-duration($transition-duration...) {
+  -webkit-transition-duration: $transition-duration;
+          transition-duration: $transition-duration;
+}
+@mixin transition-transform($transition...) {
+  -webkit-transition: -webkit-transform $transition;
+     -moz-transition: -moz-transform $transition;
+       -o-transition: -o-transform $transition;
+          transition: transform $transition;
+}
+@mixin rotate($degrees) {
+  -webkit-transform: rotate($degrees);
+      -ms-transform: rotate($degrees); // IE9 only
+          transform: rotate($degrees);
+}
+@mixin scale($scale-args...) {
+  -webkit-transform: scale($scale-args);
+      -ms-transform: scale($scale-args); // IE9 only
+          transform: scale($scale-args);
+}
+@mixin translate($x, $y) {
+  -webkit-transform: translate($x, $y);
+      -ms-transform: translate($x, $y); // IE9 only
+          transform: translate($x, $y);
+}
+@mixin skew($x, $y) {
+  -webkit-transform: skew($x, $y);
+      -ms-transform: skewX($x) skewY($y); // See https://github.com/twbs/bootstrap/issues/4885; IE9+
+          transform: skew($x, $y);
+}
+@mixin translate3d($x, $y, $z) {
+  -webkit-transform: translate3d($x, $y, $z);
+          transform: translate3d($x, $y, $z);
+}
+
+@mixin rotateX($degrees) {
+  -webkit-transform: rotateX($degrees);
+      -ms-transform: rotateX($degrees); // IE9 only
+          transform: rotateX($degrees);
+}
+@mixin rotateY($degrees) {
+  -webkit-transform: rotateY($degrees);
+      -ms-transform: rotateY($degrees); // IE9 only
+          transform: rotateY($degrees);
+}
+@mixin perspective($perspective) {
+  -webkit-perspective: $perspective;
+     -moz-perspective: $perspective;
+          perspective: $perspective;
+}
+@mixin perspective-origin($perspective) {
+  -webkit-perspective-origin: $perspective;
+     -moz-perspective-origin: $perspective;
+          perspective-origin: $perspective;
+}
+@mixin transform-origin($origin) {
+  -webkit-transform-origin: $origin;
+     -moz-transform-origin: $origin;
+      -ms-transform-origin: $origin; // IE9 only
+          transform-origin: $origin;
+}
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+          animation: $animation;
+}
+@mixin animation-name($name) {
+  -webkit-animation-name: $name;
+          animation-name: $name;
+}
+@mixin animation-duration($duration) {
+  -webkit-animation-duration: $duration;
+          animation-duration: $duration;
+}
+@mixin animation-timing-function($timing-function) {
+  -webkit-animation-timing-function: $timing-function;
+          animation-timing-function: $timing-function;
+}
+@mixin animation-delay($delay) {
+  -webkit-animation-delay: $delay;
+          animation-delay: $delay;
+}
+@mixin animation-iteration-count($iteration-count) {
+  -webkit-animation-iteration-count: $iteration-count;
+          animation-iteration-count: $iteration-count;
+}
+@mixin animation-direction($direction) {
+  -webkit-animation-direction: $direction;
+          animation-direction: $direction;
+}
+@mixin backface-visibility($visibility){
+  -webkit-backface-visibility: $visibility;
+     -moz-backface-visibility: $visibility;
+          backface-visibility: $visibility;
+}
+@mixin box-sizing($boxmodel) {
+  -webkit-box-sizing: $boxmodel;
+     -moz-box-sizing: $boxmodel;
+          box-sizing: $boxmodel;
+}
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+     -moz-user-select: $select;
+      -ms-user-select: $select; // IE10+
+          user-select: $select;
+}
+@mixin resizable($direction) {
+  resize: $direction; // Options: horizontal, vertical, both
+  overflow: auto; // Safari fix
+}
+@mixin content-columns($column-count, $column-gap: $grid-gutter-width) {
+  -webkit-column-count: $column-count;
+     -moz-column-count: $column-count;
+          column-count: $column-count;
+  -webkit-column-gap: $column-gap;
+     -moz-column-gap: $column-gap;
+          column-gap: $column-gap;
+}
+@mixin hyphens($mode: auto) {
+  word-wrap: break-word;
+  -webkit-hyphens: $mode;
+     -moz-hyphens: $mode;
+      -ms-hyphens: $mode; // IE10+
+       -o-hyphens: $mode;
+          hyphens: $mode;
+}
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: ($opacity * 100);
+  filter: #{alpha(opacity=$opacity-ie)};
+}
+@mixin gradient-horizontal($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(left, color-stop($start-color $start-percent), color-stop($end-color $end-percent)); // Safari 5.1-6, Chrome 10+
+  background-image:  linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down
+}
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+}
+
+@mixin gradient-directional($start-color: #555, $end-color: #333, $deg: 45deg) {
+  background-repeat: repeat-x;
+  background-image: -webkit-linear-gradient($deg, $start-color, $end-color); // Safari 5.1-6, Chrome 10+
+  background-image: linear-gradient($deg, $start-color, $end-color); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+}
+@mixin gradient-horizontal-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+  background-image: -webkit-linear-gradient(left, $start-color, $mid-color $color-stop, $end-color);
+  background-image: linear-gradient(to right, $start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down, gets no color-stop at all for proper fallback
+}
+@mixin gradient-vertical-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+  background-image: -webkit-linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-image: linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down, gets no color-stop at all for proper fallback
+}
+@mixin gradient-radial($inner-color: #555, $outer-color: #333) {
+  background-image: -webkit-radial-gradient(circle, $inner-color, $outer-color);
+  background-image: radial-gradient(circle, $inner-color, $outer-color);
+  background-repeat: no-repeat;
+}
+@mixin gradient-striped($color: rgba(255,255,255,.15), $angle: 45deg) {
+  background-image: -webkit-linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+  background-image: linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+}
+@mixin reset-filter() {
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+@mixin img-retina($file-1x, $file-2x, $width-1x, $height-1x) {
+  background-image: url(if($bootstrap-sass-asset-helper, twbs-image-path("#{$file-1x}"), "#{$file-1x}"));
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+    background-image: url(if($bootstrap-sass-asset-helper, twbs-image-path("#{$file-2x}"), "#{$file-2x}"));
+    background-size: $width-1x $height-1x;
+  }
+}
+@mixin img-responsive($display: block) {
+  display: $display;
+  max-width: 100%; // Part 1: Set a maximum relative to the parent
+  height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+}
+@mixin nav-divider($color: #e5e5e5) {
+  height: 1px;
+  margin: (($line-height-computed / 2) - 1) 0;
+  overflow: hidden;
+  background-color: $color;
+}
+@mixin panel-variant($border, $heading-text-color, $heading-bg-color, $heading-border) {
+  border-color: $border;
+
+  & > .panel-heading {
+    color: $heading-text-color;
+    background-color: $heading-bg-color;
+    border-color: $heading-border;
+
+    + .panel-collapse .panel-body {
+      border-top-color: $border;
+    }
+  }
+  & > .panel-footer {
+    + .panel-collapse .panel-body {
+      border-bottom-color: $border;
+    }
+  }
+}
+@mixin alert-variant($background, $border, $text-color) {
+  background-color: $background;
+  border-color: $border;
+  color: $text-color;
+
+  hr {
+    border-top-color: darken($border, 5%);
+  }
+  .alert-link {
+    color: darken($text-color, 10%);
+  }
+}
+@mixin table-row-variant($state, $background) {
+  .table > thead > tr,
+  .table > tbody > tr,
+  .table > tfoot > tr {
+    > td.#{$state},
+    > th.#{$state},
+    &.#{$state} > td,
+    &.#{$state} > th {
+      background-color: $background;
+    }
+  }
+  .table-hover > tbody > tr {
+    > td.#{$state}:hover,
+    > th.#{$state}:hover,
+    &.#{$state}:hover > td,
+    &.#{$state}:hover > th {
+      background-color: darken($background, 5%);
+    }
+  }
+}
+@mixin list-group-item-variant($state, $background, $color) {
+  .list-group-item-#{$state} {
+    color: $color;
+    background-color: $background;
+  }
+
+  a.list-group-item-#{$state} {
+    color: $color;
+
+    .list-group-item-heading { color: inherit; }
+
+    &:hover,
+    &:focus {
+      color: $color;
+      background-color: darken($background, 5%);
+    }
+    &.active,
+    &.active:hover,
+    &.active:focus {
+      color: #fff;
+      background-color: $color;
+      border-color: $color;
+    }
+  }
+}
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: $color;
+    background-color: darken($background, 8%);
+        border-color: darken($border, 12%);
+  }
+  .open & { &.dropdown-toggle {
+    color: $color;
+    background-color: darken($background, 8%);
+        border-color: darken($border, 12%);
+  } }
+  &:active,
+  &.active {
+    background-image: none;
+  }
+  .open & { &.dropdown-toggle {
+    background-image: none;
+  } }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
+}
+@mixin pagination-size($padding-vertical, $padding-horizontal, $font-size, $border-radius) {
+  > li {
+    > a,
+    > span {
+      padding: $padding-vertical $padding-horizontal;
+      font-size: $font-size;
+    }
+    &:first-child {
+      > a,
+      > span {
+        @include border-left-radius($border-radius);
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        @include border-right-radius($border-radius);
+      }
+    }
+  }
+}
+@mixin label-variant($color) {
+  background-color: $color;
+  &[href] {
+    &:hover,
+    &:focus {
+      background-color: darken($color, 10%);
+    }
+  }
+}
+@mixin bg-variant($parent, $color) {
+  #{$parent} {
+    background-color: $color;
+  }
+  a#{$parent}:hover {
+    background-color: darken($color, 10%);
+  }
+}
+@mixin text-emphasis-variant($parent, $color) {
+  #{$parent} {
+    color: $color;
+  }
+  a#{$parent}:hover {
+    color: darken($color, 10%);
+  }
+}
+@mixin navbar-vertical-align($element-height) {
+  margin-top: (($navbar-height - $element-height) / 2);
+  margin-bottom: (($navbar-height - $element-height) / 2);
+}
+@mixin progress-bar-variant($color) {
+  background-color: $color;
+  .progress-striped & {
+    @include gradient-striped();
+  }
+}
+@mixin responsive-visibility($parent) {
+  #{$parent} {
+    display: block !important;
+  }
+  table#{$parent}  { display: table; }
+  tr#{$parent}     { display: table-row !important; }
+  th#{$parent},
+  td#{$parent}     { display: table-cell !important; }
+}
+@mixin responsive-invisibility($parent) {
+  #{$parent} {
+    display: none !important;
+  }
+}
+@mixin container-fixed() {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  ($grid-gutter-width / 2);
+  padding-right: ($grid-gutter-width / 2);
+  @include clearfix();
+}
+@mixin make-row($gutter: $grid-gutter-width) {
+  margin-left:  ($gutter / -2);
+  margin-right: ($gutter / -2);
+  @include clearfix();
+}
+@mixin make-xs-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  float: left;
+  width: percentage(($columns / $grid-columns));
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+}
+@mixin make-xs-column-offset($columns) {
+  @media (min-width: $screen-xs-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-xs-column-push($columns) {
+  @media (min-width: $screen-xs-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-xs-column-pull($columns) {
+  @media (min-width: $screen-xs-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-sm-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-offset($columns) {
+  @media (min-width: $screen-sm-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-push($columns) {
+  @media (min-width: $screen-sm-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-pull($columns) {
+  @media (min-width: $screen-sm-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-md-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-offset($columns) {
+  @media (min-width: $screen-md-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-push($columns) {
+  @media (min-width: $screen-md-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-pull($columns) {
+  @media (min-width: $screen-md-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-lg-min) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-offset($columns) {
+  @media (min-width: $screen-lg-min) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-push($columns) {
+  @media (min-width: $screen-lg-min) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-pull($columns) {
+  @media (min-width: $screen-lg-min) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-grid-columns() {
+  $list: '';
+  $i: 1;
+  $list: ".col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}";
+  @for $i from (1 + 1) through $grid-columns {
+    $list: "#{$list}, .col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}";
+  }
+  #{$list} {
+    position: relative;
+    min-height: 1px;
+    padding-left:  ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+  }
+}
+@mixin float-grid-columns($class) {
+  $list: '';
+  $i: 1;
+  $list: ".col-#{$class}-#{$i}";
+  @for $i from (1 + 1) through $grid-columns {
+    $list: "#{$list}, .col-#{$class}-#{$i}";
+  }
+  #{$list} {
+    float: left;
+  }
+}
+@mixin calc-grid-column($index, $class, $type) {
+  @if ($type == width) and ($index > 0) {
+    .col-#{$class}-#{$index} {
+      width: percentage(($index / $grid-columns));
+    }
+  }
+  @if ($type == push) {
+    .col-#{$class}-push-#{$index} {
+      left: percentage(($index / $grid-columns));
+    }
+  }
+  @if ($type == pull) {
+    .col-#{$class}-pull-#{$index} {
+      right: percentage(($index / $grid-columns));
+    }
+  }
+  @if ($type == offset) {
+    .col-#{$class}-offset-#{$index} {
+      margin-left: percentage(($index / $grid-columns));
+    }
+  }
+}
+@mixin loop-grid-columns($columns, $class, $type) {
+  @for $i from 0 through $columns {
+    @include calc-grid-column($i, $class, $type);
+  }
+}
+@mixin make-grid($class) {
+  @include float-grid-columns($class);
+  @include loop-grid-columns($grid-columns, $class, width);
+  @include loop-grid-columns($grid-columns, $class, pull);
+  @include loop-grid-columns($grid-columns, $class, push);
+  @include loop-grid-columns($grid-columns, $class, offset);
+}
+@mixin form-control-validation($text-color: #555, $border-color: #ccc, $background-color: #f5f5f5) {
+  // Color the label and help text
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline  {
+    color: $text-color;
+  }
+  .form-control {
+    border-color: $border-color;
+    @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075)); // Redeclare so transitions work
+    &:focus {
+      border-color: darken($border-color, 10%);
+      $shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten($border-color, 20%);
+      @include box-shadow($shadow);
+    }
+  }
+  .input-group-addon {
+    color: $text-color;
+    border-color: $border-color;
+    background-color: $background-color;
+  }
+  .form-control-feedback {
+    color: $text-color;
+  }
+}
+@mixin form-control-focus($color: $input-border-focus) {
+  $color-rgba: rgba(red($color), green($color), blue($color), .6);
+  &:focus {
+    border-color: $color;
+    outline: 0;
+    @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px $color-rgba);
+  }
+}
+@mixin input-size($parent, $input-height, $padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+  #{$parent} {
+    height: $input-height;
+    padding: $padding-vertical $padding-horizontal;
+    font-size: $font-size;
+    line-height: $line-height;
+    border-radius: $border-radius;
+  }
+  select#{$parent} {
+    height: $input-height;
+    line-height: $input-height;
+  }
+  textarea#{$parent},
+  select[multiple]#{$parent} {
+    height: auto;
+  }
+}
+@mixin border-exclude-top($border-deep, $border-type , $border-color ){
+   border-bottom: $border-deep $border-type $border-color ;
+   border-left: $border-deep $border-type $border-color ;
+   border-right: $border-deep $border-type $border-color ;
+}
+@mixin border-exclude-bottom($border-deep, $border-type , $border-color ){
+   border-top: $border-deep $border-type $border-color ;
+   border-left: $border-deep $border-type $border-color ;
+   border-right: $border-deep $border-type $border-color ;
+}
+@mixin border-exclude-left($border-deep, $border-type , $border-color ){
+   border-top: $border-deep $border-type $border-color ;
+   border-bottom: $border-deep $border-type $border-color ;
+   border-right: $border-deep $border-type $border-color ;
+}
+@mixin border-exclude-right($border-deep, $border-type , $border-color ){
+   border-top: $border-deep $border-type $border-color ;
+   border-bottom: $border-deep $border-type $border-color ;
+   border-left: $border-deep $border-type $border-color ;
+}
+@mixin rounded-corners ($radius) {
+   -webkit-border-radius: $radius;
+   -moz-border-radius: $radius;
+   -ms-border-radius: $radius;
+   -o-border-radius: $radius;
+   border-radius: $radius;
+}
+@mixin clearboxstyle(){
+   background: none;
+   border:none;
+}
+@mixin clearfloat(){
+   float: none;
+   width: 100%;
+}
+@mixin transform-style($transform-style){
+   -webkit-transform-style: $transform-style;                    
+   -moz-transform-style: $transform-style;                    
+   -ms-transform-style: $transform-style;                    
+   -o-transform-style: $transform-style;                    
+   transform-style: $transform-style;
+}
+@mixin backface-visibility($backface-visibility){
+   backface-visibility: $backface-visibility;  /* W3C */
+   -webkit-backface-visibility: $backface-visibility; /* Safari & Chrome */
+   -moz-backface-visibility: $backface-visibility; /* Firefox */
+   -ms-backface-visibility: $backface-visibility; /* Internet Explorer */
+   -o-backface-visibility: $backface-visibility; /* Opera */
+}
+@mixin animation-theme($animation-duration, $animation-fill-mode, $animation-name){
+   -webkit-animation-duration: $animation-duration; 
+   -moz-animation-duration: $animation-duration; 
+   -ms-animation-duration: $animation-duration; 
+   -o-animation-duration: $animation-duration; 
+   animation-duration: $animation-duration; 
+
+   -webkit-animation-fill-mode: $animation-fill-mode;
+   -moz-animation-fill-mode: $animation-fill-mode;
+   -ms-animation-fill-mode: $animation-fill-mode;
+   -o-animation-fill-mode: $animation-fill-mode;
+   animation-fill-mode: $animation-fill-mode;
+
+   -webkit-animation-name: $animation-name;
+   -moz-animation-name: $animation-name; 
+   -ms-animation-name: $animation-name; 
+   -o-animation-name: $animation-name; 
+   animation-name: $animation-name; 
+}
+@mixin perspective($perspective){
+   -webkit-perspective: $perspective;
+   -ms-perspective: $perspective;
+   -moz-perspective: $perspective;
+   -o-perspective: $perspective;
+   perspective: $perspective;    
+}
+@mixin transition-timing-function($timing-function) {
+   -moz-transition-timing-function: $timing-function;
+   -o-transition-timing-function: $timing-function;
+   -webkit-transition-timing-function: $timing-function;
+   transition-timing-function: $timing-function;
+}
+@mixin transform($arguments){
+   -webkit-transform: $arguments;
+   -moz-transform:    $arguments;
+   -ms-transform:     $arguments;
+   -o-transform:      $arguments;
+}
+@mixin appearance($appearance){
+   appearance: $appearance;
+   -moz-appearance: $appearance;
+   -ms-appearance: $appearance;
+   -o-appearance: $appearance;
+   -webkit-appearance: $appearance; 
+}
+@mixin rgba($colour, $alpha)
+{
+   $alphaColour: hsla(hue($colour), saturation($colour), lightness($colour), $alpha);
+   $ieAlphaColour: argb($alphaColour);   
+   background-color: $colour; 
+   background-color: $alphaColour;       
+   zoom: 1; 
+   background-color: transparent\9;   
+   
+   
+}
+@mixin border-rgba($colour, $alpha)
+{
+   $alphaColour: hsla(hue($colour), saturation($colour), lightness($colour), $alpha);
+   $ieAlphaColour: argb($alphaColour);   
+   border-color: $colour; 
+   border-color: $alphaColour;       
+   zoom: 1; 
+   border-color: transparent\9;
+  
+}
+@mixin sub-heading($sub-heading-bg, $sub-heading-color) {
+  color: $sub-heading-color;
+  a{
+    color: $sub-heading-color;
+    &:hover{
+      color: $sub-heading-color;
+    }
+  }
+  padding: $base-box-padding;
+  position: relative;
+  background: $sub-heading-bg;  
+}
+
+@mixin sub-heading-before {
+  height: 0;
+  width: 0;
+  @include rtl-right(45%);
+  top: 100%;
+  content: "";
+  position: absolute;
+  border: 4px solid transparent;
+  border-top-color: $gray-lighter;
+}
+@mixin background-hover {
+  color: $text-color;
+  background: rgba(228, 50, 40, 0.3);
+}
+@mixin button-variant-outline($color, $background, $border, $colorhover, $bghover, $borderhover ) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+  @include transition(all 0.35s ease);
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: $colorhover;
+    background-color: $bghover;
+    border-color: $borderhover ;
+    @include transition(all 0.35s ease);
+  }
+  .open & { &.dropdown-toggle {
+    color: $colorhover;
+    background-color: $bghover;
+        border-color: $borderhover ;
+  } }
+  &:active,
+  &.active {
+    background-image: none;
+  }
+  .open & { &.dropdown-toggle {
+    background-image: none;
+  } }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+@mixin block-variant($border, $heading-text-color, $heading-bg-color, $heading-border) {
+  border-color: $border;
+
+  & .#{$block-heading-selector} {
+    color: $heading-text-color;
+    a{
+      color: $heading-text-color;
+    }
+    background-color: $heading-bg-color;
+    border-color: $heading-border;
+    + .#{$block-prefix}-collapse .#{$block-content-selector} {
+      border-top-color: $border;
+    }
+  }
+  & > .#{$block-prefix}-footer {
+    + .#{$block-prefix}-collapse .#{$block-prefix}-body {
+      border-bottom-color: $border;
+    }
+  }
+}
+@mixin container-layout-variant($color, $background){
+    background: $background;
+    color: $color;
+}  
+@mixin rtl-base-simple ($property, $direction) {
+  #{$property}:$direction;
+  .rtl & {
+    @if $direction == $rtl-right {
+      #{$property}:$rtl-left;
+    }
+    @else {
+      #{$property}:$rtl-right;
+    }
+  }
+}
+@mixin rtl-base-inherit ($property, $direction, $value, $inherit : inherit) {
+  #{$property}-#{$direction}: $value;
+  .rtl & {
+    @if $direction == $rtl-right {
+      #{$property}-#{$rtl-left}: $value;
+    }
+    @else {
+      #{$property}-#{$rtl-right}: $value;
+    }
+    #{$property}-#{$direction}: $inherit;
+  }
+}
+
+@mixin rtl-base-toprightbottomleft ($property, $t, $r, $b, $l) {
+  #{$property}: $t $r $b $l;
+  .rtl & {
+    #{$property}: $t $l $b $r;
+  }
+}
+@mixin rtl-direction ($forBody : true) {
+  direction: ltr;
+  @if $forBody {
+    &.rtl {
+      direction: rtl;
+    }
+  }
+  @else {
+    .rtl & {
+      direction: rtl;
+    }
+  }
+}
+@mixin rtl-font-family ($ltr, $rtl, $forBody : false) {
+  font-family: $ltr;
+  @if $forBody {
+    &.rtl, &.non-latin {
+      font-family:$rtl;
+    }
+  }
+  @else {
+    .rtl &, .non-latin & {
+      font-family:$rtl;
+    }
+  }
+}
+@mixin rtl-margin ($t, $r, $b, $l) {
+  @include rtl-base-toprightbottomleft(margin,$t, $r, $b, $l);
+}
+@mixin rtl-margin-left ($value) {
+  @include rtl-base-inherit(margin,$rtl-left,$value);
+}
+@mixin rtl-margin-right ($value) {
+  @include rtl-base-inherit(margin,$rtl-right,$value);
+}
+@mixin rtl-padding ($t, $r, $b, $l) {
+  @include rtl-base-toprightbottomleft(padding,$t, $r, $b, $l);
+}
+@mixin rtl-padding-left ($value) {
+  @include rtl-base-inherit(padding,$rtl-left,$value);
+}
+@mixin rtl-padding-right ($value) {
+  @include rtl-base-inherit(padding,$rtl-right,$value);
+}
+@mixin rtl-border-width ($t,$r,$b,$l) {
+  @include rtl-base-toprightbottomleft(border-width,$t,$r,$b,$l);
+}
+@mixin rtl-border-style ($t,$r,$b,$l) {
+  @include rtl-base-toprightbottomleft(border-style,$t,$r,$b,$l);
+}
+@mixin rtl-border-left ($value) {
+  @include rtl-base-inherit(border,$rtl-left,$value);
+}
+@mixin rtl-border-right ($value) {
+  @include rtl-base-inherit(border,$rtl-right,$value);
+}
+@mixin rtl-left ($value) {
+  #{$rtl-left}: $value;
+  .rtl & {
+    #{$rtl-right}: $value;
+    #{$rtl-left}: auto;
+  }
+}
+@mixin rtl-right ($value) {
+  #{$rtl-right}: $value;
+  .rtl & {
+    #{$rtl-left}: $value;
+    #{$rtl-right}: auto;
+  }
+}
+@mixin rtl-text-align-left () {
+  @include rtl-base-simple(text-align, $rtl-left);
+}
+@mixin rtl-text-align-right () {
+  @include rtl-base-simple(text-align, $rtl-right);
+}
+@mixin rtl-float-left () {
+  @include rtl-base-simple(float, $rtl-left);
+}
+@mixin rtl-float-right () {
+  @include rtl-base-simple(float, $rtl-right);
+}
+@mixin rtl-background-position-left ($vertical) {
+  background-position:$rtl-left $vertical !important;
+  .rtl & {
+    background-position:$rtl-right $vertical !important;
+  }
+}
+@mixin rtl-background-position-right ($vertical) {
+  background-position:$rtl-right $vertical;
+  .rtl & {
+    background-position:$rtl-left $vertical;
+  }
+}
+@mixin rtl-background-position-percent ($vertical, $horPercent) {
+  background-position:$horPercent $vertical;
+  .rtl & {
+    background-position:100% - $horPercent $vertical;
+  }
+}
+@mixin rtl-text-shadow ($x, $rest) {
+  text-shadow: $x $rest;
+  .rtl & {
+    text-shadow: -1 * $x $rest;
+  }
+}
+@mixin rtl-box-shadow ($x, $rest) {
+  -moz-box-shadow: $x $rest;
+  -webkit-box-shadow: $x $rest;
+  box-shadow: $x $rest;
+  .rtl & {
+    -moz-box-shadow: -1 * $x $rest;
+    -webkit-box-shadow: -1 * $x $rest;
+    box-shadow: -1 * $x $rest;
+  }
+}
+@mixin rtl-border-radius($tl, $tr, $br, $bl) {
+  -moz-border-radius: $tl $tr $br $bl;
+  -webkit-border-radius: $tl $tr $br $bl;
+  border-radius: $tl $tr $br $bl;
+  .rtl & {
+    -moz-border-radius: $tr $tl $bl $br;
+    -webkit-border-radius: $tr $tl $bl $br;
+    border-radius: $tr $tl $bl $br;
+  }
+}
+@mixin rtl-border-radius-topright ($value) {
+  -moz-border-top-#{$rtl-right}-radius: $value;
+  -webkit-border-top-#{$rtl-right}-radius: $value;
+  border-top-#{$rtl-right}-radius: $value;
+  .rtl & {
+    -moz-border-top-#{$rtl-left}-radius: $value;
+    -webkit-border-top-#{$rtl-left}-radius: $value;
+    border-top-#{$rtl-left}-radius: $value;
+    -moz-border-top-#{$rtl-right}-radius: inherit;
+    -webkit-border-top-#{$rtl-right}-radius: inherit;
+    border-top-#{$rtl-right}-radius: inherit;
+  }
+}
+@mixin rtl-border-radius-bottomright ($value) {
+  -moz-border-bottom-#{$rtl-right}-radius: $value;
+  -webkit-border-bottom-#{$rtl-right}-radius: $value;
+  border-bottom-#{$rtl-right}-radius: $value;
+  .rtl & {
+    -moz-border-bottom-#{$rtl-left}-radius: $value;
+    -webkit-border-bottom-#{$rtl-left}-radius: $value;
+    border-bottom-#{$rtl-left}-radius: $value;
+    -moz-border-bottom-#{$rtl-right}-radius: inherit;
+    -webkit-border-bottom-#{$rtl-right}-radius: inherit;
+    border-bottom-#{$rtl-right}-radius: inherit;
+  }
+}
+@mixin rtl-border-radius-topleft ($value) {
+  -moz-border-top-#{$rtl-left}-radius: $value;
+  -webkit-border-top-#{$rtl-left}-radius: $value;
+  border-top-#{$rtl-left}-radius: $value;
+  .rtl & {
+    -moz-border-top-#{$rtl-right}-radius: $value;
+    -webkit-border-top-#{$rtl-right}-radius: $value;
+    border-top-#{$rtl-right}-radius: $value;
+    -moz-border-top-#{$rtl-left}-radius: inherit;
+    -webkit-border-top-#{$rtl-left}-radius: inherit;
+    border-top-#{$rtl-left}-radius: inherit;
+  }
+}
+@mixin rtl-border-radius-bottomleft ($value) {
+  -moz-border-bottom-#{$rtl-left}-radius: $value;
+  -webkit-border-bottom-#{$rtl-left}-radius: $value;
+  border-bottom-#{$rtl-left}-radius: $value;
+  .rtl & {
+    -moz-border-bottom-#{$rtl-right}-radius: $value;
+    -webkit-border-bottom-#{$rtl-right}-radius: $value;
+    border-bottom-#{$rtl-right}-radius: $value;
+    -moz-border-bottom-#{$rtl-left}-radius: inherit;
+    -webkit-border-bottom-#{$rtl-left}-radius: inherit;
+    border-bottom-#{$rtl-left}-radius: inherit;
+  }
+}
+@mixin inline-block(){
+  display: inline-block;
+  vertical-align: middle;
+}
+//========== BOOTSTRAP VARIABLE ==========//
+// a flag to toggle asset pipeline / compass integration
+// defaults to true if twbs-font-path function is present (no function => twbs-font-path('') parsed as string == right side)
+// in Sass 3.3 this can be improved with: function-exists(twbs-font-path)
+$bootstrap-sass-asset-helper: (twbs-font-path("") != unquote('twbs-font-path("")'));
+//
+// Variables
+// --------------------------------------------------
+
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+
+$gray-darker:            lighten(#000, 13.5%); // #222
+$gray-dark:              lighten(#000, 20%);   // #333
+$gray:                   lighten(#000, 33.5%); // #555
+$gray-light:             lighten(#000, 60%);   // #999
+$gray-lighter:           lighten(#000, 93.5%); // #eee
+
+$brand-primary:         $theme-color-secondary;
+$brand-success:         #5cb85c;
+$brand-info:            #5bc0de;
+$brand-warning:         #f0ad4e;
+$brand-danger:          #d9534f;
+
+
+//== Scaffolding
+//
+// ## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg:               $theme-bg-color;
+//** Global text color on `<body>`.
+$text-color:            $theme-text-color;
+
+//** Global textual link color.
+$link-color:            $theme-text-color;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      $theme-text-color;
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base:        $font-family;
+
+$font-size-base:          $theme-font-size;
+$font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
+
+$font-size-h1:            floor(($font-size-base * 2.6)); // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)); // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)); // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)); // ~18px
+$font-size-h5:            $font-size-base;
+$font-size-h6:            ceil(($font-size-base * 0.85)); // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:        1.428571429; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
+
+//** By default, this inherits from the `<body>`.
+$headings-font-family:    $font-family;
+$headings-font-weight:    700;
+$headings-line-height:    1.1;
+$headings-color:          #535353; 
+
+
+
+//-- Iconography
+//
+//## Specify custom locations of the include Glyphicons icon font. Useful for those including Bootstrap via Bower.
+
+$icon-font-path: "bootstrap/";
+$icon-font-name:          "glyphicons-halflings-regular";
+$icon-font-svg-id:        "glyphicons_halflingsregular";
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+$padding-base-vertical:     6px;
+$padding-base-horizontal:   12px;
+
+$padding-large-vertical:    10px;
+$padding-large-horizontal:  16px;
+
+$padding-small-vertical:    5px;
+$padding-small-horizontal:  10px;
+
+$padding-xs-vertical:       1px;
+$padding-xs-horizontal:     5px;
+
+$line-height-large:         1.33;
+$line-height-small:         1.5;
+
+$border-radius-base:        0px;
+$border-radius-large:       6px;
+$border-radius-small:       3px;
+
+//** Global color for active items (e.g., navs or dropdowns).
+$component-active-color:    #fff;
+//** Global background color for active items (e.g., navs or dropdowns).
+$component-active-bg:       $brand-primary;
+
+//** Width of the `border` for generating carets that indicator dropdowns.
+$caret-width-base:          4px;
+//** Carets increase slightly in size for larger components.
+$caret-width-large:         5px;
+
+
+//== Tables
+//
+//## Customizes the `.table` component with basic values, each used across all table variations.
+
+//** Padding for `<th>`s and `<td>`s.
+$table-cell-padding:            8px;
+//** Padding for cells in `.table-condensed`.
+$table-condensed-cell-padding:  5px;
+
+//** Default background color used for all tables.
+$table-bg:                      transparent;
+//** Background color used for `.table-striped`.
+$table-bg-accent:               #f9f9f9;
+//** Background color used for `.table-hover`.
+$table-bg-hover:                #f5f5f5;
+$table-bg-active:               $table-bg-hover;
+
+//** Border color for table and cell borders.
+$table-border-color:            #ddd;
+
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight:                normal;
+
+$btn-default-color:              #333;
+$btn-default-bg:                 #fff;
+$btn-default-border:             #ccc;
+
+$btn-primary-color:              #fff;
+$btn-primary-bg:                 $brand-primary;
+$btn-primary-border:             darken($btn-primary-bg, 5%);
+
+$btn-success-color:              #fff;
+$btn-success-bg:                 $brand-success;
+$btn-success-border:             darken($btn-success-bg, 5%);
+
+$btn-info-color:                 #fff;
+$btn-info-bg:                    $brand-info;
+$btn-info-border:                darken($btn-info-bg, 5%);
+
+$btn-warning-color:              #fff;
+$btn-warning-bg:                 $brand-warning;
+$btn-warning-border:             darken($btn-warning-bg, 5%);
+
+$btn-danger-color:               #fff;
+$btn-danger-bg:                  $brand-danger;
+$btn-danger-border:              darken($btn-danger-bg, 5%);
+
+$btn-link-disabled-color:        $gray-light;
+
+
+//== Forms
+//
+//##
+
+//** `<input>` background color
+$input-bg:                       #fff;
+//** `<input disabled>` background color
+$input-bg-disabled:              $gray-lighter;
+
+//** Text color for `<input>`s
+$input-color:                    $gray;
+//** `<input>` border color
+$input-border:                   #ccc;
+//** `<input>` border radius
+$input-border-radius:            $border-radius-base;
+//** Border color for inputs on focus
+$input-border-focus:             #66afe9;
+
+//** Placeholder text color
+$input-color-placeholder:        $gray-light;
+
+//** Default `.form-control` height
+$input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2);
+//** Large `.form-control` height
+$input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2);
+//** Small `.form-control` height
+$input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2);
+
+$legend-color:                   $gray-dark;
+$legend-border-color:            #e5e5e5;
+
+//** Background color for textual input addons
+$input-group-addon-bg:           $gray-lighter;
+//** Border color for textual input addons
+$input-group-addon-border-color: $input-border;
+
+
+//== Dropdowns
+//
+//## Dropdown menu container and contents.
+
+//** Background for the dropdown menu.
+$dropdown-bg:                    #fff;
+//** Dropdown menu `border-color`.
+$dropdown-border:                rgba(0,0,0,.15);
+//** Dropdown menu `border-color` **for IE8**.
+$dropdown-fallback-border:       #ccc;
+//** Divider color for between dropdown items.
+$dropdown-divider-bg:            #e5e5e5;
+
+//** Dropdown link text color.
+$dropdown-link-color:            $gray-dark;
+//** Hover color for dropdown links.
+$dropdown-link-hover-color:      darken($gray-dark, 5%);
+//** Hover background for dropdown links.
+$dropdown-link-hover-bg:         #f5f5f5;
+
+//** Active dropdown menu item text color.
+$dropdown-link-active-color:     $component-active-color;
+//** Active dropdown menu item background color.
+$dropdown-link-active-bg:        $component-active-bg;
+
+//** Disabled dropdown menu item background color.
+$dropdown-link-disabled-color:   $gray-light;
+
+//** Text color for headers within dropdown menus.
+$dropdown-header-color:          $gray-light;
+
+// Note: Deprecated $dropdown-caret-color as of v3.1.0
+$dropdown-caret-color:           #000;
+
+
+//-- Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+//
+// Note: These variables are not generated into the Customizer.
+
+$zindex-navbar:            1000;
+$zindex-dropdown:          1000;
+$zindex-popover:           1010;
+$zindex-tooltip:           1030;
+$zindex-navbar-fixed:      1030;
+$zindex-modal-background:  1040;
+$zindex-modal:             1050;
+
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+// Note: Deprecated $screen-xs and $screen-phone as of v3.0.1
+$screen-xs:                  480px;
+$screen-xs-min:              $screen-xs;
+$screen-phone:               $screen-xs-min;
+
+// Small screen / tablet
+// Note: Deprecated $screen-sm and $screen-tablet as of v3.0.1
+$screen-sm:                  768px;
+$screen-sm-min:              $screen-sm;
+$screen-tablet:              $screen-sm-min;
+
+// Medium screen / desktop
+// Note: Deprecated $screen-md and $screen-desktop as of v3.0.1
+$screen-md:                  992px;
+$screen-md-min:              $screen-md;
+$screen-desktop:             $screen-md-min;
+
+// Large screen / wide desktop
+// Note: Deprecated $screen-lg and $screen-lg-desktop as of v3.0.1
+$screen-lg:                  1200px;
+$screen-lg-min:              $screen-lg;
+$screen-lg-desktop:          $screen-lg-min;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1);
+$screen-sm-max:              ($screen-md-min - 1);
+$screen-md-max:              ($screen-lg-min - 1);
+
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+$grid-columns:              12;
+//** Padding between columns. Gets divided in half for the left and right.
+$grid-gutter-width:         $theme-gutter-width;
+// Navbar collapse
+//** Point at which the navbar becomes uncollapsed.
+$grid-float-breakpoint:     $screen-md-min;
+//** Point at which the navbar begins collapsing.
+$grid-float-breakpoint-max: ($grid-float-breakpoint - 1);
+
+
+//== Container sizes
+//
+//## Define the maximum width of `.container` for different screen sizes.
+
+// Small screen / tablet
+$container-tablet:             ((720px + $grid-gutter-width));
+//** For `$screen-sm-min` and up.
+$container-sm:                 $container-tablet;
+
+// Medium screen / desktop
+$container-desktop:            ((940px + $grid-gutter-width));
+//** For `$screen-md-min` and up.
+$container-md:                 $container-desktop;
+
+// Large screen / wide desktop
+$container-large-desktop:      ((1140px + $grid-gutter-width));
+//** For `$screen-lg-min` and up.
+$container-lg:                 $container-large-desktop;
+
+
+//== Navbar
+//
+//##
+
+// Basics of a navbar
+$navbar-height:                    50px;
+$navbar-margin-bottom:             $line-height-computed;
+$navbar-border-radius:             $border-radius-base;
+$navbar-padding-horizontal:        floor(($grid-gutter-width / 2));
+$navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2);
+$navbar-collapse-max-height:       340px;
+
+$navbar-default-color:             #777;
+$navbar-default-bg:                #f8f8f8;
+$navbar-default-border:            darken($navbar-default-bg, 6.5%);
+
+// Navbar links
+$navbar-default-link-color:                #777;
+$navbar-default-link-hover-color:          #333;
+$navbar-default-link-hover-bg:             transparent;
+$navbar-default-link-active-color:         #555;
+$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%);
+$navbar-default-link-disabled-color:       #ccc;
+$navbar-default-link-disabled-bg:          transparent;
+
+// Navbar brand label
+$navbar-default-brand-color:               $navbar-default-link-color;
+$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%);
+$navbar-default-brand-hover-bg:            transparent;
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:           #ddd;
+$navbar-default-toggle-icon-bar-bg:        #888;
+$navbar-default-toggle-border-color:       #ddd;
+
+
+// Inverted navbar
+// Reset inverted navbar basics
+$navbar-inverse-color:                      $gray-light;
+$navbar-inverse-bg:                         #222;
+$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+$navbar-inverse-link-color:                 $gray-light;
+$navbar-inverse-link-hover-color:           #fff;
+$navbar-inverse-link-hover-bg:              transparent;
+$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color;
+$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%);
+$navbar-inverse-link-disabled-color:        #444;
+$navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+$navbar-inverse-brand-color:                $navbar-inverse-link-color;
+$navbar-inverse-brand-hover-color:          #fff;
+$navbar-inverse-brand-hover-bg:             transparent;
+
+// Inverted navbar toggle
+$navbar-inverse-toggle-hover-bg:            #333;
+$navbar-inverse-toggle-icon-bar-bg:         #fff;
+$navbar-inverse-toggle-border-color:        #333;
+
+
+//== Navs
+//
+//##
+
+//=== Shared nav styles
+$nav-link-padding:                          10px 15px;
+$nav-link-hover-bg:                         $gray-lighter;
+
+$nav-disabled-link-color:                   $gray-light;
+$nav-disabled-link-hover-color:             $gray-light;
+
+$nav-open-link-hover-color:                 #fff;
+
+//== Tabs
+$nav-tabs-border-color:                     #ddd;
+
+$nav-tabs-link-hover-border-color:          $gray-lighter;
+
+$nav-tabs-active-link-hover-bg:             $body-bg;
+$nav-tabs-active-link-hover-color:          $gray;
+$nav-tabs-active-link-hover-border-color:   #ddd;
+
+$nav-tabs-justified-link-border-color:            #ddd;
+$nav-tabs-justified-active-link-border-color:     $body-bg;
+
+//== Pills
+$nav-pills-border-radius:                   $border-radius-base;
+$nav-pills-active-link-hover-bg:            $component-active-bg;
+$nav-pills-active-link-hover-color:         $component-active-color;
+
+
+//== Pagination
+//
+//##
+
+$pagination-color:                     $link-color;
+$pagination-bg:                        #fff;
+$pagination-border:                    #ddd;
+
+$pagination-hover-color:               $link-hover-color;
+$pagination-hover-bg:                  $gray-lighter;
+$pagination-hover-border:              #ddd;
+
+$pagination-active-color:              #fff;
+$pagination-active-bg:                 $brand-primary;
+$pagination-active-border:             $brand-primary;
+
+$pagination-disabled-color:            $gray-light;
+$pagination-disabled-bg:               #fff;
+$pagination-disabled-border:           #ddd;
+
+
+//== Pager
+//
+//##
+
+$pager-bg:                             $pagination-bg;
+$pager-border:                         $pagination-border;
+$pager-border-radius:                  15px;
+
+$pager-hover-bg:                       $pagination-hover-bg;
+
+$pager-active-bg:                      $pagination-active-bg;
+$pager-active-color:                   $pagination-active-color;
+
+$pager-disabled-color:                 $pagination-disabled-color;
+
+
+//== Jumbotron
+//
+//##
+
+$jumbotron-padding:              30px;
+$jumbotron-color:                inherit;
+$jumbotron-bg:                   $gray-lighter;
+$jumbotron-heading-color:        inherit;
+$jumbotron-font-size:            ceil(($font-size-base * 1.5));
+
+
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+$state-success-text:             #3c763d;
+$state-success-bg:               #dff0d8;
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%);
+
+$state-info-text:                #31708f;
+$state-info-bg:                  #d9edf7;
+$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%);
+
+$state-warning-text:             #8a6d3b;
+$state-warning-bg:               #fcf8e3;
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%);
+
+$state-danger-text:              #a94442;
+$state-danger-bg:                #f2dede;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%);
+
+
+//== Tooltips
+//
+//##
+
+//** Tooltip max width
+$tooltip-max-width:           200px;
+//** Tooltip text color
+$tooltip-color:               #fff;
+//** Tooltip background color
+$tooltip-bg:                  #000;
+$tooltip-opacity:             .9;
+
+//** Tooltip arrow width
+$tooltip-arrow-width:         5px;
+//** Tooltip arrow color
+$tooltip-arrow-color:         $tooltip-bg;
+$popover-bg:                          #fff;
+$popover-max-width:                   276px;
+$popover-border-color:                rgba(0,0,0,.2);
+$popover-fallback-border-color:       #ccc;
+$popover-title-bg:                    darken($popover-bg, 3%);
+$popover-arrow-width:                 10px;
+$popover-arrow-color:                 #fff;
+$popover-arrow-outer-width:           ($popover-arrow-width + 1);
+$popover-arrow-outer-color:           fadein($popover-border-color, 5%);
+$popover-arrow-outer-fallback-color:  darken($popover-fallback-border-color, 20%);
+$label-default-bg:            $gray-light;
+$label-primary-bg:            $brand-primary;
+$label-success-bg:            $brand-success;
+$label-info-bg:               $brand-info;
+$label-warning-bg:            $brand-warning;
+$label-danger-bg:             $brand-danger;
+$label-color:                 #fff;
+$label-link-hover-color:      #fff;
+$modal-inner-padding:         20px;
+$modal-title-padding:         15px;
+$modal-title-line-height:     $line-height-base;
+$modal-content-bg:                             #fff;
+$modal-content-border-color:                   rgba(0,0,0,.2);
+$modal-content-fallback-border-color:          #999;
+$modal-backdrop-bg:           #000;
+$modal-backdrop-opacity:      .5;
+$modal-header-border-color:   #e5e5e5;
+$modal-footer-border-color:   $modal-header-border-color;
+$modal-lg:                    900px;
+$modal-md:                    600px;
+$modal-sm:                    300px;
+$alert-padding:               15px;
+$alert-border-radius:         $border-radius-base;
+$alert-link-font-weight:      bold;
+$alert-success-bg:            $state-success-bg;
+$alert-success-text:          $state-success-text;
+$alert-success-border:        $state-success-border;
+
+$alert-info-bg:               $state-info-bg;
+$alert-info-text:             $state-info-text;
+$alert-info-border:           $state-info-border;
+$alert-warning-bg:            $state-warning-bg;
+$alert-warning-text:          $state-warning-text;
+$alert-warning-border:        $state-warning-border;
+$alert-danger-bg:             $state-danger-bg;
+$alert-danger-text:           $state-danger-text;
+$alert-danger-border:         $state-danger-border;
+$progress-bg:                 #f5f5f5;
+$progress-bar-color:          #fff;
+$progress-bar-bg:             $brand-primary;
+$progress-bar-success-bg:     $brand-success;
+$progress-bar-warning-bg:     $brand-warning;
+$progress-bar-danger-bg:      $brand-danger;
+$progress-bar-info-bg:        $brand-info;
+$list-group-bg:                 #fff;
+$list-group-border:             #ddd;
+$list-group-border-radius:      $border-radius-base;
+$list-group-hover-bg:           #f5f5f5;
+$list-group-active-color:       $component-active-color;
+$list-group-active-bg:          $component-active-bg;
+$list-group-active-border:      $list-group-active-bg;
+$list-group-active-text-color:  lighten($list-group-active-bg, 40%);
+$list-group-link-color:         #555;
+$list-group-link-heading-color: #333;
+$panel-bg:                    #fff;
+$panel-body-padding:          15px;
+$panel-border-radius:         $border-radius-base;
+$panel-inner-border:          #ddd;
+$panel-footer-bg:             #f5f5f5;
+$panel-default-text:          $gray-dark;
+$panel-default-border:        #ddd;
+$panel-default-heading-bg:    #f5f5f5;
+$panel-primary-text:          #fff;
+$panel-primary-border:        $brand-primary;
+$panel-primary-heading-bg:    $brand-primary;
+$panel-success-text:          $state-success-text;
+$panel-success-border:        $state-success-border;
+$panel-success-heading-bg:    $state-success-bg;
+$panel-info-text:             $state-info-text;
+$panel-info-border:           $state-info-border;
+$panel-info-heading-bg:       $state-info-bg;
+$panel-warning-text:          $state-warning-text;
+$panel-warning-border:        $state-warning-border;
+$panel-warning-heading-bg:    $state-warning-bg;
+$panel-danger-text:           $state-danger-text;
+$panel-danger-border:         $state-danger-border;
+$panel-danger-heading-bg:     $state-danger-bg;
+$thumbnail-padding:           4px;
+$thumbnail-bg:                $body-bg;
+$thumbnail-border:            #ddd;
+$thumbnail-border-radius:     $border-radius-base;
+$thumbnail-caption-color:     $text-color;
+$thumbnail-caption-padding:   9px;
+$well-bg:                     #f5f5f5;
+$well-border:                 darken($well-bg, 7%);
+$badge-color:                 #fff;
+$badge-link-hover-color:      #fff;
+$badge-bg:                    $gray-light;
+$badge-active-color:          $link-color;
+$badge-active-bg:             #fff;
+$badge-font-weight:           bold;
+$badge-line-height:           1;
+$badge-border-radius:         10px;
+$breadcrumb-padding-vertical:   8px;
+$breadcrumb-padding-horizontal: 0px;
+$breadcrumb-bg:                 $nocolor;
+$breadcrumb-color:              #ccc;
+$breadcrumb-active-color:       $gray-light;
+$breadcrumb-separator:          "/";
+$carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6);
+$carousel-control-color:                      #fff;
+$carousel-control-width:                      40px;
+$carousel-control-opacity:                    .5;
+$carousel-control-font-size:                  20px;
+$carousel-indicator-active-bg:                #fff;
+$carousel-indicator-border-color:             #fff;
+$carousel-caption-color:                      #fff;
+$close-font-weight:           bold;
+$close-color:                 #000;
+$close-text-shadow:           0 1px 0 #fff;
+$code-color:                  #c7254e;
+$code-bg:                     #f9f2f4;
+$kbd-color:                   #fff;
+$kbd-bg:                      #333;
+$pre-bg:                      #f5f5f5;
+$pre-color:                   $gray-dark;
+$pre-border-color:            #ccc;
+$pre-scrollable-max-height:   340px;
+$text-muted:                  $gray-light;
+$abbr-border-color:           $gray-light;
+$headings-small-color:        $gray-light;
+$blockquote-small-color:      $gray-light;
+$blockquote-font-size:        ($font-size-base * 1.25);
+$blockquote-border-color:     $gray-lighter;
+$page-header-border-color:    $gray-lighter;
+$hr-border:                   $gray-lighter;
+$component-offset-horizontal: 180px;
+.container {
+  	@include container-fixed();
+}
+.row {
+  	@include make-row();
+}
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12,
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-lg-1,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left:  ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+}
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11 {
+  	float: right;
+}
+.col-xs-1  { width: percentage((1 / $grid-columns)); }
+.col-xs-2  { width: percentage((2 / $grid-columns)); }
+.col-xs-3  { width: percentage((3 / $grid-columns)); }
+.col-xs-4  { width: percentage((4 / $grid-columns)); }
+.col-xs-5  { width: percentage((5 / $grid-columns)); }
+.col-xs-6  { width: percentage((6 / $grid-columns)); }
+.col-xs-7  { width: percentage((7 / $grid-columns)); }
+.col-xs-8  { width: percentage((8 / $grid-columns)); }
+.col-xs-9  { width: percentage((9 / $grid-columns)); }
+.col-xs-10 { width: percentage((10/ $grid-columns)); }
+.col-xs-11 { width: percentage((11/ $grid-columns)); }
+.col-xs-12 { width: 100%; }
+@media (min-width: $screen-tablet) {
+    .container {
+      	max-width: $container-tablet;
+    }
+    .col-sm-1,
+    .col-sm-2,
+    .col-sm-3,
+    .col-sm-4,
+    .col-sm-5,
+    .col-sm-6,
+    .col-sm-7,
+    .col-sm-8,
+    .col-sm-9,
+    .col-sm-10,
+    .col-sm-11 {
+      	float: right;
+    }
+    .col-sm-1  { width: percentage((1 / $grid-columns)); }
+    .col-sm-2  { width: percentage((2 / $grid-columns)); }
+    .col-sm-3  { width: percentage((3 / $grid-columns)); }
+    .col-sm-4  { width: percentage((4 / $grid-columns)); }
+    .col-sm-5  { width: percentage((5 / $grid-columns)); }
+    .col-sm-6  { width: percentage((6 / $grid-columns)); }
+    .col-sm-7  { width: percentage((7 / $grid-columns)); }
+    .col-sm-8  { width: percentage((8 / $grid-columns)); }
+    .col-sm-9  { width: percentage((9 / $grid-columns)); }
+    .col-sm-10 { width: percentage((10/ $grid-columns)); }
+    .col-sm-11 { width: percentage((11/ $grid-columns)); }
+    .col-sm-12 { width: 100%; }
+    .col-sm-push-1  { right: percentage((1 / $grid-columns)); }
+    .col-sm-push-2  { right: percentage((2 / $grid-columns)); }
+    .col-sm-push-3  { right: percentage((3 / $grid-columns)); }
+    .col-sm-push-4  { right: percentage((4 / $grid-columns)); }
+    .col-sm-push-5  { right: percentage((5 / $grid-columns)); }
+    .col-sm-push-6  { right: percentage((6 / $grid-columns)); }
+    .col-sm-push-7  { right: percentage((7 / $grid-columns)); }
+    .col-sm-push-8  { right: percentage((8 / $grid-columns)); }
+    .col-sm-push-9  { right: percentage((9 / $grid-columns)); }
+    .col-sm-push-10 { right: percentage((10/ $grid-columns)); }
+    .col-sm-push-11 { right: percentage((11/ $grid-columns)); }
+
+    .col-sm-pull-1  { right: percentage((1 / $grid-columns)); }
+    .col-sm-pull-2  { right: percentage((2 / $grid-columns)); }
+    .col-sm-pull-3  { right: percentage((3 / $grid-columns)); }
+    .col-sm-pull-4  { right: percentage((4 / $grid-columns)); }
+    .col-sm-pull-5  { right: percentage((5 / $grid-columns)); }
+    .col-sm-pull-6  { right: percentage((6 / $grid-columns)); }
+    .col-sm-pull-7  { right: percentage((7 / $grid-columns)); }
+    .col-sm-pull-8  { right: percentage((8 / $grid-columns)); }
+    .col-sm-pull-9  { right: percentage((9 / $grid-columns)); }
+    .col-sm-pull-10 { right: percentage((10/ $grid-columns)); }
+    .col-sm-pull-11 { right: percentage((11/ $grid-columns)); }
+    .col-sm-offset-1  { margin-right: percentage((1 / $grid-columns)); }
+    .col-sm-offset-2  { margin-right: percentage((2 / $grid-columns)); }
+    .col-sm-offset-3  { margin-right: percentage((3 / $grid-columns)); }
+    .col-sm-offset-4  { margin-right: percentage((4 / $grid-columns)); }
+    .col-sm-offset-5  { margin-right: percentage((5 / $grid-columns)); }
+    .col-sm-offset-6  { margin-right: percentage((6 / $grid-columns)); }
+    .col-sm-offset-7  { margin-right: percentage((7 / $grid-columns)); }
+    .col-sm-offset-8  { margin-right: percentage((8 / $grid-columns)); }
+    .col-sm-offset-9  { margin-right: percentage((9 / $grid-columns)); }
+    .col-sm-offset-10 { margin-right: percentage((10/ $grid-columns)); }
+    .col-sm-offset-11 { margin-right: percentage((11/ $grid-columns)); }
+}
+@media (min-width: $screen-desktop) {
+    .container {
+      	max-width: $container-desktop;
+    }
+    .col-md-1,
+    .col-md-2,
+    .col-md-3,
+    .col-md-4,
+    .col-md-5,
+    .col-md-6,
+    .col-md-7,
+    .col-md-8,
+    .col-md-9,
+    .col-md-10,
+    .col-md-11 {
+      	float: right;
+    }
+    .col-md-1  { width: percentage((1 / $grid-columns)); }
+    .col-md-2  { width: percentage((2 / $grid-columns)); }
+    .col-md-3  { width: percentage((3 / $grid-columns)); }
+    .col-md-4  { width: percentage((4 / $grid-columns)); }
+    .col-md-5  { width: percentage((5 / $grid-columns)); }
+    .col-md-6  { width: percentage((6 / $grid-columns)); }
+    .col-md-7  { width: percentage((7 / $grid-columns)); }
+    .col-md-8  { width: percentage((8 / $grid-columns)); }
+    .col-md-9  { width: percentage((9 / $grid-columns)); }
+    .col-md-10 { width: percentage((10/ $grid-columns)); }
+    .col-md-11 { width: percentage((11/ $grid-columns)); }
+    .col-md-12 { width: 100%; }
+    .col-md-push-0  { right: auto; }
+    .col-md-push-1  { right: percentage((1 / $grid-columns)); }
+    .col-md-push-2  { right: percentage((2 / $grid-columns)); }
+    .col-md-push-3  { right: percentage((3 / $grid-columns)); }
+    .col-md-push-4  { right: percentage((4 / $grid-columns)); }
+    .col-md-push-5  { right: percentage((5 / $grid-columns)); }
+    .col-md-push-6  { right: percentage((6 / $grid-columns)); }
+    .col-md-push-7  { right: percentage((7 / $grid-columns)); }
+    .col-md-push-8  { right: percentage((8 / $grid-columns)); }
+    .col-md-push-9  { right: percentage((9 / $grid-columns)); }
+    .col-md-push-10 { right: percentage((10/ $grid-columns)); }
+    .col-md-push-11 { right: percentage((11/ $grid-columns)); }
+    .col-md-pull-0  { right: auto; }
+    .col-md-pull-1  { right: percentage((1 / $grid-columns)); }
+    .col-md-pull-2  { right: percentage((2 / $grid-columns)); }
+    .col-md-pull-3  { right: percentage((3 / $grid-columns)); }
+    .col-md-pull-4  { right: percentage((4 / $grid-columns)); }
+    .col-md-pull-5  { right: percentage((5 / $grid-columns)); }
+    .col-md-pull-6  { right: percentage((6 / $grid-columns)); }
+    .col-md-pull-7  { right: percentage((7 / $grid-columns)); }
+    .col-md-pull-8  { right: percentage((8 / $grid-columns)); }
+    .col-md-pull-9  { right: percentage((9 / $grid-columns)); }
+    .col-md-pull-10 { right: percentage((10/ $grid-columns)); }
+    .col-md-pull-11 { right: percentage((11/ $grid-columns)); }
+    .col-md-offset-0  { margin-right: 0; }
+    .col-md-offset-1  { margin-right: percentage((1 / $grid-columns)); }
+    .col-md-offset-2  { margin-right: percentage((2 / $grid-columns)); }
+    .col-md-offset-3  { margin-right: percentage((3 / $grid-columns)); }
+    .col-md-offset-4  { margin-right: percentage((4 / $grid-columns)); }
+    .col-md-offset-5  { margin-right: percentage((5 / $grid-columns)); }
+    .col-md-offset-6  { margin-right: percentage((6 / $grid-columns)); }
+    .col-md-offset-7  { margin-right: percentage((7 / $grid-columns)); }
+    .col-md-offset-8  { margin-right: percentage((8 / $grid-columns)); }
+    .col-md-offset-9  { margin-right: percentage((9 / $grid-columns)); }
+    .col-md-offset-10 { margin-right: percentage((10/ $grid-columns)); }
+    .col-md-offset-11 { margin-right: percentage((11/ $grid-columns)); }
+}
+
+@media (min-width: $screen-lg-desktop) {
+    .container {
+       	max-width: $container-large-desktop;
+    }
+    .col-lg-1,
+    .col-lg-2,
+    .col-lg-3,
+    .col-lg-4,
+    .col-lg-5,
+    .col-lg-6,
+    .col-lg-7,
+    .col-lg-8,
+    .col-lg-9,
+    .col-lg-10,
+    .col-lg-11 {
+      	float: right;
+    }
+    .col-lg-1  { width: percentage((1 / $grid-columns)); }
+    .col-lg-2  { width: percentage((2 / $grid-columns)); }
+    .col-lg-3  { width: percentage((3 / $grid-columns)); }
+    .col-lg-4  { width: percentage((4 / $grid-columns)); }
+    .col-lg-5  { width: percentage((5 / $grid-columns)); }
+    .col-lg-6  { width: percentage((6 / $grid-columns)); }
+    .col-lg-7  { width: percentage((7 / $grid-columns)); }
+    .col-lg-8  { width: percentage((8 / $grid-columns)); }
+    .col-lg-9  { width: percentage((9 / $grid-columns)); }
+    .col-lg-10 { width: percentage((10/ $grid-columns)); }
+    .col-lg-11 { width: percentage((11/ $grid-columns)); }
+    .col-lg-12 { width: 100%; }
+    .col-lg-push-0  { right: auto; }
+    .col-lg-push-1  { right: percentage((1 / $grid-columns)); }
+    .col-lg-push-2  { right: percentage((2 / $grid-columns)); }
+    .col-lg-push-3  { right: percentage((3 / $grid-columns)); }
+    .col-lg-push-4  { right: percentage((4 / $grid-columns)); }
+    .col-lg-push-5  { right: percentage((5 / $grid-columns)); }
+    .col-lg-push-6  { right: percentage((6 / $grid-columns)); }
+    .col-lg-push-7  { right: percentage((7 / $grid-columns)); }
+    .col-lg-push-8  { right: percentage((8 / $grid-columns)); }
+    .col-lg-push-9  { right: percentage((9 / $grid-columns)); }
+    .col-lg-push-10 { right: percentage((10/ $grid-columns)); }
+    .col-lg-push-11 { right: percentage((11/ $grid-columns)); }
+    .col-lg-pull-0  { right: auto; }
+    .col-lg-pull-1  { right: percentage((1 / $grid-columns)); }
+    .col-lg-pull-2  { right: percentage((2 / $grid-columns)); }
+    .col-lg-pull-3  { right: percentage((3 / $grid-columns)); }
+    .col-lg-pull-4  { right: percentage((4 / $grid-columns)); }
+    .col-lg-pull-5  { right: percentage((5 / $grid-columns)); }
+    .col-lg-pull-6  { right: percentage((6 / $grid-columns)); }
+    .col-lg-pull-7  { right: percentage((7 / $grid-columns)); }
+    .col-lg-pull-8  { right: percentage((8 / $grid-columns)); }
+    .col-lg-pull-9  { right: percentage((9 / $grid-columns)); }
+    .col-lg-pull-10 { right: percentage((10/ $grid-columns)); }
+    .col-lg-pull-11 { right: percentage((11/ $grid-columns)); }
+    .col-lg-offset-0  { margin-right: 0; }
+    .col-lg-offset-1  { margin-right: percentage((1 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-2  { margin-right: percentage((2 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-3  { margin-right: percentage((3 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-4  { margin-right: percentage((4 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-5  { margin-right: percentage((5 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-6  { margin-right: percentage((6 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-7  { margin-right: percentage((7 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-8  { margin-right: percentage((8 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-9  { margin-right: percentage((9 / $grid-columns)); margin-left:initial; }
+    .col-lg-offset-10 { margin-right: percentage((10/ $grid-columns)); margin-left:initial; }
+    .col-lg-offset-11 { margin-right: percentage((11/ $grid-columns)); margin-left:initial; }
+}
+.col-xs-2-4,
+.col-xs-4-8,
+.col-xs-7-2,
+.col-xs-9-6,
+.col-sm-2-4,
+.col-sm-4-8,
+.col-sm-7-2,
+.col-sm-9-6,
+.col-md-2-4,
+.col-md-4-8,
+.col-md-7-2,
+.col-md-9-6,
+.col-lg-2-4,
+.col-lg-4-8,
+.col-lg-7-2,
+.col-lg-9-6
+{
+    position: relative;
+    min-height: 1px;
+    padding-left:  ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+}
+@media (max-width: $screen-phone) {
+    .col-sp-2-4 , .col-sp-4-8,
+    .col-sp-7-2, .col-sp-9-6 {float: right;}
+    .hidden-sp {display: none!important;}
+    .col-sp-1 { width: percentage((1 / $grid-columns)); }
+    .col-sp-2 { width: percentage((2 / $grid-columns)); }
+    .col-sp-2-4 { width: percentage((2.4 / $grid-columns)); }
+    .col-sp-3 { width: percentage((3 / $grid-columns)); }
+    .col-sp-4 { width: percentage((4 / $grid-columns)); }
+    .col-sp-4-8 { width: percentage((4.8 / $grid-columns)); }
+    .col-sp-5 { width: percentage((5 / $grid-columns)); }
+    .col-sp-6 { width: percentage((6 / $grid-columns)); }
+    .col-sp-7 { width: percentage((7 / $grid-columns)); }
+    .col-sp-7-2 { width: percentage((7.2 / $grid-columns)); }
+    .col-sp-8 { width: percentage((8 / $grid-columns)); }
+    .col-sp-9 { width: percentage((9 / $grid-columns)); }
+    .col-sp-9-6 { width: percentage((9.6 / $grid-columns)); }
+    .col-sp-10 { width: percentage((10 / $grid-columns)); }
+    .col-sp-11 { width: percentage((11 / $grid-columns)); }
+    .col-sp-12 { width: 100%; }
+}
+
+@media (max-width: $screen-tablet) and (min-width: $screen-phone + 1) {
+    .col-xs-2-4 , .col-xs-4-8,
+    .col-xs-7-2, .col-xs-9-6 {float: right;}
+    .col-xs-2-4  { width: percentage((2.4 / $grid-columns)); }
+    .col-xs-4-8  { width: percentage((4.8 / $grid-columns)); }
+    .col-xs-7-2  { width: percentage((7.2 / $grid-columns)); }
+    .col-xs-9-6  { width: percentage((9.6 / $grid-columns)); }
+}
+
+@media (min-width: $screen-tablet) {
+    .col-sm-2-4 , .col-sm-4-8,
+    .col-sm-7-2, .col-sm-9-6 {float: right;}
+    .col-sm-2-4  { width: percentage((2.4 / $grid-columns)); }
+    .col-sm-4-8  { width: percentage((4.8 / $grid-columns)); }
+    .col-sm-7-2  { width: percentage((7.2 / $grid-columns)); }
+    .col-sm-9-6  { width: percentage((9.6 / $grid-columns)); }
+}
+
+@media (min-width: $screen-desktop) {
+    .col-md-2-4 , .col-md-4-8,
+    .col-md-7-2, .col-md-9-6 {float: right;}
+    .col-md-2-4  { width: percentage((2.4 / $grid-columns)); }
+    .col-md-4-8  { width: percentage((4.8 / $grid-columns)); }
+    .col-md-7-2  { width: percentage((7.2 / $grid-columns)); }
+    .col-md-9-6  { width: percentage((9.6 / $grid-columns)); }
+}
+
+
+@media (min-width: $screen-lg-desktop){
+    .col-lg-2-4 , .col-lg-4-8,
+    .col-lg-7-2, .col-lg-9-6 {float: right;}
+    .col-lg-2-4  { width: percentage((2.4 / $grid-columns)); }
+    .col-lg-4-8  { width: percentage((4.8 / $grid-columns)); }
+    .col-lg-7-2  { width: percentage((7.2 / $grid-columns)); }
+    .col-lg-9-6  { width: percentage((9.6 / $grid-columns)); }
+}
+
+.clearfix {
+  	@include clearfix();
+}
+.pull-right {
+  	float: left !important;
+}
+.pull-left {
+  	float: right !important;
+}
+
+.hide {
+  	display: none !important;
+}
+.show {
+  	display: block !important;
+}
+.invisible {
+  	visibility: hidden;
+}
+.text-hide {
+  	@include hide-text();
+}
+.affix {
+  	position: fixed;
+}
+@-ms-viewport{
+  	width: device-width;
+}
+@media screen and (max-width: 400px) {
+    @-ms-viewport{
+      	width: 320px;
+    }
+}
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+@include responsive-invisibility('.visible-xs');
+@media (max-width: $screen-xs-max) {
+  	@include responsive-visibility('.visible-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+  	@include responsive-visibility('.visible-xs.visible-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  	@include responsive-visibility('.visible-xs.visible-md');
+}
+@media (min-width: $screen-lg) {
+  	@include responsive-visibility('.visible-xs.visible-lg');
+}
+@include responsive-invisibility('.visible-sm');
+@media (max-width: $screen-xs-max) {
+  	@include responsive-visibility('.visible-sm.visible-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+  	@include responsive-visibility('.visible-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  	@include responsive-visibility('.visible-sm.visible-md');
+}
+@media (min-width: $screen-lg) {
+  	@include responsive-visibility('.visible-sm.visible-lg');
+}
+@include responsive-invisibility('.visible-md');
+
+@media (max-width: $screen-xs-max) {
+  	@include responsive-visibility('.visible-md.visible-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+  	@include responsive-visibility('.visible-md.visible-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  	@include responsive-visibility('.visible-md');
+}
+@media (min-width: $screen-lg) {
+  	@include responsive-visibility('.visible-md.visible-lg');
+}
+@include responsive-invisibility('.visible-lg');
+
+@media (max-width: $screen-xs-max) {
+  	@include responsive-visibility('.visible-lg.visible-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+  	@include responsive-visibility('.visible-lg.visible-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  	@include responsive-visibility('.visible-lg.visible-md');
+}
+@media (min-width: $screen-lg) {
+  	@include responsive-visibility('.visible-lg');
+}
+@media (max-width: $screen-xs-max) {
+  	@include responsive-invisibility('.hidden-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+  	@include responsive-invisibility('.hidden-xs.hidden-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  	@include responsive-invisibility('.hidden-xs.hidden-md');
+}
+@media (min-width: $screen-lg) {
+  	@include responsive-invisibility('.hidden-xs.hidden-lg');
+}
+@include responsive-visibility('.hidden-sm');
+
+@media (max-width: $screen-xs-max) {
+  	@include responsive-invisibility('.hidden-sm.hidden-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+  	@include responsive-invisibility('.hidden-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  	@include responsive-invisibility('.hidden-sm.hidden-md');
+}
+@media (min-width: $screen-lg) {
+  	@include responsive-invisibility('.hidden-sm.hidden-lg');
+}
+@include responsive-visibility('.hidden-md');
+@media (max-width: $screen-xs-max) {
+ 	@include responsive-invisibility('.hidden-md.hidden-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+  	@include responsive-invisibility('.hidden-md.hidden-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  	@include responsive-invisibility('.hidden-md');
+}
+@media (min-width: $screen-lg) {
+	@include responsive-invisibility('.hidden-md.hidden-lg');
+}
+@include responsive-visibility('.hidden-lg');
+@media (max-width: $screen-xs-max) {
+	@include responsive-invisibility('.hidden-lg.hidden-xs');
+}
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+	@include responsive-invisibility('.hidden-lg.hidden-sm');
+}
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+	@include responsive-invisibility('.hidden-lg.hidden-md');
+}
+@media (min-width: $screen-lg) {
+	@include responsive-invisibility('.hidden-lg');
+}
+@include responsive-invisibility('.visible-print');
+@media print {
+    @include responsive-visibility('.visible-print');
+    @include responsive-invisibility('.hidden-print');
+}
+/********************************************************
+			Right to Left Styles
+********************************************************/
+* {
+  	direction: rtl !important;
+}
+
+.radio input[type="radio"], .radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  	float: right;
+  	margin-left: 5px!important;
+}
+
+.rtl #page {
+  	text-align: right !important;
+}
+.panelbutton {
+  	-webkit-box-shadow: -3px 1px 2px #888888;
+  	box-shadow: -3px 1px 2px #888888;
+}
+.fancybox-margin {
+  	margin-right: 0px!important;
+}
+.rtl .box-line .content-producttabs .widget-tabs li:first-child {
+  	padding-right: 35px;
+}

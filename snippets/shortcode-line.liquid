@@ -1,0 +1,7 @@
+{% capture class %}{% include 'shortcode-render' render:'class' default:'hr-default' %}{% endcapture %}
+{% capture size %}{% include 'shortcode-render' render:'size' default:'1' %}{% endcapture %}
+
+{% if size != blank %}
+{% assign size = size | plus: 0 %}
+{% endif %}
+<hr class="leo-hr {{ class }}" size="{{ size }}" {% if size > 1 %}style="height: {{ size }}px"{% endif %}/>

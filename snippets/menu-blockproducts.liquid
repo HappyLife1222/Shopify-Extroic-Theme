@@ -1,0 +1,52 @@
+
+
+{% assign imagesize = settings.product_menu_imagesize %}
+{% assign collection_name = settings[collection_menu] %}
+{% assign collection_products = collections[collection_name].products %}
+{% assign on_sale = false %}
+<div class="products_menu">
+	{% if settings[collection_menu_title] != blank %}
+		<div class="menu-title">
+			{{ settings[collection_menu_title] }}
+		</div>
+	{% endif %}
+	<div class="product-container clearfix">
+		{% for product in collection_products limit:settings[collection_product_limit] %}
+			{% if product.compare_at_price > product.price %}
+			    {% assign on_sale = true %}
+			{% endif %}
+			<div class="product-block item-dual">	
+				<div class="block-img">
+					<a class="product_img_link" href="{{ product.url | within: collection }}" title="{{ product.title }}">
+						<img class="replace-2x img-responsive" src="{{ product.featured_image | product_img_url: imagesize }}" alt="{{ product.title }}">
+					</a>
+				</div>
+				<div class="product-meta">
+					<h3 class="name">
+						<a class="product-name" href="{{ product.url | within: collection }}" title="{{ product.title }}">
+							{{ product.title }}
+						</a>
+					</h3>
+					<div class="product-desc">
+						{{ product.description | strip_html | truncatewords: 6}}
+					</div>
+                    <blockquote {% if product-grid-item == 'deals' %}class="pull-left"{% endif %}>
+                      <div class="content_price prices clearfix">
+                        <span class="product-price {% if on_sale %}sale-price{% endif %}">
+                          {{ product.price | money }}
+                        </span>
+                        {% if on_sale %}
+                        <span class="old-price product-price">{{ product.compare_at_price | money }}</span>
+                        {% endif %}
+                      </div>
+                      {% if settings.product_reviews_enable %}
+                      <div class="review">
+                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                      </div>
+                      {% endif %}
+                    </blockquote>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>

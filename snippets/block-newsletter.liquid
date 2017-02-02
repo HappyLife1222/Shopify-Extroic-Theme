@@ -1,0 +1,29 @@
+{% if settings.newsletter_form_action != blank %}
+    {% assign form_action = settings.newsletter_form_action %}
+{% else %}
+    {% assign form_action = '#' %}
+{% endif %}
+<div id="newsletter_block" class="block inline">
+    {% if settings.homepage_newsletter_title != blank %}
+        <h4 class="title_block">
+            {{ settings.homepage_newsletter_title }}
+        </h4>
+    {% endif %}
+    <div class="block_content">
+        {% if settings.homepage_newsletter_des != blank %}
+            <p class="des_newsletter">
+                {{ settings.homepage_newsletter_des }}
+            </p>
+        {% endif %}
+        <form action="{{ form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+          	<div class="input-group">              
+            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="newsletter-input form-control" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" >
+            <span class="input-group-btn">
+              <button type="submit" class="button_mini btn" name="subscribe" id="subscribe">
+                <i class="fa fa-envelope icon-email"></i>
+              </button>
+            </span>
+          	</div>
+        </form>
+    </div>
+</div>

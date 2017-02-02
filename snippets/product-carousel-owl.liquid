@@ -1,0 +1,31 @@
+{% unless product_in_tab %}
+{% assign product_in_tab = 12 %}
+{% endunless %}
+{% if columns_product == blank %}
+	{% assign columns_product = 4 %}
+{% endif%}
+{% if row_in_tab == blank %}
+{% assign row_in_tab = 2 %}
+{% endif%}
+{% assign middle_control = product_carousel | truncate: 13 %}  	
+<div class="owl-carousel{% if middle_control == 'producttab...' %} middle{% endif %} slide">
+	{% assign grid_item_width = ' ' %}
+	{% assign products = collection_produclists %}
+	{% for product in products limit:product_in_tab %}  		
+  		{% assign modpage = forloop.index | minus : 1 | modulo:row_in_tab %}
+  		{% assign rowminus = row_in_tab | minus : 1 %}
+  		{% if forloop.first or modpage == 0 %}
+		<div class="item">          
+        {% endif %}
+          <div class="products-row row">
+            {% if product-carousel-owl == 'deals' %}   
+              {% include 'product-grid-item' with 'deals' %}        
+            {% else %}
+            {% include 'product-grid-item' %}
+            {% endif %}
+          </div>
+        {% if forloop.last or modpage == rowminus %}
+		</div>
+        {% endif %}
+	{% endfor %}
+</div>

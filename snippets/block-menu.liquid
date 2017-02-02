@@ -1,0 +1,185 @@
+<!--Top Menu -->
+<div id="apollo-menu">    
+  <nav id="cavas_menu" class="apollo-megamenu">
+    <div class="" role="navigation">    
+      {% include 'block-btncanvas' %}
+      <div id="apollo-top-menu" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav megamenu">
+          {% for link in linklists.main-menu.links %}
+          {% assign hasMega = false %}
+          {% assign intMega = 0 %}
+          {% assign link_title = link.title | downcase %}
+          {% assign fullwidth = '' %}
+          {% for i in (1..5) %}
+          {% capture apmegamenu %}apmenuitem_enable_{{ i }}{% endcapture %}
+          {% capture apmegamenu_title %}apmenuitem_title_{{ i }}{% endcapture %}
+          {% assign megamenu_title = settings[apmegamenu_title] | strip | downcase %}
+          {% if settings[apmegamenu] %}
+          {% if link_title == megamenu_title %}
+          {% assign hasMega = true %}
+          {% assign intMega = i %}
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+          {% if hasMega %}
+          {% capture apfullwidth %}apmenuitem_fullwidth_{{ intMega }}{% endcapture %}
+          {% if settings[apfullwidth] %}
+          {% assign fullwidth = 'full-width' %}
+          {% else %}
+          {% assign fullwidth = 'aligned-center' %}
+          {% endif %}
+          <li class="parent dropdown {{ fullwidth }} {% if link.active %}active{% endif %}">
+            <a class="dropdown-toggle has-category" data-toggle="dropdown" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+              <span class="menu-title">{{ link.title }}</span><b class="caret"></b>
+            </a>
+            {% assign mega_link_handle = link.handle %}
+            {% include 'menu-megamenu' %}
+          </li>
+                    
+          {% else %}
+          {% if linklists[link.handle] != empty %}
+          <li class="parent dropdown {% if link.active %}active{% endif %}">
+            <a class="dropdown-toggle has-category" data-toggle="dropdown" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+              <span class="">{{ link.title }}</span><b class="caret"></b>
+            </a>
+            <div class="dropdown-menu level1">
+              <div class="dropdown-menu-inner">
+                <div class="mega-col-inner">
+                  <ul>
+                    {% for child_link in linklists[link.handle].links %}
+                    {% if linklists[child_link.handle] != empty %}
+                    <li class="parent dropdown-submenu {% if child_link.active %}active{% endif %}">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                        <span class="">{{ child_link.title }}</span><b class="caret"></b>
+                      </a>
+                      <div class="dropdown-menu level2">
+                        <div class="dropdown-menu-inner">
+                          <div class="mega-col-inner">
+                            <ul>
+                              {% for child_link1 in linklists[child_link.handle].links %}
+                              {% if linklists[child_link1.handle] != empty %}
+                              <li class="parent dropdown-submenu {% if child_link1.active %}active{% endif %}">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                                  <span class="">{{ child_link1.title }}</span><b class="caret"></b>
+                                </a>
+                                <div class="dropdown-menu level2">
+                                  <div class="dropdown-menu-inner">
+                                    <div class="mega-col-inner">
+                                      <ul>
+                                        {% for child_link2 in linklists[child_link1.handle].links %}
+                                        <li class="{% if child_link2.active %}active{% endif %}">
+                                          <a class="" href="{{ child_link2.url }}" title="{{ child_link2.title }}">
+                                            <span class="">{{ child_link2.title }}</span>
+                                          </a>
+                                        </li>
+                                        {% endfor %}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              {% else %}
+                              <li class="{% if child_link1.active %}active{% endif %}">
+                                <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                                  <span class="">{{ child_link1.title }}</span>
+                                </a>
+                              </li>
+                              {% endif %}
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    {% else %}
+                    <li class="{% if child_link.active %}active{% endif %}">
+                      <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                        <span class="">{{ child_link.title }}</span>
+                      </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          {% else %}
+          <li class="{% if link.active %}active{% endif %}">
+            <a class="" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+              <span class="">{{ link.title }}</span>
+            </a>
+            {% if link_title == "my tojarcom" %}
+              <ul class="submenu">
+                <li><a href="#">My Account</a></li>
+                <li><a href="#">My Orders</a></li>
+              </ul>
+            {% endif %}
+          </li>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </nav>    
+</div>
+<!-- End Menu -->
+
+{% comment %}
+    Copy of search bar from block-search.liquid
+
+    A snippet to include a search bar anywhere in your theme.
+    Note we are using 'input-group' for the layout. Look under Forms > Input Groups for some demos.
+
+    More information:
+    - http://docs.shopify.com/themes/liquid-variables/search
+
+    To return only products in results:
+    - http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+    - Or manually add type=product to the search URL as a query parameter
+    - Uncomment hidden input with value="product" below
+
+
+<script type="text/javascript">
+$(document).ready( function(){ 
+//      $("#search_block_top").each( function(){
+//      $("#search-icon").click( function(){
+//              $("#searchbox").toggle("show");
+//          });
+//      }); 
+  $("#searchbox select").change(function() {
+    var val = $(this).val();
+    window.location.href = "https://" + Shopify.shop + val;
+  });
+});
+</script>
+<div id="search_block_top" class="search-desktop">      	
+  	<div class="nav-search visible">
+    	<form id="searchbox" class="popup-content" action="/search" method="get" role="search">
+          {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+          <input id="search_query_top" class="search_query form-control" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+          <button id="search_button" class="btn btn-sm" type="submit" >
+              <span><i class="fa fa-search"></i></span>
+              <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
+          </button>
+          <div class="filter_type category_filter autosearch-category">
+            <i class="fa fa-angle-down"></i>
+            <select name="category_id">
+              <option value="0">All Category</option>
+              {% for category in collections limit:settings.categories_block_number %}        
+              <option value="{{ category.url }}">
+                {{ category.title }}
+              </option>                            
+              {% endfor %}
+            </select>
+          </div>
+    	</form>  
+  	</div>    
+</div>
+
+<script>
+  
+</script>
+
+{% endcomment %}

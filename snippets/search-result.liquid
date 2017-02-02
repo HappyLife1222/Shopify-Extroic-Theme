@@ -1,0 +1,100 @@
+{% assign on_sale = false %}
+{% if item.compare_at_price > item.price %}
+    {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if item.available  %}
+    {% assign sold_out = false %}
+{% endif %}
+{% assign imagesize = settings.home_product_imagesize %}
+<div class="product_block col-xs-12 col-sp-12">
+    <div class="product-container text-left product-block">
+        <div class="row">
+            <div class="left-block col-md-4 col-sm-4">
+                <div class="product-image-container image">
+                    <a class="product_img_link" href="{{ item.url | within: collection }}" title="{{ item.title }}">
+                        <img class="replace-2x img-responsive" src="{{ item.featured_image | product_img_url: imagesize }}" alt="{{ item.title }}">
+                        {% if settings.theme_more_pimages_enable %}
+                            <span class="product-additional" data-idproduct="{{ item.id }}">
+                                {% for image in item.images %}
+                                    {% if forloop.first != true %}
+                                        <img class="replace-2x img-responsive" alt="{{ item.title }}" src="{{ image.src | product_img_url: imagesize }}">
+                                        {% break %}
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                        {% endif %}
+                    </a>
+                    <span class="new-box hidden">
+                        <span class="label-new label-info label">New</span>
+                    </span>
+                    {% if on_sale %}
+                        <span class="sale-box">
+                            <span class="label-sale label">{{ 'products.product.on_sale_from_html' | t }}</span>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="right-block col-md-8 col-sm-8">
+                <div class="product-meta">
+                    <h5 class="name">
+                        <a class="product-name" href="{{ item.url | within: collection }}" title="{{ item.title }}">{{ item.title }}</a>
+                    </h5>
+                    {% if settings.product_reviews_enable %}
+                        <div class="review">
+                            <span class="shopify-product-reviews-badge" data-id="{{ item.id }}"></span>
+                        </div>
+                    {% endif %}
+                    <div class="product-desc">{{ item.description }}</div>
+                    <div class="content_price">
+                        {% if on_sale %}
+                            <span class="old-price product-price">{{ item.compare_at_price | money }}</span>
+                        {% endif %}
+                        <span class="price product-price">
+                            {{ item.price | money }}
+                        </span>
+                    </div>
+                    {% if dealTime %}
+                        {% include 'block-productdeal' %}
+                    {% endif %}
+                    <div class="functional-buttons clearfix">
+                        {% if settings.theme_quickview_enable %}
+                            <div class="quickview">
+                                <a class="quick-view btn" href="#quick-view-product" data-handle="{{ item.handle }}" title="{{ 'general.quickview.title' | t }}">
+                                    <i class="fa fa-plus"></i>
+                                    <span>{{ 'general.quickview.title' | t }}</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if settings.theme_wishlist_enable %}
+                            {% include 'wishlist-product' %}
+                        {% endif %}
+                        <div class="view_detail">
+                            <a class="btn lnk_view" href="{{ item.url | within: collection }}" title="View">
+                                <i class="fa fa-info"></i><span></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="cart">
+                        {% assign variantCount = item.variants | size %}
+                        <div class="action">
+                            <form action="/cart/add" method="post" enctype="multipart/form-data" class="form-ajaxtocart" >
+                                <input type="hidden" name="id" value="{{ item.variants.first.id }}" />
+                                {% if sold_out %}
+                                    <input type="submit" value="{{ 'products.product.unavailable' | t }}" class="btn button ajax_addtocart disabled" />
+                                {% else %}
+                                    {% if variantCount > 1 %}
+                                        <a class="btn button ajax_addtocart" href="{{ item.url | within: collection }}" title="{{ item.title }}">{{ 'products.product.select_options' | t }}</a>
+                                    {% else %}
+                                        <input type="submit" value="{{ 'products.product.add_to_cart' | t }}" class="btn button ajax_addtocart" />
+                                    {% endif %}
+                                {% endif %}
+                            </form> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% unless forloop.last %}<hr>{% endunless %}
+</div>

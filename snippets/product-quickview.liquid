@@ -1,0 +1,216 @@
+{% assign count_images = product.images | size %}
+{% assign column_center = 'col-sm-12 col-md-12' %}
+<div id="quick-view-product" style="display:none;">
+  <div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
+  <div class="quick-view-product">
+
+  </div>
+
+  <div id="quickview-modal" style="display:none;">
+      <div class="primary_block row">
+          <div class="product-left-column col-xs-12 col-sm-6">
+            <div class="more-view-wrapper clearfix col-xs-2 col-sm-2">
+              <div id="thumbs_list_quickview">
+                <ul class="product-photo-thumbs quickview-more-views-owlslider" id="thumblist_quickview">
+                </ul>
+              </div>
+              <span class="view_scroll_spacer">
+                <a id="view_scroll_left_quickview" class="" title="{{ 'products.general.previous_image' | t }}" href="javascript:{}">
+                  <i class="fa fa-angle-up"></i>{{ 'products.general.previous_image' | t }}
+                </a>
+                <a id="view_scroll_right_quickview" title="{{ 'products.general.next_image' | t }}" href="javascript:{}">
+                  <i class="fa fa-angle-down"></i>{{ 'products.general.next_image' | t }}
+                </a>
+              </span>
+            </div>  
+            <div class="clearfix image-block col-xs-10 col-sm-10">
+              {% assign imagesize = settings.product_page_imagesize %}
+              <span class="view_full_size">
+                {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+                <a class="" title="{{ product.title }}" href="javascript:{}">
+                  <img class="img-responsive product-featured-image-quickview" src="{{ featured_image | img_url: imagesize }}" data-zoom-image="" alt="{{ product.title }}"/>
+                </a>
+              </span>
+            </div>
+          </div>
+          <div class="product-center-column product-item col-xs-12 col-md-6">
+            <div id="quickview-nav-button" style="position: relative; top: -20px;">
+              <ul>                
+                <li><a class="btn-previous-product" href="javascript:;" style="float:left;">← Previous</a></li>
+                <li><a class="btn-next-product" href="javascript:;" style="float:right;">Next →</a></li>
+              </ul>
+            </div>
+            <h3 class="qwp-name">&nbsp;</h3>
+            {% if settings.product_reviews_enable %}
+            <div class="review hidden">
+              <span class="shopify-product-reviews-badge" data-id=""></span>
+            </div>
+            {% endif %}
+            <div class="product-description rte">
+              {{ product.description | strip_html | truncatewords: 30}}
+            </div>
+            <span class="prices">
+              <span id="ProductPrice" class="price {% if product.compare_at_price > product.price %} sale-price{% endif %}">
+                {{ product.price | money }}
+              </span>
+              <span class="price-product-detail">
+                <span class="old-price product-price">{{ product.compare_at_price | money }}</span>
+              </span>
+            </span>
+            <ul class="list-unstyled">
+              <li class="availability">                
+              </li>
+            </ul>                        
+            <hr>
+            <blockquote class="border-success">
+              <ul class="list-unstyled">
+                <li><h5 class="brand">&nbsp;</h5></li>
+                <li class="product-sku">&nbsp;</li>
+              </ul>
+            </blockquote>
+            <div class="clearfix"></div>
+            <hr>       
+          </div>
+          <div class="product-right-column product-item col-xs-12 col-md-6">              
+              <div>
+                  <form action="/cart/add" method="post" enctype="multipart/form-data" class="variants form-ajaxtocart">  
+                      <select name='id' style="display:none;"></select>                      
+                      <div class="quantity_wanted_p">
+                          <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
+                          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                      </div>      
+                      <div class="button-action">
+                        <button type="submit" name="add" id="AddToCart{{ product.id }}" class="btn btn-default add_to_cart_detail ajax_addtocart">
+                            <span >{{ 'products.product.add_to_cart' | t }}</span>
+                        </button>                      
+                        {% if settings.theme_wishlist_enable %}
+                          {% include 'wishlist-product' %}
+                        {% endif %}
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="total-price">
+                        <label>Subtotal: </label><span></span>
+                      </div>
+                  </form>
+                {% if settings.product_page_social_enable %}
+                {% include 'block-social-sharing' %}
+                {% endif %}
+                <ul id="usefull_link_block{{ product.id }}" class="clearfix no-print">
+                  <li class="print">
+                    <a href="javascript:print();"><i class="fa fa-print"></i> Print</a>
+                  </li>
+                </ul>
+              </div>
+          </div>
+      </div>
+      <a title="Close" class="quickview-close fancybox-close" href="javascript:;"></a>
+  </div>
+</div>
+
+<script type="text/javascript">  
+  Shopify.doNotTriggerClickOnThumb = false;
+  function changeImageQuickView(img, selector) {
+    var src = $(img).attr("src");
+    src = src.replace("_compact", "");
+    $(selector).attr("src", src);
+  }
+  var selectCallbackQuickView = function(variant, selector) {
+      var productItem = jQuery('.quick-view-product .product-item');
+          addToCart = productItem.find('.add_to_cart_detail'),
+          productPrice = productItem.find('.price'),
+          comparePrice = productItem.find('.old-price'),
+          totalPrice = productItem.find('.total-price span');
+      
+      if (variant) {
+        if (variant.available) {
+          // We have a valid product variant, so enable the submit button
+          addToCart.removeClass('disabled').removeAttr('disabled');
+          $(addToCart).find("span").text("Add to Cart");
+        } else {
+          // Variant is sold out, disable the submit button
+          addToCart.addClass('disabled').attr('disabled', 'disabled');
+          $(addToCart).find("span").text("Sold Out");
+        }    	
+        // Regardless of stock, update the product price
+        productPrice.html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));
+    
+        // Also update and show the product's compare price if necessary
+        if ( variant.compare_at_price > variant.price ) {
+          comparePrice
+            .html(Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}"))
+            .show();        	
+          productPrice.addClass('on-sale');
+        } else {
+          comparePrice.hide();
+          productPrice.removeClass('on-sale');
+        }
+                            
+        {% if settings.use_color_swatch %}
+        // BEGIN SWATCHES
+          var form = jQuery('#' + selector.domIdPrefix).closest('form');
+          for (var i=0,length=variant.options.length; i<length; i++) {
+            var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+            if (radioButton.size()) {
+              radioButton.get(0).checked = true;
+            }
+          }
+         // END SWATCHES
+         {% endif %}
+         
+          //update variant inventory
+        {% if settings.display_quickview_availability %}
+          var inventoryInfo = productItem.find('.product-inventory span');
+          if (variant.available) {
+            if (variant.inventory_management!=null) {
+              inventoryInfo.text(variant.inventory_quantity + " in stock");
+            } else {
+              inventoryInfo.text("Many in stock");
+            }
+          } else {
+            inventoryInfo.text("Out of stock");
+          }
+        {% endif %}
+    	updatePricingQuickView();
+    
+        {% if settings.enable_multiple_currencies %}
+        Currency.convertAll('{{ shop.currency }}', jQuery('#currencies').val(), 'span.money', 'money_format');
+        {% endif %}
+    	/*begin variant image*/
+        if (variant && variant.featured_image) {
+          var originalImage = jQuery(".product-featured-image-quickview");
+          var newImage = variant.featured_image;
+          var element = originalImage[0];
+          Shopify.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
+            jQuery('#thumblist_quickview img').each(function() {
+              var grandSize = jQuery(this).attr('src');
+              var native = newImageSizedSrc;
+              newImageSizedSrc = newImageSizedSrc.replace("https:", "");
+              var last = newImageSizedSrc .lastIndexOf("?");
+              if(last >= 0) {
+              	newImageSizedSrc = newImageSizedSrc.substr(0, newImageSizedSrc.length - (newImageSizedSrc.length - last));
+              }
+              
+              grandSize = grandSize.replace("_compact", "");
+              grandSize = grandSize.replace("_grande", "");
+              last = grandSize .lastIndexOf("?");
+              if(last >= 0) {
+              	grandSize = grandSize.substr(0, grandSize.length - (grandSize.length - last));
+              }
+              if (grandSize == newImageSizedSrc) {
+                changeImageQuickView(newImage, ".product-featured-image-quickview");
+//                 jQuery(this).closest("li").trigger('click');
+//                 jQuery("#product-featured-image-quickview").attr("src", native);
+                return false;
+              }
+            });
+          });        
+        }
+    	/*end of variant image*/
+    
+      } else {
+        // The variant doesn't exist. Just a safegaurd for errors, but disable the submit button anyway
+        addToCart.addClass('disabled').attr('disabled', 'disabled');
+        $(addToCart).find("span").text("Unavailable");
+      }
+  };
+</script>

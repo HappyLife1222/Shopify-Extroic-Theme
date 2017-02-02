@@ -1,0 +1,48 @@
+{% capture apvideo %}vermenuitem_evideo_{{ intMega }}{% endcapture %}
+{% capture approduct %}vermenuitem_eproduct_{{ intMega }}{% endcapture %}
+{% capture aphtml %}vermenuitem_ehtml_{{ intMega }}{% endcapture %}
+{% capture aplink %}vermenuitem_eblocklinks_{{ intMega }}{% endcapture %}
+
+{% capture ap_colvideo %}vermenuitem_columns_blockvideo_{{ intMega }}{% endcapture %}
+{% capture ap_colproduct %}vermenuitem_columns_blockproducts_{{ intMega }}{% endcapture %}
+{% capture ap_colhtml %}vermenuitem_columns_blockhtml_{{ intMega }}{% endcapture %}
+{% capture ap_collink %}vermenuitem_columns_blocklinks_{{ intMega }}{% endcapture %}
+
+
+{% capture apwidth %}vermenuitem_width_{{ intMega }}{% endcapture %}
+{% capture apstyle %}style='width:{{ settings[apwidth] }}'{% endcapture %}
+
+<div class="dropdown-sub dropdown-menu sub-apmegamenu-{{ intMega }}" {{ apstyle }}>
+	<div class="dropdown-menu-inner">
+		<div class="row">
+			{% if settings[aplink] %}
+				<div class="mega-col col-sm-{{ settings[ap_collink] }}">
+                  	{% capture ap_col_links %}vermenuitem_columns_{{ intMega }}{% endcapture %}
+					{% include 'menu-blocklinks' %}
+				</div>
+			{% endif %}
+			{% if settings[apvideo] %}
+				<div class="mega-col col-sm-{{ settings[ap_colvideo] }}">
+                  	{% capture ap_video %}vermenuitem_cvideo_{{ intMega }}{% endcapture %}
+					{% include 'menu-blockvideos' %}
+				</div>
+			{% endif %}
+			{% if settings[approduct] %}
+				<div class="mega-col col-sm-{{ settings[ap_colproduct] }}">
+                  	{% capture collection_menu %}vermenuitem_cproduct_{{ intMega }}{% endcapture %}
+                    {% capture collection_menu_title %}vermenuitem_tproduct_{{ intMega }}{% endcapture %}
+                    {% capture collection_product_limit %}vermenuitem_nproduct_{{ intMega }}{% endcapture %}
+					{% include 'menu-blockproducts' %}
+				</div>
+			{% endif %}
+			{% if settings[aphtml] %}
+				<div class="mega-col col-sm-{{ settings[ap_colhtml] }}">
+                  	{% capture ap_html_title %}vermenuitem_thtml_{{ intMega }}{% endcapture %}
+                    {% capture ap_html_img %}vermenuitem_ihtml_{{ intMega }}.jpg{% endcapture %}
+                    {% capture ap_html_des %}vermenuitem_chtml_{{ intMega }}{% endcapture %}
+					{% include 'menu-blockhtml' %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>

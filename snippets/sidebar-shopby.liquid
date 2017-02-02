@@ -1,0 +1,177 @@
+<!-- SHOP BY TYPE -->
+{% if settings.shop_by_type_enable and template == 'collection' %}
+	<div id="shopbytype" class="block">
+		{% if settings.shop_by_type_title != blank %}
+			<h4 class="title_block">
+				{{ settings.shop_by_type_title }}
+			</h4>
+		{% endif %}
+		<div class="block_content">
+			<ul class="list-block list-unstyled">
+				{% for type in collection.all_types limit:settings.shop_by_type_number %}
+					<li {% if collection.current_type == type %} class="active" {% endif %}>
+			          	{{ type | link_to_type }}
+			        </li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endif %}
+<!-- SHOP BY Vendor -->
+	{% if settings.shop_by_vendor_enable and collection.all_vendors.size > 0 %}
+		<div class="block">
+			{% if settings.shop_by_vendor_title != blank %}
+				<div class="title_block">
+					{{ settings.shop_by_vendor_title }}
+				</div>
+			{% endif %}
+			<div class="block_content">
+				<ul id="ul_catalog_vendor" class="list-block list-unstyled">
+					{% for vendor in collection.all_vendors %}
+						{% if collection.current_vendor == vendor %}
+							<li class="active" data-group="{{ settings.shop_by_vendor_title }}" data-handle="{{ collection.current_vendor | handleize }}">
+								{{ vendor | link_to_vendor }}
+							</li>
+						{% else %}
+							<li class="" data-group="{{ settings.shop_by_vendor_title }}">
+								{{ vendor | link_to_vendor }}
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	{% endif %}
+<!-- SHOP BY CATALOG -->
+{% if settings.shop_by_catalog_enable and template == 'collection' %}
+	<div id="catalog_block" class="block{% if settings.use_ajax_for_catalog_filter %} ajax-filter{% endif %} box">
+		{% if settings.shop_by_catalog_title != blank %}
+			<h4 class="title_block">
+				{{ settings.shop_by_catalog_title }}
+			</h4>
+		{% endif %}
+		<div style="" class="block_content">
+			<!-- SHOP BY SIZE -->
+			{% if settings.shop_by_size_enable %}
+				<div class="catalog_filters">
+					{% if settings.shop_by_size_title != blank %}
+						<div class="catalog_subtitle_heading">
+							<span class="catalog_subtitle">{{ settings.shop_by_size_title }}</span>
+						</div>
+					{% endif %}
+					<ul id="ul_catalog_size" class="col-md-12 catalog_filter_ul list-unstyled">
+						{% assign list_size = settings.shop_by_size_list | split: ',' %}
+						{% for size in list_size %}
+							{% assign custom_tag = size | strip %}
+							{% assign check = false %}
+							{% for ct in current_tags %}
+								{% if ct == custom_tag %}
+									{% assign check = true %}
+								{% endif %}
+							{% endfor %}
+							{% if check %}
+								<li class="advanced-filter active-filter col-md-6" data-group="{{ settings.shop_by_size_title }}" data-handle="{{ size | handleize }}">
+									{{ size | link_to_remove_tag: size }}
+								</li>
+							{% else %}
+								<li class="advanced-filter col-md-6" data-group="{{ settings.shop_by_size_title }}" data-handle="{{ size | handleize }}">
+									{{ size | link_to_add_tag: size }}
+								</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+			<!-- SHOP BY PRICE -->
+			{% if settings.shop_by_price_enable %}
+				<div class="catalog_filters">
+					{% if settings.shop_by_price_title != blank %}
+						<div class="catalog_subtitle_heading">
+							<span class="catalog_subtitle">{{ settings.shop_by_price_title }}</span>
+						</div>
+					{% endif %}
+					<ul id="ul_catalog_price" class="col-md-12 catalog_filter_ul list-unstyled">
+						{% assign list_price = settings.shop_by_price_list | split: ',' %}
+						{% for price in list_price %}
+							{% assign custom_tag = price | strip %}
+							{% assign check = false %}
+							{% for ct in current_tags %}
+								{% if ct == custom_tag %}
+									{% assign check = true %}
+								{% endif %}
+							{% endfor %}
+							{% if check %}
+								<li class="advanced-filter active-filter" data-group="{{ settings.shop_by_price_title }}" data-handle="{{ price | handleize }}">
+									{{ price | link_to_remove_tag: price }}
+								</li>
+							{% else %}
+								<li class="advanced-filter" data-group="{{ settings.shop_by_price_title }}" data-handle="{{ price | handleize }}">
+									{{ price | link_to_add_tag: price }}
+								</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+			<!-- SHOP BY Color -->
+			{% if settings.shop_by_color_enable %}
+				<div class="catalog_filters">
+					{% if settings.shop_by_color_title != blank %}
+						<div class="catalog_subtitle_heading">
+							<span class="catalog_subtitle">{{ settings.shop_by_color_title }}</span>
+						</div>
+					{% endif %}
+					<ul id="ul_catalog_color" class="col-md-12 list-unstyled color-group">
+						{% for i in (1..15) %}
+							{% capture color_text %}shop_by_color_text_{{i}}{% endcapture %}
+							{% capture color_image %}shop_by_color_image_{{i}}{% endcapture %}
+							{% if settings[color_text] != blank %}
+								{% assign current_tags_site = current_tags | strip | downcase %}
+								{% assign custom_tag = settings[color_text] | strip | downcase %}
+								{% if current_tags_site contains custom_tag %}
+									<li class="advanced-filter active-filter col-lg-6" data-group="{{ settings.shop_by_catalog_title }}" data-handle="{{ custom_tag | handleize }}">
+										<span class="catalog_color" style="background-color:{{ settings[color_image] }}">&nbsp;</span>
+										{{ settings[color_text] | link_to_remove_tag: custom_tag }}
+									</li>
+								{% else %}
+									<li class="advanced-filter col-lg-6" data-group="{{ settings.shop_by_catalog_title }}" data-handle="{{ custom_tag | handleize }}">
+										<span class="catalog_color" style="background-color:{{ settings[color_image] }}">&nbsp;</span>
+										{{ settings[color_text] | link_to_add_tag: custom_tag }}
+									</li>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	<script>
+        $(function() {
+            var currentTags = '{{ current_tags }}',
+                filters = $('.advanced-filter'),
+                activeTag,
+                activeHandle;
+            filters.each(function() {
+                var el = $(this),
+                    group = el.data('group'),
+                    isActive = el.hasClass('active-filter');
+            });
+            filters.on('click', function(e) {
+                var el = $(this),
+                group = el.data('group'),
+                url = el.find('a').attr('href');
+                if ( el.hasClass('active-filter') ) {
+                    return;
+                }
+                activeTag = $('.active-filter[data-group="'+ group +'"]');
+                if ( activeTag && activeTag.data('group') === group ) {
+                    e.preventDefault();
+                    activeHandle = activeTag.data('handle') + '+';
+                    url = url.replace(activeHandle, '');
+                    window.location = url;
+                }
+            });
+        });
+    </script>
+{% endif %}

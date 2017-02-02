@@ -1,0 +1,564 @@
+<section id="columns" class="columns-container">
+	<div class="container-fluid">
+      	{% include 'breadcrumb' %}
+		<div class="row">
+			<section id="center_column" class="col-sm-12 col-md-12">
+				<h1 class="page-heading bottom-indent">{{ page.title }}</h1>
+				<div class="rte">
+                  	{% include 'shortcode' load: page.content %}
+				</div>
+              	<article>
+                  	<h4>Facebook</h4>
+                  	<pre>[facebook idPage="apollotheme"]</pre>
+                    {% include 'shortcode' load: '[facebook idPage="apollotheme"]' %}
+                    <hr/>
+                </article>
+              	<article>
+                  	<h4>Youtube</h4>
+                  	<pre>[youtube width="600" height="350" video="aE7-KZVXvJs"]</pre>
+                    {% include 'shortcode' load: '[youtube width="600" height="350" video="aE7-KZVXvJs"]' %}
+                    <hr/>
+                </article>
+              	<article>
+                  	<h4>Font Awesome</h4>
+                  	<pre>[icon iconClass="envelope"] [icon iconClass="bar-chart"] [icon iconClass="motorcycle"] [icon iconClass="automobile"] [icon iconClass="heart"]</pre>
+                  	{% include 'shortcode' load: '<!--[icon iconClass="envelope"] [icon iconClass="bar-chart"]
+                    [icon iconClass="motorcycle"] [icon iconClass="automobile"][icon heart]-->' %}
+                </article>
+              	<article>
+                  	<h4>Alert</h4>
+                  	<pre>
+                    [alert type="success" message="This is alert type Success"]
+                    [alert type="info" message="This is alert type Info"]
+                    [alert type="warning" message="This is alert type Warning"]
+                    [alert type="danger" message="This is alert type Danger"]</pre>
+                    {% include 'shortcode' load: '<!--[alert type="success" message="This is alert type Success"]-->' %}
+                    {% include 'shortcode' load: '<!--[alert type="info" message="This is alert type Info"]-->' %}
+                    {% include 'shortcode' load: '<!--[alert type="warning" message="This is alert type Warning"]-->' %}
+                    {% include 'shortcode' load: '<!--[alert type="danger" message="This is alert type Danger"]-->' %}
+                    <hr/>
+                </article>
+				<article>
+                  	<h4>Button</h4>
+                  	<pre>
+                    Button Type
+                    [button type="default" text="Default" url="http://www.shopify.com/"]
+                    [button type="primary" text="Primary"]
+                    [button type="success" text="Success"]
+                    [button type="Info" text="Info"]
+                    [button type="Danger" text="Danger"]
+                    [button type="Link" text="Link" url="http://www.shopify.com/" isOpen="isOpen"]
+                    Button Size
+                    [button type="default" text="Default size large" size="lg"]
+                    [button type="primary" text="Primary size default"]
+                    [button type="success" text="Success size small" size="sm"]
+                    [button type="Info" text="Info size extra small" size="xs"]
+                    Button Block
+                    [button type="Danger" text="Danger size block" isBlock="block"]
+                    Button Link
+                    [button type="default" text="Default and link" url="http://www.shopify.com/"]
+                    [button type="primary" text="Primary and link open new tab" url="http://www.shopify.com/" isOpen="isOpen"]</pre>
+                    <h5>Button Type</h5>
+                    {% include 'shortcode' load: '<!--[button type="default" text="Default" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Primary"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="success" text="Success"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="Info" text="Info"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="Danger" text="Danger"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="Link" text="Link" url="http://www.shopify.com/" isOpen="isOpen"]-->' %}
+                    <h5>Button Size</h5>
+                    {% include 'shortcode' load: '<!--[button type="default" text="Default size large" size="lg"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Primary size default"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="success" text="Success size small" size="sm"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="Info" text="Info size extra small" size="xs"]-->' %}
+                    <h5>Button Block</h5>
+                    {% include 'shortcode' load: '<!--[button type="Danger" text="Danger size block" isBlock="block"]-->' %}
+                    <h5>Button Link</h5>
+                    {% include 'shortcode' load: '<!--[button type="default" text="Default and link" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Primary and link open new tab" url="http://www.shopify.com/" isOpen="isOpen"]-->' %}
+                    <hr/>
+                </article>
+              	<article>
+                  	<h4>accordion shortcode</h4>
+                    <pre>
+                    [accordion action="new accordions" class="demoaccordion"]
+                    	[accordion action="new accordion" title="accordion title sample 1" active="1"]
+                    		You can add html
+                    	[accordion action="end accordion"]
+                    	[accordion action="new accordion" title="accordion title sample 2"]
+                    		You can add other shortcode
+                    	[accordion action="end accordion"]
+                    	[accordion action="new accordion" title="accordion title sample 3"]
+                        	You can add image
+                    	[accordion action="end accordion"]
+                    [accordion action="end accordions"]</pre>
+                    {% include 'shortcode' load: '<!--[accordion action="new accordions" class="demoaccordion"]
+                        [accordion action="new accordion" title="accordion title sample 1" active="1"]
+                            You can add html
+                        [accordion action="end accordion"]
+                        [accordion action="new accordion" title="accordion title sample 2"]
+                            You can add other shortcode
+                        [accordion action="end accordion"]
+                        [accordion action="new accordion" title="accordion title sample 3"]
+                            You can add image
+                        [accordion action="end accordion"]
+                    [accordion action="end accordions"]-->' %}
+                    <hr/>
+                </article>
+              	<article>
+                  	<h4>Default Tab Align Left</h4>
+                  	<pre>
+                        [tab action="new tabs" ]
+                            [tab action="new cover-tab-list"]
+                                [tab action="new tab-list" title="Tab 1" active="active"]
+                                [tab action="new tab-list" title="Tab 2"]
+                                [tab action="new tab-list" title="Tab 3"]
+                                [tab action="new tab-list" title="Tab 4"]
+                            [tab action="end cover-tab-list"]
+                            [tab action="new tab-content"]
+                                [tab action="new tab-panel" active="active"]
+                                    Content tab 1
+                                [tab action="end tab-panel"]
+                                [tab action="new tab-panel"]
+                                    Content tab 2
+                                [tab action="end tab-panel"]
+                                [tab action="new tab-panel"]
+                                    Content tab 3
+                                [tab action="end tab-panel"]
+                                [tab action="new tab-panel"]
+                                    Content tab 4
+                                [tab action="end tab-panel"]
+                            [tab action="end tab-content"]
+                        [tab action="end tabs"]
+                    </pre>
+                  	{% include 'shortcode' load: '[tab action="new tabs" ]' %}
+                        {% include 'shortcode' load: '[tab action="new cover-tab-list"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-list" title="Tab 1" active="active"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-list" title="Tab 2"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-list" title="Tab 3"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-list" title="Tab 4"]' %}
+                        {% include 'shortcode' load: '[tab action="end cover-tab-list"]' %}
+                        {% include 'shortcode' load: '[tab action="new tab-content"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-panel" active="active"]' %}
+                                Content tab 1
+                            {% include 'shortcode' load: '[tab action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-panel"]' %}
+                                Content tab 2
+                            {% include 'shortcode' load: '[tab action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-panel"]' %}
+                                Content tab 3
+                            {% include 'shortcode' load: '[tab action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tab action="new tab-panel"]' %}
+                                Content tab 4
+                            {% include 'shortcode' load: '[tab action="end tab-panel"]' %}
+                        {% include 'shortcode' load: '[tab action="end tab-content"]' %}
+                    {% include 'shortcode' load: '[tab action="end tabs"]' %}
+                  	<hr/>
+                </article>
+              	<article>
+                  	<h4>Tab below</h4>
+                  	<pre>
+                        [tabbelow action="new tabs" ]
+                            [tabbelow action="new tab-content"]
+                                [tabbelow action="new tab-panel" active="active"]
+                                    Content tab 1
+                                [tabbelow action="end tab-panel"]
+                                [tabbelow action="new tab-panel"]
+                                    Content tab 2
+                                [tabbelow action="end tab-panel"]
+                                [tabbelow action="new tab-panel"]
+                                    Content tab 3
+                                [tabbelow action="end tab-panel"]
+                                [tabbelow action="new tab-panel"]
+                                    Content tab 4
+                                [tabbelow action="end tab-panel"]
+                            [tabbelow action="end tab-content"]
+                            [tabbelow action="new cover-tab-list"]
+                                [tabbelow action="new tab-list" title="Tab 1" active="active"]
+                                [tabbelow action="new tab-list" title="Tab 2"]
+                                [tabbelow action="new tab-list" title="Tab 3"]
+                                [tabbelow action="new tab-list" title="Tab 4"]
+                            [tabbelow action="end cover-tab-list"]
+                        [tabbelow action="end tabs"]
+                    </pre>
+                  	<div class="clearfix">
+                  	{% include 'shortcode' load: '[tabbelow action="new tabs"]' %}
+                        {% include 'shortcode' load: '[tabbelow action="new tab-content"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-panel" active="active"]' %}
+                                Content tab 1
+                            {% include 'shortcode' load: '[tabbelow action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-panel"]' %}
+                                Content tab 2
+                            {% include 'shortcode' load: '[tabbelow action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-panel"]' %}
+                                Content tab 3
+                            {% include 'shortcode' load: '[tabbelow action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-panel"]' %}
+                                Content tab 4
+                            {% include 'shortcode' load: '[tabbelow action="end tab-panel"]' %}
+                        {% include 'shortcode' load: '[tabbelow action="end tab-content"]' %}
+                        {% include 'shortcode' load: '[tabbelow action="new cover-tab-list"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-list" title="Tab 1" active="active"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-list" title="Tab 2"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-list" title="Tab 3"]' %}
+                            {% include 'shortcode' load: '[tabbelow action="new tab-list" title="Tab 4"]' %}
+                        {% include 'shortcode' load: '[tabbelow action="end cover-tab-list"]' %}
+                    {% include 'shortcode' load: '[tabbelow action="end tabs"]' %}
+                  	</div>
+                  	<hr/>
+                </article>
+              	<article>
+                  	<h4>Tab Vertical</h4>
+                  	<pre>
+                    	[tabvertical action="new tabs" ]
+                            [tabvertical action="new cover-tab-list"]
+                                [tabvertical action="new tab-list" title="Tab 1" active="active"]
+                                [tabvertical action="new tab-list" title="Tab 2"]
+                                [tabvertical action="new tab-list" title="Tab 3"]
+                                [tabvertical action="new tab-list" title="Tab 4"]
+                            [tabvertical action="end cover-tab-list"]
+                            [tabvertical action="new tab-content"]
+                                [tabvertical action="new tab-panel" active="active"]
+                                    Content tab 1
+                                [tabvertical action="end tab-panel"]
+                                [tabvertical action="new tab-panel"]
+                                    Content tab 2
+                                [tabvertical action="end tab-panel"]
+                                [tabvertical action="new tab-panel"]
+                                    Content tab 3
+                                [tabvertical action="end tab-panel"]
+                                [tabvertical action="new tab-panel"]
+                                    Content tab 4
+                                [tabvertical action="end tab-panel"]
+                            [tabvertical action="end tab-content"]
+                        [tabvertical action="end tabs"]
+                    </pre>
+                  	<div class="clearfix">
+                  	{% include 'shortcode' load: '[tabvertical action="new tabs" ]' %}
+                        {% include 'shortcode' load: '[tabvertical action="new cover-tab-list"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-list" title="Tab 1" active="active"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-list" title="Tab 2"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-list" title="Tab 3"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-list" title="Tab 4"]' %}
+                        {% include 'shortcode' load: '[tabvertical action="end cover-tab-list"]' %}
+                        {% include 'shortcode' load: '[tabvertical action="new tab-content"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-panel" active="active"]' %}
+                                Content tab 1
+                            {% include 'shortcode' load: '[tabvertical action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-panel"]' %}
+                                Content tab 2
+                            {% include 'shortcode' load: '[tabvertical action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-panel"]' %}
+                                Content tab 3
+                            {% include 'shortcode' load: '[tabvertical action="end tab-panel"]' %}
+                            {% include 'shortcode' load: '[tabvertical action="new tab-panel"]' %}
+                                Content tab 4
+                            {% include 'shortcode' load: '[tabvertical action="end tab-panel"]' %}
+                        {% include 'shortcode' load: '[tabvertical action="end tab-content"]' %}
+                    {% include 'shortcode' load: '[tabvertical action="end tabs"]' %}
+                  	</div>
+                  	<hr/>
+              	</article>
+              	<article>
+                  	<h4>LightBox</h4>
+                  	<pre>[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" text="Content is image" class="btn btn-info"</pre>
+                  	{% include 'shortcode' load: '<!--[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" text="Content is a image" class="btn btn-info"]-->' %}
+                  	<hr/>
+                  	<pre>[lightbox url="#id-content-html" text="Content is html"]
+&ltdiv id="id-content-html" style="display: none;" &gtThis is content html, you can append other text, shortcodes:&ltbr/&gt&ltbr/&gt
+[button isOpen="open" type="primary" text="Start here" url="http://www.shopify.com/" class="btn btn-info"]&lt/div&gt</pre>
+                  	<div id="id-content-html" style="display: none;">This is content html, you can append other text, shortcodes:
+                        <br/><br/>
+                        <center>{% include 'shortcode' load: '<!--[button isOpen="open" type="primary" text="Start here" url="http://www.shopify.com/"]-->' %}</center>
+                    </div>
+                    {% include 'shortcode' load: '<!--[lightbox url="#id-content-html" text="Content is html" class="btn btn-info"]-->' %}
+                  	<hr/>
+                  	<pre>[lightbox url="https://www.youtube.com/embed/oWVqE9TOopE?autoplay=1" text="Type iFrame" type="iframe" class="btn btn-info"]</pre>
+                  	{% include 'shortcode' load: '<!--[lightbox url="https://www.youtube.com/embed/oWVqE9TOopE?autoplay=1" type="iframe" text="Type iFrame" class="btn btn-info"]-->' %}
+                  	<hr/>
+                  	<pre>[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" text="Effect is fade"  effect="fade" class="btn btn-info"]
+[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" text="Effect is elastic"  effect="elastic" class="btn btn-info"]
+[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" text="Effect is none"  effect="none" class="btn btn-info"]</pre>
+                  	{% include 'shortcode' load: '<!--[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" effect="fade" text="Effect is fade" class="btn btn-info"]-->' %}
+					{% include 'shortcode' load: '<!--[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" effect="elastic" text="Effect is elastic" class="btn btn-info"]-->' %}
+					{% include 'shortcode' load: '<!--[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" effect="none" text="Effect is none" class="btn btn-info"]-->' %}
+                  	<hr/>
+                  	<pre>[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" text="Image 1" effect="fade" type="gallery" skipJs="true" rel="gallery-1"]
+[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/42_d3f99124-d8ca-4dd5-b6d2-d74b3feb31b1_large.jpeg?v=1425525113" text="Image 2" effect="fade" type="gallery" skipJs="true" rel="gallery-1"]
+[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/21_1b737bd3-c656-43be-8e96-6a8aeaaaf19b_large.jpeg?v=1425525113" text="Image 3" effect="fade" type="gallery"  rel="gallery-1"]</pre>
+                  	{% include 'shortcode' load: '<!--[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/11_large.jpeg?v=1425525113" text="Image 1" effect="fade" type="gallery" skipJs="true" rel="gallery-1"]-->' %}
+            		{% include 'shortcode' load: '<!--[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/42_d3f99124-d8ca-4dd5-b6d2-d74b3feb31b1_large.jpeg?v=1425525113" text="Image 2" effect="fade" type="gallery" skipJs="true" rel="gallery-1"]-->' %}
+            		{% include 'shortcode' load: '<!--[lightbox url="http://cdn.shopify.com/s/files/1/0740/5717/products/21_1b737bd3-c656-43be-8e96-6a8aeaaaf19b_large.jpeg?v=1425525113" text="Image 3" effect="fade" type="gallery" rel="gallery-1"]-->' %}
+                  	<hr/>
+              	</article>
+              	<article>
+                  	<h4>LightBox</h4>
+                  	<pre>[tooltip placement="left" type="button" text="Tooltip on left" title="Tooltip on left" class="my-tooltip" id="id-tooltip-1" url="http://shopify.com" isOpen="open"]
+[tooltip placement="right" type="span" text="Tooltip on right" title="Tooltip on right and link" class="my-tooltip" id="id-tooltip-2" url="http://shopify.com"]
+[tooltip placement="top" type="button" text="Tooltip on top" title="Tooltip on top and not link" class="my-tooltip" id="id-tooltip-3"]
+[tooltip placement="bottom" type="span" text="Tooltip on bottom" title="Tooltip on bottom and not link" class="my-tooltip" id="id-tooltip-4"]</pre>
+            		{% include 'shortcode' load: '<!--[tooltip placement="left" type="button" text="Tooltip on left" title="Tooltip on left and link" class="my-tooltip" id="id-tooltip-1" url="http://shopify.com" isOpen="open"]-->' %}
+            		{% include 'shortcode' load: '<!--[tooltip placement="right" type="span" text="Tooltip on right" title="Tooltip on right and link" class="my-tooltip" id="id-tooltip-2" url="http://shopify.com"]-->' %}
+                  	{% include 'shortcode' load: '<!--[tooltip placement="top" type="button" text="Tooltip on top" title="Tooltip on top and not link" class="my-tooltip" id="id-tooltip-3"]-->' %}
+            		{% include 'shortcode' load: '<!--[tooltip placement="bottom" type="span" text="Tooltip on bottom" title="Tooltip on bottom and not link" class="my-tooltip" id="id-tooltip-4"]-->' %}
+                  	<hr/>
+              	</article>
+              	<article>
+                  	<h4>Box</h4>
+                  	<pre>
+[box action="new box" class="box-default" width="1"]
+[box action="new header"]
+	The header box
+[box action="end header"]
+[box action="new content"]
+	You can append html or other shortcodes
+[button type="primary" text="Learn more →" url="http://www.shopify.com/"]
+[box action="end content"]
+[box action="end box"]
+					</pre>
+                  	{% include 'shortcode' load: '<!--[box action="new box" class="box-default" width="1"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new header"]-->' %}
+                    	The header box
+                    {% include 'shortcode' load: '<!--[box action="end header"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new content"]-->' %}
+                    	You can append html or other shortcodes
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Learn more →" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end content"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end box"]-->' %}
+                    {% include 'shortcode' load: '<!--[line class="hr-default"]-->' %}
+					<pre>
+&lt;div class="row"&gt;
+    [box action="new box" class="box-default" width="2"]
+    [box action="new header"]
+    	The header box
+    [box action="end header"]
+    [box action="new content"]
+    	Our graphic design services are stellar, too
+    [button type="primary" text="Learn more →" url="http://www.shopify.com/"]
+    [box action="end content"]
+    [box action="end box"]
+    [box action="new box" class="box-default" width="2"]
+    [box action="new header"]
+    	The header box
+    [box action="end header"]
+    [box action="new content"]
+    	Our graphic design services are stellar, too
+    [button type="primary" text="Learn more →" url="http://www.shopify.com/"]
+    [box action="end content"]
+    [box action="end box"]
+&lt;/div&gt;
+					</pre>
+                    <div class="clearfix row">
+                    {% include 'shortcode' load: '<!--[box action="new box" class="box-default" width="2"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new header"]-->' %}
+                    	The header box
+                    {% include 'shortcode' load: '<!--[box action="end header"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new content"]-->' %}
+                    	Our graphic design services are stellar, too
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Learn more →" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end content"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end box"]-->' %}
+                  	
+                    {% include 'shortcode' load: '<!--[box action="new box" class="box-default" width="2"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new header"]-->' %}
+                    The header box
+                    {% include 'shortcode' load: '<!--[box action="end header"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new content"]-->' %}
+                    Our graphic design services are stellar, too
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Learn more →" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end content"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end box"]-->' %}
+                    {% include 'shortcode' load: '<!--[line class="hr-default"]-->' %}
+                    </div>
+                  	<pre>
+&lt;div class="row"&gt;
+    [box action="new box" class="box-default" width="3"]
+    [box action="new header"]
+    	The header box
+    [box action="end header"]
+    [box action="new content"]
+    	Our graphic design services are stellar, too
+    [button type="primary" text="Learn more →" url="http://www.shopify.com/"]
+    [box action="end content"]
+    [box action="end box"]
+    [box action="new box" class="box-default" width="3"]
+    [box action="new header"]
+    	The header box
+    [box action="end header"]
+    [box action="new content"]
+    	Our graphic design services are stellar, too
+    [button type="primary" text="Learn more →" url="http://www.shopify.com/"]
+    [box action="end content"]
+    [box action="end box"]
+    [box action="new box" class="box-default" width="3"]
+    [box action="new header"]
+    	The header box
+    [box action="end header"]
+    [box action="new content"]
+    	Our graphic design services are stellar, too
+    [button type="primary" text="Learn more →" url="http://www.shopify.com/"]
+    [box action="end content"]
+    [box action="end box"]
+&lt;/div&gt;
+					</pre>
+                  	<div class="clearfix row">
+                    {% include 'shortcode' load: '<!--[box action="new box" class="box-default" width="3"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new header"]-->' %}
+                    	The header box
+                    {% include 'shortcode' load: '<!--[box action="end header"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new content"]-->' %}
+                    	Our graphic design services are stellar, too
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Learn more →" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end content"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end box"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new box" class="box-default" width="3"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new header"]-->' %}
+                    	The header box
+                    {% include 'shortcode' load: '<!--[box action="end header"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new content"]-->' %}
+                    	Our graphic design services are stellar, too
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Learn more →" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end content"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end box"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new box" class="box-default" width="3"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new header"]-->' %}
+                    	The header box
+                    {% include 'shortcode' load: '<!--[box action="end header"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="new content"]-->' %}
+                    	Our graphic design services are stellar, too
+                    {% include 'shortcode' load: '<!--[button type="primary" text="Learn more →" url="http://www.shopify.com/"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end content"]-->' %}
+                    {% include 'shortcode' load: '<!--[box action="end box"]-->' %}
+                  	</div>
+                  	<hr/>
+				</article>
+              	<article>
+                  	<h4>Line</h4>
+                  	<pre>[line class="hr-default" size="1"][line class="hr-green" size="10"]</pre>
+            		{% include 'shortcode' load: '<!--[line class="hr-default"]-->' %}
+            		{% include 'shortcode' load: '<!--[line class="hr-green" size="10"]-->' %}
+                  	<hr/>
+                </article>
+              	<article>
+                  	<h4>Slider</h4>
+                  	<pre>
+[carousel action="new slider" class="my-carousel-1"]
+[carousel action="display indicators" total="3" active="1"]
+[carousel action="new list slide"]
+[carousel action="new slide" active="active" ]
+<!--Your html code-->
+&ltimg src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+1" alt="altttttttt"&gt
+&ltdiv class="carousel-caption"&gtCaption 1&lt/div&gt
+[carousel action="end slide"]
+[carousel action="new slide"]
+&ltimg src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+2" alt="altttttttt"&gt
+&ltdiv class="carousel-caption"&gtCaption 2&lt/div&gt
+[carousel action="end slide"]
+[carousel action="new slide"]
+&ltimg src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+3" alt="altttttttt"&gt
+&ltdiv class="carousel-caption"&gtCaption 3&lt/div&gt
+[carousel action="end slide"]
+[carousel action="end list slide"]
+[carousel action="display control"]
+[carousel action="end slider"]
+            		</pre>
+                  	{% include 'shortcode' load: '[carousel action="new slider" class="my-carousel-1"]' %}
+                        {% include 'shortcode' load: '[carousel action="display indicators" total="3" active="1"]' %}
+                        {% include 'shortcode' load: '[carousel action="new list slide"]' %}
+                            {% include 'shortcode' load: '[carousel action="new slide" active="active" ]' %}
+                            <img src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+1" alt="altttttttt">
+                            <div class="carousel-caption">Caption 1</div>
+                            {% include 'shortcode' load: '[carousel action="end slide"]' %}
+                            {% include 'shortcode' load: '[carousel action="new slide"]' %}
+                            <img src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+2" alt="altttttttt">
+                            <div class="carousel-caption">Caption 2</div>
+                            {% include 'shortcode' load: '[carousel action="end slide"]' %}
+                            {% include 'shortcode' load: '[carousel action="new slide"]' %}
+                            <img src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+3" alt="altttttttt">
+                            <div class="carousel-caption">Caption 3</div>
+                            {% include 'shortcode' load: '[carousel action="end slide"]' %}
+                        {% include 'shortcode' load: '[carousel action="end list slide"]' %}
+                        {% include 'shortcode' load: '[carousel action="display control"]' %}
+                    {% include 'shortcode' load: '[carousel action="end slider"]' %}
+                    <hr/>
+                  	<h4>Slider 2</h4>
+                  	{% include 'shortcode' load: '[carousel action="new slider" interval="3000" class="my-carousel-1"]' %}
+                        {% include 'shortcode' load: '[carousel action="display indicators" total="3" active="1"]' %}
+                        {% include 'shortcode' load: '[carousel action="new list slide"]' %}
+                            {% include 'shortcode' load: '[carousel action="new slide" active="active" ]' %}
+                            <img src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+1" alt="altttttttt">
+                            <div class="carousel-caption">Caption 1</div>
+                            {% include 'shortcode' load: '[carousel action="end slide"]' %}
+                            {% include 'shortcode' load: '[carousel action="new slide"]' %}
+                            <img src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+2" alt="altttttttt">
+                            <div class="carousel-caption">Caption 2</div>
+                            {% include 'shortcode' load: '[carousel action="end slide"]' %}
+                            {% include 'shortcode' load: '[carousel action="new slide"]' %}
+                            <img src="http://placehold.it/1600x400/333333/FFFFFF&text=Slide+3" alt="altttttttt">
+                            <div class="carousel-caption">Caption 3</div>
+                            {% include 'shortcode' load: '[carousel action="end slide"]' %}
+                        {% include 'shortcode' load: '[carousel action="end list slide"]' %}
+                        {% include 'shortcode' load: '[carousel action="display control"]' %}
+                    {% include 'shortcode' load: '[carousel action="end slider"]' %}
+                </article>
+              	<article>
+                  	<h4>Product List</h4>
+                  	<pre>[productlist handle="women" columnsProduct="3" limit="6" class="my-product-list" id="id-product-list"]</pre>
+            		{% include 'shortcode' load: '<!--[productlist handle="women" columnsProduct="3" limit="6" class="my-product-list" id="id-product-list"]-->' %}
+              	</article>
+              	<article>
+                    <h4>OwlCarousel</h4>
+                    <pre>
+[owlcarousel action="new owlcarousels" class="demo-carousel" columns_item="1"]
+	[owlcarousel action="new owlcarousel"]
+		&lt;img alt="Autumn Collection 2015" src="//cdn.shopify.com/s/files/1/0766/6813/t/2/assets/slideshow_image_1.jpg"&gt;
+	[owlcarousel action="end owlcarousel"]
+	[owlcarousel action="new owlcarousel"]
+		&lt;img alt="Autumn Collection 2015" src="//cdn.shopify.com/s/files/1/0766/6813/t/2/assets/slideshow_image_2.jpg"&gt;
+	[owlcarousel action="end owlcarousel"]
+	[owlcarousel action="new owlcarousel"]
+		&lt;img alt="Autumn Collection 2015" src="//cdn.shopify.com/s/files/1/0766/6813/t/2/assets/slideshow_image_3.jpg"&gt;
+	[owlcarousel action="end owlcarousel"]
+[owlcarousel action="end owlcarousels"]
+                    </pre>
+                    {% include 'shortcode' load: '<!--[owlcarousel action="new owlcarousels" class="demo-carousel" columns_item="2"]
+                        [owlcarousel action="new owlcarousel"]
+                        <img alt="Autumn Collection 2015" src="//cdn.shopify.com/s/files/1/0766/6813/t/2/assets/slideshow_image_1.jpg">
+                        [owlcarousel action="end owlcarousel"]
+                        [owlcarousel action="new owlcarousel"]
+                        <img alt="Autumn Collection 2015" src="//cdn.shopify.com/s/files/1/0766/6813/t/2/assets/slideshow_image_2.jpg">
+                        [owlcarousel action="end owlcarousel"]
+                        [owlcarousel action="new owlcarousel"]
+                        <img alt="Autumn Collection 2015" src="//cdn.shopify.com/s/files/1/0766/6813/t/2/assets/slideshow_image_3.jpg">
+                        [owlcarousel action="end owlcarousel"]
+                    [owlcarousel action="end owlcarousels"]-->' %}
+                    <hr/>
+                </article>
+              	<article>
+                    <h4>Carousel Product List</h4>
+                    <pre>[productcarousel title="Product list" handle="women" item_in_page="4" columns_product="4" product_in_tab="8" interval="10000"]</pre>
+                  	{% include 'shortcode' load: '<!--[productcarousel title="Product list" handle="women" item_in_page="8" columns_product="4" product_in_tab="16" interval="10000"]-->' %}
+                    <hr/>
+                </article>
+              	<article>
+                    <h4>OwlCarousel Product List</h4>
+                    <pre>[productowlcarousel title="Product list" handle="women" columns_product="4" product_in_list="16" interval="10000"]</pre>
+                  	{% include 'shortcode' load: '<!--[productowlcarousel title="Product list" handle="women" columns_product="4" product_in_list="16" interval="10000"]-->' %}
+                    <hr/>
+                </article>
+              	<article>
+                    <h4>Instagram shortcode</h4>
+                    <p><a href="http://help.dimsemenov.com/kb/wordpress-royalslider-faq/wp-how-to-get-instagram-client-id-and-client-secret-key" title="ClientID" target="_ebank">How to get Instagram "client ID".</a></p>
+                    <p><a href="http://www.pinceladasdaweb.com.br/instagram/access-token/" title="UserId" target="_ebank">Get userID and accessToken</a></p>
+                    <pre>
+[instagram class="demo-instagram" title="Demo Instagram" clientId="981ec7c9426149c5b01a775543b9ade0" get="popular" limit="10" resolution="low_resolution"]
+[instagram class="demo-instagram" title="Demo Instagram" clientId="981ec7c9426149c5b01a775543b9ade0" get="tagged" tagName="" limit="10" resolution="low_resolution"]
+[instagram class="demo-instagram" title="Demo Instagram" clientId="981ec7c9426149c5b01a775543b9ade0" get="location" locationId="" limit="10" resolution="low_resolution"]
+[instagram class="demo-instagram" title="Demo Instagram" clientId="981ec7c9426149c5b01a775543b9ade0" accessToken="1963201168.5b9e1e6.ea3d30c85d7a4af98efb85c4695dc846" get="user" userId="1963201168" limit="10" resolution="low_resolution"]
+                    </pre>
+                    {% include 'shortcode' load: '<!--[instagram class="demo-instagram" title="Demo Instagram" clientId="981ec7c9426149c5b01a775543b9ade0" get="popular" limit="10" resolution="low_resolution"]-->' %}
+                    <hr/>
+                </article>
+			</section>
+		</div>
+	</div>
+</section>

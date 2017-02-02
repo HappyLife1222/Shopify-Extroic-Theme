@@ -1,0 +1,39 @@
+<div class="socialsharing_product no-print">
+    <ul class="social-sharing list-unstyled">
+        {% if settings.product_page_social_twitter_enable %}
+            <li>
+                <a class="btn btn-twitter" target="_blank" href="https://twitter.com/intent/tweet?text={{ product.title | truncate: 30 }}&amp;url=http&#58;&#47;&#47;{{ shop.domain }}{{ product.url | replace: '/', '%2F' }}&amp;">
+                    <i class="fa fa-twitter"></i> Tweet
+                </a>
+            </li>
+        {% endif %}
+        {% if settings.product_page_social_facebook_enable %}
+            <li>
+                <a class="btn btn-facebook" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=http&#58;&#47;&#47;{{ shop.domain }}{{ product.url }}">
+                    <i class="fa fa-facebook"></i> Facebook
+                </a>
+            </li>
+        {% endif %}
+        {% if settings.product_page_social_google_enable %}
+            <li>
+                <a class="btn btn-google-plus" target="_blank" href="https://plus.google.com/share?url=http&#58;&#47;&#47;{{ shop.domain }}{{ product.url }}">
+                    <i class="fa fa-google-plus"></i> Google+
+                </a>
+            </li>
+        {% endif %}
+        {% if settings.product_page_social_linkedin_enable %}
+            <li>
+                <a class="btn btn-linkedin" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http&#58;&#47;&#47;{{ shop.domain }}{{ product.url }}&amp;title={{ product.title | truncate: 30 }}&amp;summary={{ product.description | strip_html | truncate: 240 }}&amp;source=http&#58;&#47;&#47;{{ shop.domain }}{{ product.url }}">
+                    <i class="fa fa-linkedin"></i> Linkedin
+                </a>
+            </li>
+        {% endif %}
+        {% if settings.product_page_social_pinterest_enable %}
+            <li>
+                <a class="btn btn-pinterest" target="_blank" href="http://pinterest.com/pin/create/button/?url=http&#58;&#47;&#47;{{ shop.domain }}{{ product.url }}&amp;description={{ product.description | strip_html | truncate: 240 }}&amp;media={{ product.featured_image.src | product_img_url: 'large' }}">
+                    <i class="fa fa-pinterest-p"></i> Pinterest
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

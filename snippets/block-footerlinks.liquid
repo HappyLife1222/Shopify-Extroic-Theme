@@ -1,0 +1,21 @@
+{% capture linklists_name %}{{ footerlinks_name }}{% endcapture %}
+<div class="footer-block block" id="block_links_footer_{{ block-footerlinks }}">
+	{% if footerlinks_title != blank %}
+		<h4 class="title_block">{{ footerlinks_title }}</h4>
+	{% endif %}
+  	{%if footerlinks_title == 'Customer Services'%}
+  		<div class="block_content">
+          {{settings.footer_customer_services}}
+  		</div>
+  	{%else%}
+	<div class="block_content">
+		<ul style="" class="toggle-footer list-unstyled">
+			{% for link in linklists[linklists_name].links %}
+				<li class="item">
+					<a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+  	{%endif%}
+</div>

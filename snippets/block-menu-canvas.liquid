@@ -1,0 +1,258 @@
+{% if settings.apollo_canvas_style == 'styleone' %}
+<section id="off-canvas-nav" class="apollo-megamenu">
+	<nav class="offcanvas-mainnav">
+		<div id="off-canvas-button">
+			<span class="off-canvas-nav"><i class="fa fa-close"></i></span>
+			{{ 'general.megamenu.close_menu' | t }}
+		</div>
+		<ul class="nav navbar-nav megamenu">
+			{% for link in linklists.main-menu.links %}
+                {% assign hasMega = false %}
+                {% assign intMega = 0 %}
+                {% assign link_title = link.title | downcase %}
+                {% assign fullwidth = '' %}
+                {% for i in (1..5) %}
+                    {% capture apmegamenu %}apmenuitem_enable_{{ i }}{% endcapture %}
+                    {% capture apmegamenu_title %}apmenuitem_title_{{ i }}{% endcapture %}
+                    {% assign megamenu_title = settings[apmegamenu_title] | strip | downcase %}
+                    {% if settings[apmegamenu] %}
+                        {% if link_title == megamenu_title %}
+                            {% assign hasMega = true %}
+                            {% assign intMega = i %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if hasMega %}
+                    {% capture apfullwidth %}apmenuitem_fullwidth_{{ intMega }}{% endcapture %}
+                    {% if settings[apfullwidth] %}
+                        {% assign fullwidth = 'full-width' %}
+                    {% else %}
+                        {% assign fullwidth = 'aligned-center' %}
+                    {% endif %}
+                    <li class="parent dropdown {{ fullwidth }} {% if link.active %}active{% endif %}">
+                        <a class="dropdown-toggle has-category" data-toggle="dropdown" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+                            <span class="menu-title">{{ link.title }}</span><b class="caret"></b>
+                        </a>
+                        {% assign mega_link_handle = link.handle %}
+                        {% include 'menu-megamenu' %}
+                    </li>
+                {% else %}
+                    {% if linklists[link.handle] != empty %}
+                        <li class="parent dropdown {% if link.active %}active{% endif %}">
+                            <a class="dropdown-toggle has-category" data-toggle="dropdown" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+                                <span class="">{{ link.title }}</span><b class="caret"></b>
+                            </a>
+                            <div class="dropdown-menu level1">
+                                <div class="dropdown-menu-inner">
+                                    <div class="mega-col-inner">
+                                        <ul>
+                                            {% for child_link in linklists[link.handle].links %}
+                                                {% if linklists[child_link.handle] != empty %}
+                                                    <li class="parent dropdown-submenu {% if child_link.active %}active{% endif %}">
+                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                                                            <span class="">{{ child_link.title }}</span><b class="caret"></b>
+                                                        </a>
+                                                        <div class="dropdown-menu level2">
+                                                            <div class="dropdown-menu-inner">
+                                                                <div class="mega-col-inner">
+                                                                    <ul>
+                                                                        {% for child_link1 in linklists[child_link.handle].links %}
+                                                                            {% if linklists[child_link1.handle] != empty %}
+                                                                                <li class="parent dropdown-submenu {% if child_link1.active %}active{% endif %}">
+                                                                                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                                                                                        <span class="">{{ child_link1.title }}</span><b class="caret"></b>
+                                                                                    </a>
+                                                                                    <div class="dropdown-menu level2">
+                                                                                        <div class="dropdown-menu-inner">
+                                                                                            <div class="mega-col-inner">
+                                                                                                <ul>
+                                                                                                    {% for child_link2 in linklists[child_link1.handle].links %}
+                                                                                                        <li class="{% if child_link2.active %}active{% endif %}">
+                                                                                                            <a class="" href="{{ child_link2.url }}" title="{{ child_link2.title }}">
+                                                                                                                <span class="">{{ child_link2.title }}</span>
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            {% else %}
+                                                                                <li class="{% if child_link1.active %}active{% endif %}">
+                                                                                    <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                                                                                        <span class="">{{ child_link1.title }}</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="{% if child_link.active %}active{% endif %}">
+                                                        <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                                                            <span class="">{{ child_link.title }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="{% if link.active %}active{% endif %}">
+                            <a class="" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+                                <span class="">{{ link.title }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+	</nav>
+</section>
+{% elsif settings.apollo_canvas_style == 'styletwo' %}
+    <section id="apollo-menucanvas">
+        <ul>
+          {% for link in linklists.main-menu.links %}
+              {% if linklists[link.handle] != empty %}
+                  <li class="parent {% if link.active %}active{% endif %}">
+                      <a class="has-category" href="{{ link.url }}" title="{{ link.title }}">
+                          <span class="">{{ link.title }}</span>
+                      </a>
+                      <ul>
+                          {% for child_link in linklists[link.handle].links %}
+                              {% if linklists[child_link.handle] != empty %}
+                                  <li class="parent {% if child_link.active %}active{% endif %}">
+                                      <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                                          <span class="">{{ child_link.title }}</span>
+                                      </a>
+                                      <ul>
+                                          {% for child_link1 in linklists[child_link.handle].links %}
+                                              {% if linklists[child_link1.handle] != empty %}
+                                                  <li class="parent {% if child_link1.active %}active{% endif %}">
+                                                      <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                                                          <span class="">{{ child_link1.title }}</span>
+                                                      </a>
+                                                      <ul>
+                                                          {% for child_link2 in linklists[child_link1.handle].links %}
+                                                          <li class="{% if child_link2.active %}active{% endif %}">
+                                                              <a class="" href="{{ child_link2.url }}" title="{{ child_link2.title }}">
+                                                                  <span class="">{{ child_link2.title }}</span>
+                                                              </a>
+                                                          </li>
+                                                          {% endfor %}
+                                                      </ul>
+                                                  </li>
+                                              {% else %}
+                                                  <li class="{% if child_link1.active %}active{% endif %}">
+                                                      <a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                                                          <span class="">{{ child_link1.title }}</span>
+                                                      </a>
+                                                  </li>
+                                              {% endif %}
+                                          {% endfor %}
+                                      </ul>
+                                  </li>
+                              {% else %}
+                                  <li class="{% if child_link.active %}active{% endif %}">
+                                      <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                                          <span class="">{{ child_link.title }}</span>
+                                      </a>
+                                  </li>
+                              {% endif %}
+                          {% endfor %}
+                      </ul>
+                  </li>
+              {% else %}
+                  <li class="{% if link.active %}active{% endif %}">
+                      <a class="" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+                          <span class="">{{ link.title }}</span>
+                      </a>
+                  </li>
+              {% endif %}
+          {% endfor %}
+        </ul>
+    </section>
+    <script type="text/javascript">
+      $(function() {
+        $('#apollo-menucanvas').mmenu({
+          extensions	: [ 'effect-slide', 'pageshadow' ],
+          header		: true,
+          searchfield	: true
+        });
+      });
+    </script>
+{% elsif settings.apollo_canvas_style == 'stylethree' %}
+
+<div class="container-fluid">
+    <nav id="mobile-boostrap" class="navbar-collapse collapse">
+      	<ul class="nav navbar-nav">
+        	{% for link in linklists.main-menu.links %}
+        		{% if linklists[link.handle] != empty %}
+        			<li class="dropdown {% if link.active %}active{% endif %}">
+          				<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" href="#" title="{{ link.title }}">
+            				<span class="">{{ link.title }}</span>
+            				<span class="caret"></span>
+                      	</a>
+          				<ul class="dropdown-menu" role="menu">
+            				{% for child_link in linklists[link.handle].links %}
+            					{% if linklists[child_link.handle] != empty %}
+            						<li class="dropdown {% if child_link.active %}active{% endif %}">
+              							<a class="" href="#" title="{{ child_link.title }}">
+                							<span class="">{{ child_link.title }}</span>
+              							</a>
+              							<ul>
+                                          	{% for child_link1 in linklists[child_link.handle].links %}
+                                          		{% if linklists[child_link1.handle] != empty %}
+                                          			<li class="dropdown {% if child_link1.active %}active{% endif %}">
+                  										<a class="" href="#" title="{{ child_link1.title }}">
+                    										<span class="">{{ child_link1.title }}</span>
+                  										</a>
+                  										<ul>
+                    										{% for child_link2 in linklists[child_link1.handle].links %}
+                    											<li class="{% if child_link2.active %}active{% endif %}">
+                      												<a class="" href="{{ child_link2.url }}" title="{{ child_link2.title }}">
+                        												<span class="">{{ child_link2.title }}</span>
+                      												</a>
+                    											</li>
+                    										{% endfor %}
+                  										</ul>
+                									</li>
+                								{% else %}
+                                          			<li class="{% if child_link1.active %}active{% endif %}">
+                  										<a class="" href="{{ child_link1.url }}" title="{{ child_link1.title }}">
+                    										<span class="">{{ child_link1.title }}</span>
+                  										</a>
+                									</li>
+                								{% endif %}
+                							{% endfor %}
+              							</ul>
+                          			</li>
+            					{% else %}
+            						<li class="{% if child_link.active %}active{% endif %}">
+                                        <a class="" href="{{ child_link.url }}" title="{{ child_link.title }}">
+                                          	<span class="">{{ child_link.title }}</span>
+                                        </a>
+                          			</li>
+            					{% endif %}
+            				{% endfor %}
+          				</ul>
+          			</li>            		
+        		{% else %}
+        			<li class="{% if link.active %}active{% endif %}">
+          				<a class="" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+            				<span class="">{{ link.title }}</span>
+          				</a>
+        			</li>
+        		{% endif %}
+        	{% endfor %}
+      	</ul>
+    </nav>
+</div>
+{% endif %}

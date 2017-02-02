@@ -1,0 +1,77 @@
+{% capture title %}{% include 'shortcode-render' render:'title' %}{% endcapture %}
+{% capture item_in_page %}{% include 'shortcode-render' render:'item_in_page' %}{% endcapture %}
+{% capture columns_product %}{% include 'shortcode-render' render:'columns_product' %}{% endcapture %}
+{% capture product_in_tab %}{% include 'shortcode-render' render:'product_in_tab' %}{% endcapture %}
+{% capture handle %}{% include 'shortcode-render' render:'handle' %}{% endcapture %}
+{% capture interval %}{% include 'shortcode-render' render:'interval' %}{% endcapture %}
+{% capture id %}{% include 'shortcode-render' render:'id' %}{% endcapture %}
+{% capture procarouselId %}procarousel-{{ 'now' | date: "%N" }}{% endcapture %}
+{% if id == '' %}
+	{% capture prolistID %}productlist-{{ 'now' | date: "%N" }}{% endcapture %}
+	{% assign id = prolistID %}
+{% endif %}
+
+{% assign item_in_page = item_in_page | plus: 0 %}
+{% assign columns_product = columns_product | plus: 0 %}
+{% assign product_in_tab = product_in_tab | plus: 0 %}
+{% assign colProduct = 12 | divided_by:columns_product %}
+{% capture grid_item_width %}col-md-{{ colProduct }} col-xs-6 col-sp-12{% endcapture %}
+
+{% if interval == '' %}{% assign interval = 5000 %}{% endif %}
+{% for collection in collections %}
+    {% if handle != ''%}
+        {% if collection.handle ==  handle %}
+            {% assign products = collection.products %}
+            {% break%}
+        {% endif%}
+    {% endif%}
+{% endfor %}
+{% assign displayButton = products.size | divided_by:item_in_page %}
+<div id="{{ id }}" class="products_block products_list exclusive block" >
+  	<h4 class="page-subheading">
+  		{{ title }}
+  	</h4>
+  	<div class="block_content">
+		<div class="carousel slide" id="{{ procarouselId }}">
+            {% if displayButton != 0 %}
+                <a class="carousel-control left" href="#{{ procarouselId }}"   data-slide="prev">{{ 'products.carousel.preview' | t }}</a>
+                <a class="carousel-control right" href="#{{ procarouselId }}"  data-slide="next">{{ 'products.carousel.next' | t }}</a>
+            {% endif %}
+            <div class="carousel-inner">
+                {% assign countRow = 0 %}
+                {% for product in products limit:product_in_tab %}
+                    {% assign countRow = countRow | plus: 1 %}
+                    {% assign modpage = forloop.index | modulo:item_in_page %}
+                    {% assign modcol = countRow | modulo:columns_product %}
+                    {% if modpage == 1 %}
+                        <div class="item {% if forloop.first %}active{% endif %}">
+                            <div class="product_list">
+                    {% endif %}
+                        {% if modcol == 1 %}
+                            <div class="row">
+                        {% endif %}
+                            {% include 'product-grid-item' %}
+                        {% if modcol == 0 or modpage == 0 or forloop.last %}
+                            </div>
+                        {% endif %} 
+                    {% if modpage == 0 or forloop.last %}
+                                {% assign countRow = 0 %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div> 
+  	</div>
+  	<script type="text/javascript">
+        $(document).ready(function() {
+            $('#{{ id }}').each(function(){
+                $(this).carousel({
+                    pause: 'hover',
+                    interval: {{ interval }}
+                });
+            });
+        });
+    </script>
+
+</div>

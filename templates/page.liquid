@@ -1,0 +1,14 @@
+
+<section id="columns" class="columns-container">
+	<div class="container-fluid">
+      	{% include 'breadcrumb' %}
+		<div class="row">
+			<section id="center_column" class="col-sm-12 col-md-12">
+				<h1 class="page-heading bottom-indent">{{ page.title }}</h1>
+				<div class="rte">
+                  	{% include 'shortcode' load: page.content %}
+				</div>
+			</section>
+		</div>
+	</div>
+</section>

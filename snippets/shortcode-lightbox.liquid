@@ -1,0 +1,60 @@
+{% capture class %}{% include 'shortcode-render' render:'class' default:'leo-lightbox' %}{% endcapture %}
+{% capture id %}{% include 'shortcode-render' render:'id' default:'' %}{% endcapture %}
+{% capture url %}{% include 'shortcode-render' render:'url' default:'#' %}{% endcapture %}
+{% capture text %}{% include 'shortcode-render' render:'text' default:'LeoLightBox' %}{% endcapture %}
+{% capture type %}{% include 'shortcode-render' render:'type' default:'' %}{% endcapture %}
+{% capture rel %}{% include 'shortcode-render' render:'rel' default:'' %}{% endcapture %}
+{% capture effect %}{% include 'shortcode-render' render:'effect' default:'none' %}{% endcapture %}
+{% capture skipJs %}{% include 'shortcode-render' render:'skipJs' default:'' %}{% endcapture %}
+
+{% if id == '' %}
+	{% capture id %}lightbox-{{ 'now' | date: "%N" }}{% endcapture %}
+{% endif %}
+
+{% case type %}
+	{% when 'ajax' %}
+	{% when 'iframe' %}
+<a href="{{ url }}" id="{{ id }}" class="fancybox.{{ type }} {{ class }}" title="{{ text }}">{{ text }}</a>
+	{% when 'gallery' %}
+		{% if rel == '' %}
+			{% capture rel %}gallery-{{ class }}{% endcapture %}
+		{% endif %}
+	<a href="{{ url }}" id="{{ id }}" class="{{ class }}" title="{{ text }}" rel="{{ rel }}">
+		<img src="{{ url }}"  alt="{{ text }}"/>
+	</a>
+	{% else %}
+<a href="{{ url }}" id="{{ id }}" class="{{ class }}" title="{{ text }}">{{ text }}</a>
+{% endcase %}
+
+{% if skipJs == blank %}
+<script type="text/javascript">
+$(function() {
+	{% if type == 'gallery' %}
+	$(".{{ class }}").fancybox({
+        //maxWidth    : 800,
+        //maxHeight   : 600,
+        //fitToView   : false,
+        //width       : '70%',
+        //height      : '70%',
+        //autoSize    : false,
+        //closeClick  : false,
+        openEffect  : '{{ effect }}', // fade, elastic
+        closeEffect : '{{ effect }}',
+    });
+
+    {% else %}
+	$("#{{ id }}").fancybox({
+        //maxWidth    : 800,
+        //maxHeight   : 600,
+        //fitToView   : false,
+        //width       : '70%',
+        //height      : '70%',
+        //autoSize    : false,
+        //closeClick  : false,
+        openEffect  : '{{ effect }}', // fade, elastic
+        closeEffect : '{{ effect }}'
+    });
+	{% endif %}
+});
+</script>
+{% endif %}

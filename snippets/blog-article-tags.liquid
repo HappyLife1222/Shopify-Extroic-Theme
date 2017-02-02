@@ -1,0 +1,18 @@
+<div class="col-lg-6 col-md-6 col-xs-12">
+	<h4>{{ 'blogs.article.list_tags_post' | t }}</h4>
+	<ul>
+		{% for article_extra in blog.articles %}
+			{% assign article_with_tags = false %}
+			{% for tag_check in article_extra.tags %}
+				{% if article.tags contains tag_check %}
+					{% assign article_with_tags = true %}
+				{% endif %}
+			{% endfor %}
+			{% if article_with_tags %}
+				<li>
+					<a href="{{ article_extra.url }}" title="">{{ article_extra.title }}</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>

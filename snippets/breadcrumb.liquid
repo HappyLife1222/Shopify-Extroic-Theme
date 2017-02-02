@@ -1,0 +1,77 @@
+{% unless template == 'index' or template == 'cart' %}
+<section id="breadcrumbs">   
+  	<nav role="navigation" aria-label="breadcrumbs">
+      <ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="/" title="{{ 'general.breadcrumbs.home_link_title' | t }}" itemprop="item">
+            <span itemprop="name" class="fa fa-home"></span>
+          </a>
+        </li>
+        {% if template contains 'product' %}
+        {% if collection %}
+        {% if collection.handle %}
+        {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="{{ url }}" title="{{ collection.title }}" itemprop="item">
+            <span itemprop="name">{{ collection.title }}</span>
+          </a>
+        </li>
+        {% endif %}
+        {% endif %}
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ product.title }}</span>
+        </li>
+        {% elsif template contains 'collection' and collection.handle %}
+        {% if current_tags %}
+        {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="{{ url }}" title="{{ collection.title }}" itemprop="item">
+            <span itemprop="name">{{ collection.title }}</span>
+          </a>
+        </li>
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ current_tags | join: " + " }}</span>
+        </li>
+        {% else %}
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ collection.title }}</span>
+        </li>
+        {% endif %}
+        {% elsif template == 'blog' %}
+        {% if current_tags %}
+        {{ blog.title | link_to: blog.url }}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="{{ blog.url }}" title="{{ blog.title }}" itemprop="item">
+            <span itemprop="name">{{ blog.title }}</span>
+          </a>
+        </li>
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ current_tags | join: " + " }}</span>
+        </li>
+        {% else %}
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ blog.title }}</span>
+        </li>
+        {% endif %}
+        {% elsif template == 'article' %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="{{ blog.url }}" title="{{ blog.title }}" itemprop="item">
+            <span itemprop="name">{{ blog.title }}</span>
+          </a>
+        </li>
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ article.title }}</span>
+        </li>
+        {% elsif template contains 'page' %}
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ page.title }}</span>
+        </li>
+        {% else %}
+        <li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <span itemprop="name">{{ page.title }}</span>
+        </li>
+        {% endif %}
+      </ol>
+  </nav>      
+</section>
+{% endunless %}

@@ -1,0 +1,17 @@
+{% capture type %}{% include 'shortcode-render' render:'type' default:'default' %}{% endcapture %}
+{% capture text %}{% include 'shortcode-render' render:'text' default:'' %}{% endcapture %}
+{% capture url %}{% include 'shortcode-render' render:'url' default:'' %}{% endcapture %}
+{% capture isOpen %}{% include 'shortcode-render' render:'isOpen' default:'' %}{% endcapture %}
+{% capture isBlock %}{% include 'shortcode-render' render:'isBlock' default:'' %}{% endcapture %}
+{% capture size %}{% include 'shortcode-render' render:'size' default:'' %}{% endcapture %}
+
+{% if text != '' %}
+{% if url != '' %}
+<a href="{{url}}" {% if isOpen != '' %}target="_blank"{% endif %}>
+{% endif %}
+{% assign type = type | downcase %}
+<button type="button" class="btn btn-{{type}} {% if isBlock != '' %}btn-block{% endif %} {% if size != '' %}btn-{{ size | downcase }}{% endif %}">{{text}}</button>
+{% endif %}
+{% if url != '' %}
+</a>
+{% endif %}

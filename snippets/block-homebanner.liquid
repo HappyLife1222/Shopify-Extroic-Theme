@@ -1,0 +1,21 @@
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_bannerleft }}{% endif %}">
+  <div class="col-inner">
+    <div class="banner-wrapper">
+      <a class="ap-banner" href="{{ settings.home_banner_link_1 }}">
+        {{ 'home_banner1.jpg' | asset_url | img_tag: "banner", "img-responsive" }}
+      </a>
+    </div>
+    <div class="banner-wrapper">
+      <a class="ap-banner" href="{{ settings.home_banner_link_2 }}">
+        {{ 'home_banner2.jpg' | asset_url | img_tag: "banner", "img-responsive" }}
+      </a>
+    </div>
+  </div>
+</div>
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_bannerright }}{% endif %}">
+  <div class="banner-wrapper">
+    <a class="ap-banner" href="{{ settings.home_banner_link_3 }}">
+      {{ 'home_banner3.jpg' | asset_url | img_tag: "banner", "img-responsive" }}
+    </a>
+  </div>
+</div>

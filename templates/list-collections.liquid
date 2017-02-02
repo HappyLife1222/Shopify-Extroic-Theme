@@ -1,0 +1,54 @@
+<section id="columns" class="columns-container">
+    <div id="columns" class="container-fluid">
+        <div class="row">
+            <div id="center_column" class="center_column col-md-12">
+            	<div id="list_collections">
+            		{% paginate collections by 12 %}
+						{% for collection in collections %}
+							{% unless collection.handle == 'frontpage' %}
+                  				{% assign modcol = forloop.index | modulo:3 %}
+                                {% if modcol == 1 %}
+                                    <div class="row">
+                                {% endif %}
+                                    <div class="block_collection col-xs-12 col-sm-6 col-md-4">
+                                        {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+                                        <div class="collection_item">
+                                            <div class="collection-top effect_banner">
+                                                <a href="{{ collection.url }}" title="{{ collection_title }}">
+                                                    {% if collection.image %}
+                                                        {{ collection.image.src | collection_img_url: 'large' | img_tag: collection_title, "img-responsive" }}
+                                                    {% else %}
+                                                        {{ 'list_collection_default.png' | asset_url | img_tag: collection_title, "img-responsive" }}
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                            <div class="collection-meta">
+                                                <h3 class="h5">
+                                                    <a href="{{ collection.url }}" title="{{ collection_title }}">{{ collection.title }}</a>
+                                                </h3>
+                                                <div class="collection_products">{{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'product', 'products' }}</div>
+                                                <p class="collection_desc">{{ collection.description | strip_html | truncatewords: 16 }}</p>
+                                                <div class="text-center">
+                                                    <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t }}" class="btn btn-default btn-outline-inverse">
+                                                        {{ 'collections.general.shop_collection' | t }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+								{% if modcol == 0 or forloop.last %}
+                                	</div>
+                            	{% endif %}
+							{% endunless %}
+						{% endfor %}
+						{% if paginate.pages > 1 %}
+					        <div class="text-center">
+					            {% include 'pagination-custom' %}
+					        </div>
+					    {% endif %}
+					{% endpaginate %}
+            	</div>
+            </div>
+        </div>
+    </div>
+</section>

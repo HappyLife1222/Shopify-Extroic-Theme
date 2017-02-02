@@ -1,0 +1,59 @@
+<div id="latest-blog" class="block-sidebar-blog box-line block">
+    <h4 class="title_block">{{ 'blogs.sidebar.recent_articles' | t }}</h4>
+    <ul class="list-block block_content">
+        {% for article in blogs[blog.handle].articles limit:4 %}
+            <li>
+              	<div class="media border-left">
+                  <span class="media-left">
+                    <span class="blog-created">
+                        <span class="month-create">{{ article.published_at | date: '%b' }}</span>
+                        <span class="day-create">{{ article.published_at | date: '%d' }}</span>
+                        <span class="year-create">{{ article.published_at | date: '%Y' }}</span>                      
+                    </span>
+                  </span>
+                  <div class="media-body">                    
+                	<a href="{{ article.url }}">{{ article.title }}</a>
+                    <div class="postby">
+                      <span class="fa fa-user"></span>&nbsp;&nbsp;{{ article.author }}
+                    </div>
+                  </div>
+              	</div>              	
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% if blog.all_tags.size > 0 %}
+    <div id="categories-blog" class="block-sidebar-blog block">
+        <h4 class="title_block">{{ 'blogs.sidebar.categories' | t }}</h4>
+        <ul class="list-block list-unstyled block_content">
+        {% for tag in blog.all_tags %}
+            {% if current_tags contains tag %}
+                <li>{{ tag }}</li>
+            {% else %}
+                <li>{{ tag | link_to_tag: tag }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% if settings.blogsidebar_html_enable %}
+	<div id="blogsidebar-html" class="block-sidebar-blog block">
+		{% if settings.blogsidebar_html_title %}
+      		<h4 class="title_block">{{ settings.blogsidebar_html_title }}</h4>
+		{% endif %}
+      	<div class="block_content">
+      		<div class="html_des">
+          		{{ settings.blogsidebar_html_des }}
+          	</div>
+          	{% if settings.blogsidebar_html_link != blank %}
+                <div class="effect">
+                    <a href="{{ settings.blogsidebar_html_link }}">
+                        <div class="image">
+                            {{ 'blogsidebar_html.png' | asset_url | img_tag: settings.blogsidebar_html_title, "img-responsive" }}
+                        </div>
+                    </a>
+                </div>
+          	{% endif %}
+      	</div>
+	</div>
+{% endif %}

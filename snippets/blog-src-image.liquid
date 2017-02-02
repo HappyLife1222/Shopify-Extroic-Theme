@@ -1,0 +1,20 @@
+{% assign src = content_blog_home | escape %}
+{% if image-size == blank %}
+{% assign image-size = settings.home_blogs_imagesize %}
+{% endif %}
+{% if src contains '&lt;img' %}
+	{% assign src = src | split: 'src=&quot;' %}
+	{% assign src = src[1] | split: '&quot;' %}
+	{% assign src = src[0] | remove: '//cdn' %}
+	{% assign src = src | remove: 'http:http://';; %}
+	{% assign src = src | remove: 'https:' %}
+	{% unless image-size == empty %}
+		{% capture replacement %}_{{image-size}}.{% endcapture %}
+		{% assign sizes = 'pico icon thumb small compact medium large grande 1024x1024 2048x2048' | split:' ' %}
+		{% for size in sizes %}
+			{% capture search %}_{{size}}.{% endcapture %}
+			{% assign src = src | replace:search,replacement %}
+		{% endfor %}
+	{% endunless %}
+	{{ src | prepend: 'http://cdn' }}
+{% endif %}

@@ -1,0 +1,86 @@
+<section id="columns" class="columns-container">
+	<div id="top_column" {% if settings.lazyload_enable %}class="wow animated {{ settings.lazyload_topcolumn }}"{% endif %}>
+		<div class="container-fluid">
+          {% if settings.home_producttabs_enable %}          	
+          	{% include 'block-producttabs' with '01' %}
+          {% endif %}
+		</div>
+	</div>
+	<div id="center_column" class="center_column">
+		<div class="container-fluid">
+          	<div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_productdeals }}{% endif %}">
+                {% if settings.home_productdeals_enable %}  
+                {% assign item_in_page = settings.home_productdeals_itempage | plus:0 %}
+                {% assign columns_product = settings.home_productdeals_columntab | plus:0 %}
+                {% assign product_in_tab = settings.home_productdeals_limit | plus:0 %}    
+                {% assign title_block = settings.home_productdeals_titletab %}
+                {% assign interval = settings.home_productdeals_interval %}                
+                {% assign type_block = settings.home_productdeals_type %}
+                {% assign collection_produclists = collections[settings.home_productdeals_collection].products %}
+                {% assign product_carousel = 'deals' %}
+                {% if settings.apollo_count_down_enable  %}
+                {% assign dealTime = settings.home_productdeal_time | split: ' ' | join: ' ' | split: ' ' %}
+                {% endif %}
+                {% include 'block-productlist' with 'deals' %}
+                {% assign dealTime = false %}
+                {% endif %}
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_product_bestsell }}{% endif %}">
+                {% if settings.home_bestsell_enable %}
+                {% assign item_in_page = settings.home_bestsell_itempage | plus:0 %}
+                {% assign columns_product = settings.home_bestsell_columntab | plus:0 %}
+                {% assign product_in_tab = settings.home_bestsell_limit | plus:0 %}    
+                {% assign title_block = settings.home_bestsell_titletab %}
+                {% assign interval = settings.home_bestsell_interval %}
+                {% assign type_block = settings.home_bestsell_type %}
+                {% assign collection_produclists = collections[settings.home_bestsell_collection].products %}                
+                {% capture row_in_tab %}{{ item_in_page | divided_by: columns_product }}{% endcapture %}
+                {% include 'block-productlist' with '01' %}
+                {% endif %}
+              </div>
+          	</div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_blockbanner_enable }}{% endif %}">
+                {% if settings.home_blockbanner_enable %}
+                <div class="banner-wrapper-margin">
+                {% include 'block-homebanner' %}      
+                </div>
+                {% endif %}
+              </div>
+          	</div>
+          	<div class="row">                        
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_product_mostview }}{% endif %}">
+                {% if settings.home_mostview_enable %}
+                {% assign item_in_page = settings.home_mostview_itempage | plus:0 %}
+                {% assign columns_product = settings.home_mostview_columntab | plus:0 %}
+                {% assign product_in_tab = settings.home_mostview_limit | plus:0 %}    
+                {% assign title_block = settings.home_mostview_titletab %}
+                {% assign interval = settings.home_mostview_interval %}
+                {% assign type_block = settings.home_mostview_type %}
+                {% assign collection_produclists = collections[settings.home_mostview_collection].products %}
+                {% capture row_in_tab %}{{ item_in_page | divided_by: columns_product }}{% endcapture %}
+                {% include 'block-productlist' with '02' %}
+                {% endif %}
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_bloghome }}{% endif %}">
+                {% if settings.home_blogs_enable %}
+                {% include 'block-blog' with '01' %}
+                {% endif %}
+              </div>              
+          	</div>						
+			<div class="row {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_manu }}{% endif %}" data-wow-delay="200ms">
+				<div class="col-xs-12 col-sm-12">
+					{% if settings.home_vendor_carousel_enable %}
+						{% include 'block-manucarousel' with '01' %}
+					{% endif %}
+				</div>
+              	<div class="col-xs-12 col-sm-12">
+                  {% if settings.home_blockhtmlbot_enable %}
+                  	{% include 'block-htmlbottom' %}
+                  {% endif %}
+              </div>
+			</div>
+		</div>
+	</div>
+</section>

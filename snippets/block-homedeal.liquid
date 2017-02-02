@@ -1,0 +1,16 @@
+<div id="productDeal" class="products_block exclusive block">
+	{% assign collection_produclists = collections[settings.home_productdeal_collection].products %}
+	{% if settings.apollo_count_down_enable %}
+	{% assign dealTime = settings.home_productdeal_time | split: ' ' | join: ' ' | split: ' ' %}
+	{% endif %}
+	{% capture currentTime %}{{ 'now' | date: "%s" }}{% endcapture %}
+	{% if settings.home_producttabs_type == 'boostrap_carousel' %}
+		{% capture product_carousel %}producttab02{{ block-producttabs }}{% endcapture %}
+		{% assign item_in_page = 8 %}
+		{% assign arrayItems = "8,16,24,32,40,48" | split: ',' %}
+		{% include 'product-carousel' %}
+	{% else %}
+		{% include 'product-carousel-owl' %}
+	{% endif %}
+	{% assign dealTime = false %}
+</div>

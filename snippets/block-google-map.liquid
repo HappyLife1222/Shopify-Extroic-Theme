@@ -1,0 +1,250 @@
+{% assign min_height = "400px" %}
+{% assign data = "" %}
+{% assign sep = "" %}
+{% if settings.map_title_1.size > 0 && settings.map_address_1.size > 0 %}
+    {% assign lat = settings.map_lat_1 | plus:0 %}
+    {% assign long = settings.map_long_1 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% assign name = settings.map_title_1 | escape %}
+        {% assign address = settings.map_address_1 | escape %}
+        {% assign data = data | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_1 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_2.size > 0 && settings.map_address_2.size > 0 %}
+    {% assign lat = settings.map_lat_2 | plus:0 %}
+    {% assign long = settings.map_long_2 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_2 | escape %}
+        {% assign address = settings.map_address_2 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_2 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_3.size > 0 && settings.map_address_3.size > 0 %}
+    {% assign lat = settings.map_lat_3 | plus:0 %}
+    {% assign long = settings.map_long_3 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_3 | escape %}
+        {% assign address = settings.map_address_3 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_3 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_4.size > 0 && settings.map_address_4.size > 0 %}
+    {% assign lat = settings.map_lat_4 | plus:0 %}
+    {% assign long = settings.map_long_4 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_4 | escape %}
+        {% assign address = settings.map_address_4 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_4 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_5.size > 0 && settings.map_address_5.size > 0 %}
+    {% assign lat = settings.map_lat_5 | plus:0 %}
+    {% assign long = settings.map_long_5 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_5 | escape %}
+        {% assign address = settings.map_address_5 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_5 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_6.size > 0 && settings.map_address_6.size > 0 %}
+    {% assign lat = settings.map_lat_6 | plus:0 %}
+    {% assign long = settings.map_long_6 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_6 | escape %}
+        {% assign address = settings.map_address_6 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_6 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_7.size > 0 && settings.map_address_7.size > 0 %}
+    {% assign lat = settings.map_lat_7 | plus:0 %}
+    {% assign long = settings.map_long_7 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_7 | escape %}
+        {% assign address = settings.map_address_7 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_7 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_8.size > 0 && settings.map_address_8.size > 0 %}
+    {% assign lat = settings.map_lat_8 | plus:0 %}
+    {% assign long = settings.map_long_8 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_8 | escape %}
+        {% assign address = settings.map_address_8 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_8 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_9.size > 0 && settings.map_address_9.size > 0 %}
+    {% assign lat = settings.map_lat_9 | plus:0 %}
+    {% assign long = settings.map_long_9 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_9 | escape %}
+        {% assign address = settings.map_address_9 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_9 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if settings.map_title_10.size > 0 && settings.map_address_10.size > 0 %}
+    {% assign lat = settings.map_lat_10 | plus:0 %}
+    {% assign long = settings.map_long_10 | plus:0 %}
+    {% if lat != 0 && long != 0 %}
+        {% if data.size > 0 %}
+            {% assign sep = ',' %}
+        {% endif %}
+        {% assign name = settings.map_title_10 | escape %}
+        {% assign address = settings.map_address_10 | escape %}
+        {% assign data = data | append: sep | append: '{"id_store":"1", "name":"' | append: name | append: '",'%}
+        {% assign data = data | append: '"address":"' | append: address | append: '", "latitude":"' | 
+        append: settings.map_lat_10 | append: '",' %}
+        {% assign data = data | append: '"longitude":"' | append: long | append: '"}' %}
+    {% endif %}
+{% endif %}
+{% if data.size > 0 %}
+<div id="google-maps{{ block-google-map }}" class="block google-maps" style="width: 100%; min-height:{{ min_height }}; clear:both;">
+    <div class="gmap-cover display-list-store">
+      	<div class="row">
+            <div class="gmap-content col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div id="map-canvas" class="gmap" style="min-height:{{ min_height }}; width:100%; height: 100%;"></div>
+            </div>
+            <div class="gmap-stores-content col-lg-4 col-md-4 col-sm-4 col-xs-12" style="height: 100%">
+                <div id="gmap-stores-list" class="gmap-stores-list">
+                    <ul></ul>
+                </div>
+            </div>
+      	</div>
+    </div>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true&amp;amp;region=US"></script>
+    <script type="text/javascript">
+        var dataMarkers = [{{ data }}];
+        var latitude = (dataMarkers.length > 0 ? parseFloat(dataMarkers[0].latitude) : 45.422230);
+        var longitude = (dataMarkers.length > 0 ? parseFloat(dataMarkers[0].longitude) : -75.692413);
+        var infowindow = null;
+        var map = "";
+        var markers = [];
+        var infoWindow = "";
+        var zoom = {% if settings.map_zoom %}{{ settings.map_zoom}} {% else %}8{% endif %};
+
+        function displayAMarker(data, obj, id) {
+            var m = markers[id];
+            google.maps.event.trigger(m, 'click');
+        }
+        function initializeListStore(data, name) {
+            var obj = $("#" + name + " ul");
+            synSize(name);
+            for(var i = 0; i < data.length; i++) {
+                var s = data[i];
+                obj.append("<li class='item-gmap-store' marker-id='" + i + "'" 
+                        + "onclick='return displayAMarker(dataMarkers, this, " + i + ");'>"
+                        + "<strong><b><span class='icon-map-marker'></span> "
+                        + s.name + "</b></strong><br/><text>" + s.address + "</text>");
+            }
+        }
+        function initializeGmap(map, data, markers, nameGmap, zoom) {
+            map = new google.maps.Map(document.getElementById(nameGmap), {
+                center: new google.maps.LatLng(latitude, longitude),
+                zoom: zoom,
+                mapTypeId: 'roadmap'
+            });
+            setTimeout(createMarkers(map, markers, data), 1500);
+        };
+        function createMarkers(map, markers, data) {
+            for (var i = 0; i < data.length; i++) {
+                var obj = data[i];
+                var lg = parseFloat(obj.longitude);
+                var lt = parseFloat(obj.latitude);
+                var name = obj.name;
+                var address = obj.address;
+
+                var latlng = new google.maps.LatLng(lt, lg);
+                var html = "<div style='min-width:200px;'><b>" + name + "</b><br/>" + address; 
+                html += "<hr/><a href='https://maps.google.com/maps?saddr=&daddr=" + latlng + "' target='_blank'>Get directions<\/a>";
+                html += "</div>"; 
+
+                infowindow = new google.maps.InfoWindow({
+                    content: "loading..."
+                });
+
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lt, lg), 
+                    animation: google.maps.Animation.DROP, 
+                    map: map,
+                    //icon: img_ps_dir + logo_store,
+                    title: obj.name,
+                    html: html
+                });
+
+                google.maps.event.addListener(marker, "click", function () {
+                    infowindow.setContent(this.html);
+                    infowindow.open(map, this);
+                });
+                markers[i] = marker;
+            }
+        }
+        function synSize(name) {
+            var obj = $("#" + name);
+            var div = $(obj).closest(".gmap-cover");
+            var gmap = $(div).find(".gmap");
+            $(obj).height($(gmap).height());
+            //console.log($(gmap).height());
+        }
+        $(function() {
+            console.log(dataMarkers.length);
+            if(dataMarkers.length <= 1) {
+                $(".gmap-content").attr("class", "gmap-content col-lg-12");
+                $(".gmap-stores-content").css("display", "none");
+            }
+            initializeGmap(map, dataMarkers, markers, "map-canvas", zoom);
+            initializeListStore( dataMarkers, "gmap-stores-list");
+        });
+    </script>
+</div>
+{% endif %}

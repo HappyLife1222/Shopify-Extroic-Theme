@@ -1,0 +1,31 @@
+{% if settings.show_multiple_currencies %}
+    <div id="block_currencies" class="popup-over e-scale btn-group">
+        <div data-toggle="dropdown" class="popup-title dropdown-toggle">            
+            {% for i in (1..5) %}
+                {% capture currency_t %}supported_currencies_{{ i }}{% endcapture %}
+                {% capture currency_img_t %}currencies_img_{{ i }}.png{% endcapture %}
+                {% if settings[currency_t] == shop.currency %}
+                    {% assign currency_img_current = currency_img_t %}
+                    {% assign currency_current = settings[currency_t] %}
+                {% endif %}
+            {% endfor %}
+            <span id="pre-currencies" class="text-label">{{ currency_img_current | asset_url | img_tag: currency_current }} {{ currency_current }}</span>
+          	<span class="fa fa-angle-down"></span>
+        </div>        
+        <ul id="currencies" class="links dropdown-menu dropdown-menu-right">
+          {% for i in (1..5) %}
+          {% capture currency %}supported_currencies_{{ i }}{% endcapture %}
+          {% capture currency_img %}currencies_img_{{ i }}.png{% endcapture %}
+          {% assign currency_size = settings[currency] | size %}
+          {% if currency_size > 0 %}
+          <li class="">
+            <a data-currency="{{ settings[currency] }}" class="{% if shop.currency == settings[currency] %}selected{% endif %}" href="#" rel="nofollow">                                
+              {{ currency_img | asset_url | img_tag: settings[currency] }}
+              {{settings[currency]}}
+            </a>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+    </div>
+{% endif %}

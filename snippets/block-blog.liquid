@@ -1,0 +1,82 @@
+{% assign columns_blogscarousel = 3 %}
+{% assign arrayItems = "3,6,9,12,15,18" | split: ',' %}
+{% assign grid_blogscarousel = 'col-sp-12 col-xs-6 col-md-4' %}
+{% assign blogs_home = blogs['news'].articles limit:settings.home_blogs_limit %}
+<article id="apolloblogs{{ block-blog }}" class="icenter home_blogs">
+  	<div class="box-line">
+      {% if settings.home_blogs_title != blank %}
+          <h3 class="box-heading"><span>{{ settings.home_blogs_title }}</span></h3>
+      {% endif %}
+      <div class="block_content">
+          {% if settings.home_blogs_type == 'boostrap_carousel' %}
+              <div class="carousel slide" id="blogs{{ block-blog }}">
+                  {% if blogs_home.size > columns_blogscarousel %}
+                      <a class="carousel-control left" href="#blogs{{ block-blog }}"   data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                      <a class="carousel-control right" href="#blogs{{ block-blog }}"  data-slide="next"><i class="fa fa-angle-right"></i></a>
+                  {% endif %}
+                  <div class="carousel-inner">
+                      {% for article in blogs_home %}
+                          {% capture index %}{{ forloop.index }}{% endcapture %}
+                          {% if forloop.first %}
+                              <div class="item active">
+                                  <div class="row products-row">
+                          {% endif %}
+                          {% if arrayItems contains index and forloop.last %}
+                                      {% include 'blog-item' %}
+                                  </div>
+                              </div>
+                          {% elsif arrayItems contains index %}
+                                      {% include 'blog-item' %}
+                                  </div>
+                              </div>
+                              <div class="item">
+                                  <div class="row products-row">
+                          {% elsif forloop.last %}
+                                      {% include 'blog-item' %}
+                                  </div>
+                              </div>
+                          {% else %}
+                              {% include 'blog-item' %}
+                          {% endif %}
+                      {% endfor %}
+                  </div>
+              </div>
+          {% else %}
+              <div class="owl-row">
+                  <div class="owl-carousel slide">
+                      {% for article in blogs_home %}
+                          {% assign grid_blogscarousel = '' %}
+                          {% include 'blog-item' %}
+                      {% endfor %}
+                  </div>
+              </div>
+          {% endif %}
+      </div>
+	</div>
+</article>
+<script>
+	$(document).ready(function() {
+		{% if settings.home_blogs_type == 'boostrap_carousel' %}
+		    $('#apolloblogs{{ block-blog }} .carousel').each(function(){
+		        $(this).carousel({
+		            pause: 'hover',
+		            interval: {{ settings.home_blogs_interval }}
+		        });
+		    });
+	    {% else %}
+	    	$('#apolloblogs{{ block-blog }} .owl-carousel').each(function(){
+    		  	$(this).owlCarousel({
+    		      	items : {{ columns_blogscarousel }},
+    		      	lazyLoad : true,
+    		      	navigation : true,
+              		addClassActive: true,
+              		afterInit : SetOwlCarouselFirstLast,
+			        afterAction : SetOwlCarouselFirstLast,
+              		itemsDesktop: [1199, 3],
+                	itemsDesktopSmall: [979, 2],
+                	itemsTablet: [768, 2]
+		      	}); 
+    		});
+	    {% endif %}
+	});
+</script>

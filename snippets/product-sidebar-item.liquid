@@ -1,0 +1,34 @@
+{% assign product_sidebar = product %}
+{% assign imagesize_sidebar = settings.product_sidebar_imagesize %}
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+<div class="product-block item-dual">
+  	<div class="block-img">
+      <div class="image">
+        <img class="replace-2x img-responsive" src="{{ product.featured_image | product_img_url: imagesize_sidebar }}" alt="{{ product_sidebar.title }}">
+      </div>
+  	</div>
+    <div class="product-meta">
+      <h3 class="name">
+        <a class="product-name" href="{{ product.url | within: collection }}" title="{{ product.title }}">{{ product.title }}</a>
+      </h3>
+      <div class="product-desc">{{ product.description }}</div>
+      <blockquote {% if item-type == 'item-full' %}class="pull-left"{% endif %}>
+        <div class="content_price prices clearfix">
+          <span class="product-price {% if on_sale %}sale-price{% endif %}">
+            {{ product.price | money }}
+          </span>
+          {% if on_sale %}
+          <span class="old-price product-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+        </div>
+        {% if settings.product_reviews_enable %}
+        <div class="review">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        </div>
+        {% endif %}
+      </blockquote>
+    </div>  		
+</div>

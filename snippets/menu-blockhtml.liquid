@@ -1,0 +1,13 @@
+<div class="block-html">
+	{% if settings[ap_html_title] != blank %}
+		<div class="menu-title">{{ settings[ap_html_title] }}</div>
+	{% endif %}
+	<div class="widget-inner">
+      	{% if settings[ap_html_img] != blank %}
+		<div class="box-image">{{ ap_html_img | asset_url | img_tag: settings[ap_html_title], "img-responsive" }}</div>
+      	{% endif %}
+		{% if settings[ap_html_des] != blank %}
+			{% include 'shortcode' load: settings[ap_html_des] %}
+		{% endif %}
+	</div>
+</div>

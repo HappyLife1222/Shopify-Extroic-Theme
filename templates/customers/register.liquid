@@ -1,0 +1,31 @@
+{% layout settings.customer_layout %}
+<div id="register-page" class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="register-box">
+                <h1>{{ 'customer.register.title' | t }}</h1>
+                {% form 'create_customer' %}
+                    <h3 class="page-subheading">{{ 'customer.register.formtitle' | t }}</h3>
+                    {{ form.errors | default_errors }}
+                    <label for="FirstName" class="label-register">{{ 'customer.register.first_name' | t }}</label>
+                    <input type="text" name="customer[first_name]" id="FirstName" class="form-control" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+                    <label for="LastName" class="label-register">{{ 'customer.register.last_name' | t }}</label>
+                    <input type="text" name="customer[last_name]" id="LastName" class="form-control" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+                    <label for="Email" class="label-register">{{ 'customer.register.email' | t }}</label>
+                    <input type="email" name="customer[email]" id="Email" placeholder="{{ 'customer.register.email' | t }}" class="form-control {% if form.errors contains "email" %}error{% endif %}" {% if form.errors contains "email" %}{% elsif form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+                    <label for="CreatePassword" class="label-register">{{ 'customer.register.password' | t }}</label>
+                    <input type="password" name="customer[password]" id="CreatePassword" placeholder="{{ 'customer.register.password' | t }}" class="form-control {% if form.errors contains "password" %}error{% endif %}">
+                    <p>
+                        <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn-outline">
+                    </p>
+                    <a class="link-back" href="{{ shop.url }}">
+                        <span>
+                            <i class="fa fa-long-arrow-left"></i>&nbsp;
+                            {{ 'customer.register.cancel' | t }}
+                        </span>
+                    </a>
+                {% endform %}
+            </div>
+        </div>
+    </div>
+</div>

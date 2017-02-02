@@ -1,0 +1,81 @@
+<div id="popup-newletter" class="hide">
+    <div class="pa-header">
+        <h3 class="">
+            {{settings.pnewletter_title}}
+        </h3>
+        <div class="pnewle-message">
+            {{settings.pnewletter_message}}
+        </div>
+        <div class="pnewle-form"></div>
+        {% if settings.pnewletter_social_enable != blank %}
+            <div class="social-icons block">
+                {% if settings.pnewletter_social_title != blank %}
+                    <h4 class="title_block">{{ settings.pnewletter_social_title }}</h4>
+                {% endif %}
+                <div class="block_content">        
+                    <ul class="list-unstyled clearfix">
+                        {% if settings.pnewletter_social_facebook_link != blank %}
+                            <li class="facebook">
+                                <a target="_blank" href="{{ settings.pnewletter_social_facebook_link }}" title="{{ shop.name }} on Facebook" class="btn-tooltip" data-original-title="Facebook">
+                                    <i class="fa fa-facebook"></i>
+                                    <span>Facebook</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if settings.pnewletter_social_twitter_link != blank %}
+                            <li class="twitter">
+                                <a target="_blank" href="{{ settings.pnewletter_social_twitter_link }}" title="{{ shop.name }} on Twitter" class="btn-tooltip" data-original-title="Twitter">
+                                    <i class="fa fa-twitter"></i>
+                                    <span>Twitter</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if settings.pnewletter_social_rss_link != blank %}
+                            <li class="rss">
+                                <a target="_blank" href="{{ settings.pnewletter_social_rss_link }}" title="{{ shop.name }} on RSS" class="btn-tooltip" data-original-title="RSS">
+                                    <i class="fa fa-rss"></i>
+                                    <span>RSS</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if settings.pnewletter_social_youtube_link != blank %}
+                            <li class="youtube">
+                                <a target="_blank" href="{{ settings.pnewletter_social_youtube_link }}" title="{{ shop.name }} on Youtube" class="btn-tooltip" data-original-title="Youtube">
+                                    <i class="fa fa-youtube"></i>
+                                    <span>Youtube</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if settings.pnewletter_social_googleplus_link != blank %}
+                            <li class="google-plus">
+                                <a target="_blank" href="{{ settings.pnewletter_social_googleplus_link }}" title="{{ shop.name }} on Google Plus" class="btn-tooltip" data-original-title="Google Plus">
+                                    <i class="fa fa-google-plus"></i>
+                                    <span>Google Plus</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        if (jQuery.cookie('popupNewLetterStatus') != 'closed') {
+            jQuery.fancybox.open({
+                padding : 0,
+        		'beforeLoad': function(){
+			        $("#popup-newletter").removeClass('hide');
+			        var Form = $("mc-embedded-subscribe-form").clone();
+			        $('.pnewle-form',$("#popup-newletter")).html($("#mc-embedded-subscribe-form").clone().removeAttr("id"));
+			    },
+        		href: "#popup-newletter",
+        		afterClose : function(){
+        			$("#popup-newletter").addClass('hide');
+                    jQuery.cookie('popupNewLetterStatus', 'closed', {expires:1, path:'/'});
+           		}
+            });
+        }
+    });
+</script>

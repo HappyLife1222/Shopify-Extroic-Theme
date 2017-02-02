@@ -1,0 +1,51 @@
+{% comment %}
+
+    A snippet to include a search bar anywhere in your theme.
+    Note we are using 'input-group' for the layout. Look under Forms > Input Groups for some demos.
+
+    More information:
+    - http://docs.shopify.com/themes/liquid-variables/search
+
+    To return only products in results:
+    - http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+    - Or manually add type=product to the search URL as a query parameter
+    - Uncomment hidden input with value="product" below
+
+{% endcomment %}
+
+<script type="text/javascript">
+$(document).ready( function(){ 
+//      $("#search_block_top").each( function(){
+//      $("#search-icon").click( function(){
+//              $("#searchbox").toggle("show");
+//          });
+//      }); 
+  $("#searchbox select").change(function() {
+    var val = $(this).val();
+    window.location.href = "https://" + Shopify.shop + val;
+  });
+});
+</script>
+<div id="search_block_top" class="search-mobile">      	
+  	<div class="nav-search visible">
+    	<form id="searchbox" class="popup-content" action="/search" method="get" role="search">
+          {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+          <input id="search_query_top" class="search_query form-control" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+          <button id="search_button" class="btn btn-sm" type="submit" >
+              <span><i class="fa fa-search"></i></span>
+              <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
+          </button>
+          <div class="filter_type category_filter autosearch-category">
+            <i class="fa fa-angle-down"></i>
+            <select name="category_id">
+              <option value="0">All Category</option>
+              {% for category in collections limit:settings.categories_block_number %}        
+              <option value="{{ category.url }}">
+                {{ category.title }}
+              </option>                            
+              {% endfor %}
+            </select>
+          </div>
+    	</form>  
+  	</div>    
+</div>

@@ -1,0 +1,33 @@
+{% capture owlcarousel %}{% include 'shortcode-render' render:'action' %}{% endcapture %}
+{% capture owlcarouselItems %}{% include 'shortcode-render' render:'columns_item' default:'5'%}{% endcapture %}
+{% capture owlcarouselAutoPlay %}{% include 'shortcode-render' render:'autoPlay' default:'false'%}{% endcapture %}
+{% capture owlcarouselNavigation %}{% include 'shortcode-render' render:'navigation' default:'false' %}{% endcapture %}
+{% capture owlcarouselPagination %}{% include 'shortcode-render' render:'pagination' default:'true' %}{% endcapture %}
+{% capture owlcarouselLazyLoad %}{% include 'shortcode-render' render:'lazyLoad' default:'false' %}{% endcapture %}
+{% capture owlcarouselClass %}{% include 'shortcode-render' render:'class' default:'' %}{% endcapture %}
+
+{% case owlcarousel %}
+    {% when 'new owlcarousels' %}
+		{% capture shortCodeId %}{{shortCodeId}}-{{ 'now' | date: "%N" }}{% endcapture %}
+		<div id="owlcarousel-{{shortCodeId | split : '-' | last}}">
+          	<div class="owl-carousel{% if owlcarouselClass != '' %} {{owlcarouselClass}}{% endif %}">
+    {% when 'end owlcarousels' %}
+          	</div>
+		</div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#owlcarousel-{{shortCodeId | split : '-' | last}} .owl-carousel').each(function(){
+                  	$(this).owlCarousel({
+                        items : 1
+                  	});
+                });
+            });
+        </script>
+    	{% capture lastTime %}-{{shortCodeId | split : '-' | last}}{% endcapture %}
+    	{% capture shortCodeId %}{{shortCodeId | remove: lastTime}}{% endcapture %}
+    {% when 'new owlcarousel' %}
+    	<div class="item">
+    {% when 'end owlcarousel' %}
+    	</div>
+    {% else %}
+{% endcase %}

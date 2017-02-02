@@ -1,0 +1,69 @@
+<div id="social_block" class="social_block block">
+    {% if settings.footer_social_title != blank %}
+        <h4 class="title_block">{{ settings.footer_social_title }}</h4>
+    {% endif %}
+    <div class="block_content">       
+      	{% if settings.footer_follow_des %}
+      		{{ settings.footer_follow_des }}
+      	{% endif %}
+        <ul class="list-unstyled clearfix">
+            {% if settings.footer_social_facebook_link != blank %}
+                <li class="facebook">
+                    <a target="_blank" href="{{ settings.footer_social_facebook_link }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Facebook">
+                        <i class="fa fa-facebook"></i>
+                        <span>Facebook</span>
+                    </a>
+                </li>
+            {% endif %}
+            {% if settings.footer_social_twitter_link != blank %}
+                <li class="twitter">
+                    <a target="_blank" href="{{ settings.footer_social_twitter_link }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Twitter">
+                        <i class="fa fa-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                </li>
+            {% endif %}
+          	{% if settings.footer_social_googleplus_link != blank %}
+                <li class="google-plus">
+                    <a target="_blank" href="{{ settings.footer_social_googleplus_link }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Google Plus">
+                        <i class="fa fa-google-plus"></i>
+                        <span>Google Plus</span>
+                    </a>
+                </li>
+            {% endif %}
+          	{% if settings.footer_social_pinterest_link != blank %}
+                <li class="pinterest">
+                    <a target="_blank" href="{{ settings.footer_social_pinterest_link }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Pinterest">
+                        <i class="fa fa-pinterest"></i>
+                        <span>Pinterest</span>
+                    </a>
+                </li>
+            {% endif %}
+          	{% if settings.footer_social_linkedin_link != blank %}
+                <li class="linkedin-square">
+                    <a target="_blank" href="{{ settings.footer_social_linkedin_link }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin">
+                      <i class="fa fa-linkedin-square"></i>
+                      <span>Pinterest</span>
+                    </a>
+                </li>
+            {% endif %}
+          	{% if settings.footer_social_vimeo_link != blank %}
+                <li class="linkedin-square">
+                    <a target="_blank" href="{{ settings.footer_social_vimeo_link }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin">
+                      <i class="fa fa-vimeo-square"></i>
+                      <span>Vimeo</span>
+                    </a>
+                </li>
+            {% endif %}
+          	
+            {% if settings.footer_social_rss_link != blank %}
+                <li class="rss">
+                    <a target="_blank" href="{{ settings.footer_social_rss_link }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="RSS">
+                        <i class="fa fa-rss"></i>
+                        <span>RSS</span>
+                    </a>
+                </li>
+            {% endif %}            
+        </ul>
+    </div>
+</div>

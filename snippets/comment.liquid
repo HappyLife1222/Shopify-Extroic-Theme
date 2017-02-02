@@ -1,0 +1,15 @@
+<div id="comment{{ comment.id }}" class="comment-item">
+    <div class="comment-wrap">
+        <div class="comment-meta">
+            {% capture author %}<strong>{{ comment.author }}</strong>{% endcapture %}
+            {% capture date %}<strong><time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: format: 'month_day_year' }}</time></strong>{% endcapture %}
+            {{ 'blogs.article.comment_meta_html' | t: author: author, date: date }}
+            <span class="comment-link">
+                <a href="#comment{{ comment.id }}">{{ 'blogs.comments.comment_link' | t }}</a>
+            </span>
+        </div>
+        <div class="comment-content">
+            {{ comment.content }}
+        </div>
+    </div>
+</div>

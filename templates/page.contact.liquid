@@ -1,0 +1,97 @@
+<section id="columns" class="columns-container product">
+    <div class="container">
+      	{% include 'breadcrumb' %}
+        <div class="row">
+            <section id="center_column" class="col-sm-12 col-md-12">
+                <h1 class="page-heading bottom-indent">{{ 'contact.form.title' | t }}</h1>
+              	{% if settings.map_contact_enable %}
+              		{% include 'block-google-map' %}
+                {% endif %}
+              	<div class="row">
+                  	<div class="col-md-9 col-sm-12 col-xs-12">
+                        {% form 'contact' %}
+                            {% if form.posted_successfully? %}
+                                <p class="alert alert-success">
+                                    {{ 'contact.form.post_success' | t }}
+                                </p>
+                            {% endif %}
+                            {{ form.errors | default_errors }}
+                            <div class="contact-form-box">
+                                <fieldset>
+                                    <h3 class="page-subheading">send a message</h3>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                {% assign name_attr = 'contact.form.name' | t | handle %}
+                                                <label for="ContactFormName" class="label--hidden">{{ 'contact.form.name' | t }}</label>
+                                                <input class="form-control grey" type="text" id="ContactFormName" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                                            </div>
+                                      	</div>
+                                      	<div class="col-xs-12 col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="ContactFormEmail" class="label--hidden">{{ 'contact.form.email' | t }}</label>
+                                                <input class="form-control grey" type="email" id="ContactFormEmail" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+                                            </div>
+                                      	</div>
+                                      	<div class="col-xs-12 col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                {% assign name_attr = 'contact.form.phone' | t | handle %}
+                                                <label for="ContactFormPhone" class="label--hidden">{{ 'contact.form.phone' | t }}</label>
+                                                <input class="form-control grey" type="tel" id="ContactFormPhone" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label for="ContactFormMessage" class="label--hidden">{{ 'contact.form.message' | t }}</label>
+                                                <textarea class="form-control" rows="8" id="ContactFormMessage" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="submit">
+                                        <input type="submit" class="btn btn-outline" value="{{ 'contact.form.send' | t }}">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        {% endform %}
+                  	</div>
+                  	<div class="col-md-3 col-sm-12 col-xs-12">
+                      	<div class="box-contact-info block">
+                          	{% if settings.contact_infor_title != blank %}
+                          		<div class="title_block">
+                              		<span>{{ settings.contact_infor_title }}</span>
+                          		</div>
+                          	{% endif %}
+                          	<div class="block_content">
+                              	<div class="coninfo-des">
+                              		{{ settings.contact_infor_des }}
+                              	</div>
+                              	<ul>
+                                  	{% if settings.contact_infor_address != blank %}
+                                  		<li class="address">
+                                          	<span>{{ settings.contact_infor_address }}</span>
+                                  		</li>
+                                  	{% endif %}
+                                  	{% if settings.contact_infor_phone != blank %}
+                                  		<li class="phone">
+                                  			<span>{{ settings.contact_infor_phone }}</span>
+                                  		</li>
+                                  	{% endif %}
+                                  	{% if settings.contact_infor_email != blank %}
+                                  		<li class="email">
+                                  			<span>{{ settings.contact_infor_email }}</span>
+                                  		</li>
+                                  	{% endif %}
+                                  	{% if settings.contact_infor_website != blank %}
+                                  		<li class="website">
+                                  			<span>{{ settings.contact_infor_website }}</span>
+                                  		</li>
+                                  	{% endif %}
+                              	</ul>
+                          	</div>
+                      	</div>
+                  	</div>
+              	</div>
+            </section>
+        </div>
+    </div>
+</section>

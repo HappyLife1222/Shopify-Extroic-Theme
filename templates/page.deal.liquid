@@ -1,0 +1,37 @@
+{% assign collection_deal = collections[settings.apollo_count_down_dealpages] %}
+
+
+<section id="columns" class="columns-container">
+	<div class="container-fluid">      	
+		{% include 'breadcrumb' %}
+		<div class="row">
+			<section id="center_column" class="col-sm-12 col-md-12">
+				<div id="deal-pages">
+					{% paginate collection_deal.products by settings.apollo_dealpages_count %}
+	                    <div class="product_list grid">
+                          <div class="row products-row">
+	                        {% if settings.apollo_count_down_enable and settings.apollo_count_down_collections %}
+	                            {% assign dealTime = settings.home_productdeal_time | split: ' ' | join: ' ' | split: ' ' %}
+	                        {% endif %}
+	                        {% for product in collection_deal.products %}
+	                            {% assign grid_item_width = product_per_row %}
+	                            {% include 'product-grid-item' %}
+	                        {% else %}
+	                            <div class="col-xs-12">
+	                                <p class="bg-warning">{{ 'collections.general.no_matches' | t }}</p>
+	                            </div>
+	                        {% endfor %}
+	                        {% assign dealTime = false %}
+                          </div>
+                  		</div>
+	                    {% if paginate.pages > 1 %}
+	                        <div class="content_sortPagiBar">
+	                            {% include 'pagination-custom' %}
+	                        </div>
+	                    {% endif %}
+	                {% endpaginate %}
+                </div>
+			</section>
+		</div>
+	</div>
+</section>

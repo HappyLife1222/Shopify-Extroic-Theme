@@ -1,0 +1,52 @@
+{% unless title_block %}
+	{% assign title_block = '' %}
+{% endunless %}
+{% unless interval %}
+	{% assign interval = 8000 %}
+{% endunless %}
+{% unless type_block %}
+	{% assign type_block = 'boostrap_carousel' %}
+{% endunless %}
+{% unless collection_produclists %}
+	{% assign collection_produclists = collections.all.products %}
+{% endunless %}
+
+<div id="productlist_{{ block-productlist }}" class="products_block exclusive block" >  	
+	{% if title_block != blank %}
+		<h4 class="page-subheading {% if block-productlist == 'sidebar' %}title_block{% endif %}">
+			{{ title_block }}
+		</h4>  	
+	{% endif %}
+	<div class="block_content box-line">
+		{% if type_block == 'boostrap_carousel' %}
+			{% capture product_carousel %}product_list_00{{ block-productlist }}{% endcapture %}
+      		
+			{% include 'product-carousel' with block-productlist %}
+		{% else %}
+			{% include 'product-carousel-owl' with block-productlist %}
+		{% endif %}
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		{% if type_block == 'boostrap_carousel' %}
+	    $('#productlist_{{ block-productlist }}').each(function(){
+	        $(this).carousel({
+	            pause: 'hover',
+	            interval: {{ interval }}
+	        });
+	    });
+	    {% else %}
+	    	$('#productlist_{{ block-productlist }} .owl-carousel').each(function(){
+    		  	$(this).owlCarousel({
+    		      	items : {{ columns_product }},
+    		      	lazyLoad : true,
+    		      	navigation : true,
+	              	addClassActive: true,
+              		afterInit : SetOwlCarouselFirstLast,
+			        afterAction : SetOwlCarouselFirstLast,
+		      	}); 
+    		});
+	    {% endif %}
+	});
+</script>

@@ -1,0 +1,125 @@
+<div class="footer-container">
+    <section id="footertop" class="footer-top"> 
+        <div class="container-fluid">
+            <div class="footer_top_wrap">
+                <div class="row {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_ftopcontent }}{% endif %}" data-wow-delay="200ms">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        {% if settings.footer_aboutshop_enable %}
+                            {% include 'block-aboutshop' %}
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">                    
+	   					{% if settings.footer_social_enable %}
+                            {% include 'block-social' %}
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        {% if settings.homepage_newsletter_enable %}
+                        	{% include 'block-newsletter' %}
+                        {% endif %}
+                    </div>
+                  	<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                      	{% if settings.footer_blockcontact_enable %}
+                                {% include 'block-contactus' %}
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  	{% if settings.footer_bottomhtml_enable %}
+    <section id="footercenter" class="footer-center">
+        <div class="container-fluid">
+            <div class="footer-center-wrap">
+                <div class="row">                    
+                    <div class="col-md-12 col-sm-12 col-xs-12 {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_flinks }}{% endif %}" data-wow-delay="200ms">
+                        <div class="footer_quicklink">
+                            <div class="row">
+                                <div class="col-sm-2 col-xs-12">
+                                  {% if settings.footer_quicklinks_enable %}
+                                  {% assign footerlinks_name = settings.footer_quicklinks_linklist %}
+                                  {% assign footerlinks_title = settings.footer_quicklinks_title %}
+                                  {% include 'block-footerlinks' with '1' %}
+                                  {% endif %}
+                                </div>
+                                <div class="col-sm-2 col-xs-12">
+                                  {% if settings.footer_quicklinks_enable_1%}
+                                  {% assign footerlinks_name = settings.footer_quicklinks_linklist_1 %}
+                                  {% assign footerlinks_title = settings.footer_quicklinks_title_1 %}
+                                  {% include 'block-footerlinks' with '2' %}
+                                  {% endif %}
+                                </div>
+                                <div class="col-sm-2 col-xs-12">
+                                  {% if settings.footer_quicklinks_enable_2 %}
+                                  {% assign footerlinks_name = settings.footer_quicklinks_linklist_2 %}
+                                  {% assign footerlinks_title = settings.footer_quicklinks_title_2 %}
+                                  {% include 'block-footerlinks' with '3' %}
+                                  {% endif %}
+                                </div>
+                                <div class="col-sm-2 col-xs-12">
+                                  {% if settings.footer_quicklinks_enable_3 %}
+                                  {% assign footerlinks_name = settings.footer_quicklinks_linklist_3 %}
+                                  {% assign footerlinks_title = settings.footer_quicklinks_title_3 %}
+                                  {% include 'block-footerlinks' with '4' %}
+                                  {% endif %}
+                                </div>
+                                <div class="col-sm-2 col-xs-12">
+                                  {% if settings.footer_quicklinks_enable_4 %}
+                                  {% assign footerlinks_name = settings.footer_quicklinks_linklist_4 %}
+                                  {% assign footerlinks_title = settings.footer_quicklinks_title_4 %}
+                                  {% include 'block-footerlinks' with '5' %}
+                                  {% endif %}
+                                </div>
+                                
+                                <div class="col-sm-2 col-xs-12">
+                                  {% if settings.footer_quicklinks_enable_5 %}
+                                  {% assign footerlinks_name = settings.footer_quicklinks_linklist_5 %}
+                                  {% assign footerlinks_title = settings.footer_quicklinks_title_5 %}
+                                  {% endif %}
+                                </div>
+                              
+<!--
+                                <div class="col-sm-2 col-xs-12">
+                                  {% if settings.footer_logo %}
+                                  	<div class="footer-block block">
+                                      {% if settings.footer_logo_title != blank %}
+											<h4 class="title_block">{{ footerlinks_title }}</h4>
+										{% endif %}
+                                      <div class="block_content">
+                                        <ul style="" class="toggle-footer list-unstyled">
+                                          <li>
+                                            <img src="{{ 'android.jpg' | asset_url }}"/>
+                                          </li>
+                                          <li>
+                                            <img src="{{ 'apple.jpg' | asset_url }}"/>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                  </div>
+                                  {% endif %}
+                                </div>
+-->
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </section>
+  	{% endif %}
+    <section id="footernav" class="footer-nav">
+        <div class="container-fluid">
+            <div id="powered" class="powered {% if settings.lazyload_enable %}wow animated {{ settings.lazyload_fcoppyright }}{% endif %}">                
+              	<div class="copyright pull-left">
+                  	{{ powered_by_link }}<br>  
+                	{{ shop.name }} &copy; Copyright {{ "now" | date: "%Y" }}.	
+              	</div>
+              	<div class="paypal pull-right">
+                  {% if settings.coppyright_logopayment_enable %}
+                  	{{ "payment.png" | asset_url | img_tag: 'Logo Payment', "img-responsive" }}
+                  {% endif %}
+              	</div>              	
+            </div>
+        </div>
+    </section>
+</div>

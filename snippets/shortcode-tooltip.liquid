@@ -1,0 +1,28 @@
+{% capture type %}{% include 'shortcode-render' render:'type' default:'button' %}{% endcapture %}
+{% capture placement %}{% include 'shortcode-render' render:'placement' default:'left' %}{% endcapture %}
+{% capture text %}{% include 'shortcode-render' render:'text' default:'' %}{% endcapture %}
+{% capture title %}{% include 'shortcode-render' render:'title' default:'' %}{% endcapture %}
+{% capture class %}{% include 'shortcode-render' render:'class' default:'btn btn-default' %}{% endcapture %}
+{% capture id %}{% include 'shortcode-render' render:'id' default:'' %}{% endcapture %}
+{% capture url %}{% include 'shortcode-render' render:'url' default:'' %}{% endcapture %}
+{% capture isOpen %}{% include 'shortcode-render' render:'isOpen' default:'' %}{% endcapture %}
+
+{% if url != blank %}
+<a href="{{url}}" {% if isOpen != blank %} target="_blank"{% endif %}>
+{% endif %}
+
+	{% if type == 'button' %}
+	<button type="button" class="{{class}}" data-toggle="tooltip" data-placement="{{placement}}" title="{{title}}" {% if id != blank %}id="{{id}}"{% endif %}>{{text}}</button>
+
+	{% else %}
+	<span class="{{class}}" data-toggle="tooltip" data-placement="{{placement}}" title="{{title}}" {% if id != blank %}id="{{id}}"{% endif %}>{{text}}</span>
+	{% endif %}
+	
+{% if url != blank %}
+</a>
+{% endif %}
+<script type="text/javascript">
+	$(function () {
+		$("[data-toggle='tooltip']").tooltip();
+	})
+</script>

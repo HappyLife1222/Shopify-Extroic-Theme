@@ -1,0 +1,6 @@
+{% capture type %}{% include 'shortcode-render' render:'type' default:'' %}{% endcapture %}
+{% capture message %}{% include 'shortcode-render' render:'message' default:'' %}{% endcapture %}
+{% if message != '' %}
+{% assign type = type | downcase %}
+<div class="alert alert-{{type}}" role="alert">{{message}}</div>
+{% endif %}

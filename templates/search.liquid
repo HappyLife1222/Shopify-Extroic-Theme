@@ -1,0 +1,59 @@
+{% assign grid_results = true %}
+{% assign respond_js_secret_key = shop.domain | md5 %}
+{% unless search.terms == respond_js_secret_key %}
+    <section id="columns" class="columns-container">
+        <div class="container-fluid">
+            <div class="row">
+                <div id="center_column" class="center_column col-md-12">
+                    <div id="search-page">
+                        {% if search.performed %}
+                            {% paginate search.results by 10 %}
+                                {% if search.results_count == 0 %}
+                                    <h1 class="h2 text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+                                    {% include 'search-bar' %}
+                                {% else %}
+                                    <h1 class="h2 text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+                                    {% include 'search-bar' %}
+                                    {% if grid_results == false %}
+                                        <div class="product_list row list">
+                                            {% for item in search.results %}
+                                                {% include 'search-result' %}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {% assign columns_product = 4 | plus: 0 %}
+                                        {% assign colProduct = 12 | divided_by:columns_product %}
+                                        {% capture grid_item_width %}col-md-{{ colProduct }} col-xs-6 col-sp-12{% endcapture %}
+                                        <div class="product_list grid">
+                                            {% for item in search.results %}
+                                                {% assign modcol = forloop.index | modulo:columns_product %}
+                                                {% if modcol == 1 %}
+                                                    <div class="row products-row">
+                                                {% endif %}
+                                                    {% include 'search-result-grid' %}
+                                                {% if modcol == 0 or forloop.last %}
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                {% if paginate.pages > 1 %}
+                                    <div class="text-center">
+                                        {% include 'pagination-custom' %}
+                                    </div>
+                                {% endif %}
+                            {% endpaginate %}
+                        {% else %}
+                            <h1 class="h2 text-center">{{ 'general.search.title' | t }}</h1>
+                            {% include 'search-bar' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% else %}
+    {% include 'respond' %}
+    {% layout none %}
+{% endunless %}

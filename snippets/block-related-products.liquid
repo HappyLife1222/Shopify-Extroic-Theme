@@ -1,0 +1,63 @@
+{% assign number_of_related_products = settings.product_related_column %}
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+	{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+		{% assign found_a_collection = true %}
+		{% assign collection = c %}
+	{% endif %}
+{% endfor %}
+{% endif %}
+{% assign produccount = number_of_related_products %}
+<div id="productrelated{{ block-related-products }}" class="products_block exclusive block" >
+	<h4 class="title_block productscategory_title">
+		<span>{{ 'products.product.product_related' | t }}</span>
+	</h4>
+	<div class="block_content">
+		{% if settings.product_related_type != 'boostrap_carousel' %}
+			<div class="owl-row">
+		{% endif %}
+				{% assign collection_produclists = collection.products %}
+				{% if settings.product_related_type == 'boostrap_carousel' %}
+					{% capture product_carousel %}product_releted_{{ block-related-products }}{% endcapture %}		
+              		{% assign columns_product = number_of_related_products %}
+              		{% assign item_in_page = number_of_related_products %}
+					{% include 'product-carousel' %}
+				{% else %}
+              		{% assign row_in_tab = 1 %}                    		
+					{% include 'product-carousel-owl' %}
+				{% endif %}
+		{% if settings.product_related_type != 'boostrap_carousel' %}
+			</div>
+		{% endif %}
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		{% if settings.product_related_type == 'boostrap_carousel' %}
+	    $('#productrelated{{ block-related-products }}').each(function(){
+	        $(this).carousel({
+	            pause: 'hover',
+	            interval: {{ settings.product_related_interval }}
+	        });
+	    });
+	    {% else %}
+	    	$('#productrelated{{ block-related-products }} .owl-carousel').each(function(){
+    		  	$(this).owlCarousel({
+    		      	items : {{ produccount }},
+    		      	lazyLoad : true,
+    		      	navigation : true,
+              		navigationText : false,
+              		addClassActive: true,
+              		afterInit : SetOwlCarouselFirstLast,
+			        afterAction : SetOwlCarouselFirstLast,
+              		itemsDesktop: [1199, 3],
+                	itemsDesktopSmall: [979, 2],
+                	itemsTablet: [768, 2],
+                	itemsTabletSmall: [550, 2],
+                	itemsMobile: [549, 1],
+		      	}); 
+    		});
+	    {% endif %}
+	});
+</script>

@@ -1,0 +1,40 @@
+<div class="blog-item item {{ grid_blogscarousel }}">  
+  	<div class="media border">
+      {% if settings.home_blogs_showimage %}
+          {% if article.content contains '<img' %}
+              <div class="image">
+                  {% assign content_blog_home = article.content %}
+                  <img src="{% include 'blog-src-image' %}" title="{{ article.title }}" class="img-responsive replace-2x" alt="{{ article.title }}" />
+              </div>
+          {% endif %}
+      {% endif %}
+      <div class="media-body clearfix">
+          <div class="blog-meta">
+              {% if settings.home_blogs_createdate %} 
+                  <span class="blog-created">
+                      <span class="month-create">{{ article.published_at | date: '%b' }}</span>
+                      <span class="day-create">{{ article.published_at | date: '%d' }}</span>
+                      <span class="year-create">{{ article.published_at | date: '%Y' }}</span>                      
+                  </span>
+              {% endif %}
+              {% if settings.home_blogs_counter %} 
+                  <span class="blog-ctncomment">
+                      <span class="icon-comment">
+                          <a href="{{ article.url }}#comments">
+                              / {{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}
+                          </a>
+                      </span>
+                  </span>
+              {% endif %}
+          </div>
+          <h4><a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a></h4>
+          <div class="blog-shortinfo">
+              {% if article.excerpt.size > 0 %}
+                  {{ article.excerpt }}
+              {% else %}
+                  <p>{{ article.content | strip_html | truncatewords: 15 }}</p>
+              {% endif %}
+          </div>		
+      </div>	
+  </div>
+</div>

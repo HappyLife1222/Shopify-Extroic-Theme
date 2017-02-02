@@ -1,0 +1,54 @@
+{% capture title %}{% include 'shortcode-render' render:'title' %}{% endcapture %}
+{% capture columns_product %}{% include 'shortcode-render' render:'columns_product' %}{% endcapture %}
+{% capture product_in_list %}{% include 'shortcode-render' render:'product_in_list' %}{% endcapture %}
+{% capture handle %}{% include 'shortcode-render' render:'handle' %}{% endcapture %}
+{% capture interval %}{% include 'shortcode-render' render:'interval' %}{% endcapture %}
+{% capture id %}{% include 'shortcode-render' render:'id' %}{% endcapture %}
+{% capture procarouselId %}procarousel-{{ 'now' | date: "%N" }}{% endcapture %}
+{% if id == '' %}
+	{% capture prolistID %}productlist-{{ 'now' | date: "%N" }}{% endcapture %}
+	{% assign id = prolistID %}
+{% endif %}
+{% assign columns_product = columns_product | plus: 0 %}
+{% assign product_in_list = product_in_list | plus: 0 %}
+{% if interval == '' %}{% assign interval = 5000 %}{% endif %}
+
+{% for collection in collections %}
+    {% if handle != ''%}
+        {% if collection.handle ==  handle %}
+            {% assign products = collection.products %}
+            {% break%}
+        {% endif%}
+    {% endif%}
+{% endfor %}
+
+<div id="{{ id }}" class="products_block products_list exclusive block" >
+  	<h4 class="page-subheading">
+  		{{ title }}
+  	</h4>
+  	<div class="block_content">
+		<div class="owl-carousel slide">
+        {% assign grid_item_width = ' ' %}
+        {% for product in products limit:product_in_list %}
+            <div class="item">
+              	<div class="products-row">
+                {% include 'product-grid-item' %}
+              	</div>
+            </div>
+        {% endfor %}
+    </div>
+  	</div>
+  	<script type="text/javascript">
+      	$(document).ready(function() {
+            $('#{{ id }} .owl-carousel').each(function(){
+                $(this).owlCarousel({
+                    items : {{ columns_product }},
+                    lazyLoad : true,
+                    navigation : true,
+                    navigationText : ["{{ 'products.carousel.preview' | t }}", "{{ 'products.carousel.next' | t }}"]
+                }); 
+            });
+      	});
+    </script>
+
+</div>

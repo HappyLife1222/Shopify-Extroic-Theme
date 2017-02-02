@@ -1,0 +1,46 @@
+{% capture tab %}{% include 'shortcode-render' render:'action' %}{% endcapture %}
+{% capture active %}{% include 'shortcode-render' render:'active' %}{% endcapture %}
+{% capture id %}{% include 'shortcode-render' render:'id' %}{% endcapture %}
+{% capture title %}{% include 'shortcode-render' render:'title' %}{% endcapture %}
+{% capture align %}{% include 'shortcode-render' render:'align' default:'left' %}{% endcapture %}
+{% if id == ''%}
+	{% assign id = 'tab' %}
+{% endif %}
+{% if align == ''%}
+	{% assign align = 'left' %}
+{% endif %}
+{% case tab %}
+	{% when 'new tabs' %}
+	{% capture shortCodeId %}{{shortCodeId}}-{{ 'now' | date: "%N" }}{% endcapture %}
+	<!-- Reset tabLisId -->
+	{% capture tabListId %}{% endcapture %}
+<div role="tabpanel" id="tab-{{shortCodeId | split : '-' | last}}" class="tabbable tabs-below">
+
+	{% when 'new cover-tab-list' %}
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs navbar-{{ align | downcase }}" role="tablist">
+
+  	{% when 'new tab-list' %}
+    	<li role="presentation" class="{% if active != '' %}active {% endif %}"><a href="#tl-{{tabListId | split : '-' | last}}" aria-controls="tl-{{tabListId | split : '-' | last}}" role="tab" data-toggle="tab">{{title}}</a></li>
+    	{% capture item %}-{{tabListId | split : '-' | last}}{% endcapture %}
+    	{% capture tabListId %}{{tabListId | remove: item}}{% endcapture %}
+	{% when 'end cover-tab-list' %}
+	</ul>
+
+	{% when 'new tab-content' %}
+	<!-- Tab panes -->
+  	<div class="tab-content" style="clear:both;">
+
+  	{% when 'new tab-panel' %}
+  		{% capture tabListId %}{{ 'now' | date: "%N" }}-{{tabListId}}{% endcapture %}
+		<div role="tabpanel" class="tab-pane fade {% if active != '' %}active in {% endif %}" id="tl-{{tabListId | split : '-' | first}}">
+	{% when 'end tab-panel' %}
+		</div>
+	{% when 'end tab-content' %}
+	</div>
+	{% when 'end tabs' %}
+		{% capture lastTime %}-{{shortCodeId | split : '-' | last}}{% endcapture %}
+    	{% capture shortCodeId %}{{shortCodeId | remove: lastTime}}{% endcapture %}
+</div>
+{% else %}
+{% endcase %}

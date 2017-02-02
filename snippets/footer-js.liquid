@@ -1,0 +1,65 @@
+{{ 'timber.js' | asset_url | script_tag }}
+{% if settings.slider_home_enable %}
+  {{ 'raphael-min.js' | asset_url | script_tag }}
+  {{ 'jquery.easing.js' | asset_url | script_tag }}
+  {{ 'iview.js' | asset_url | script_tag }}
+{% endif %}
+<script>
+	{% if newHash %}
+		$(function() {
+			timber.updateHash('{{ newHash }}');
+		});
+	{% endif %}
+	{% if resetPassword %}
+		$(function() {
+			timber.resetPasswordSuccess();
+		});
+	{% endif %}
+</script>
+{% if settings.ajax_cart_enable %}
+	{{ 'handlebars.min.js' | asset_url | script_tag }}
+	{% include 'ajax-cart-template' %}
+	{{ 'ajaxify.js' | asset_url | script_tag }}
+	<script>
+      function initAjaxifyShopify() {
+        ajaxifyShopify.init({
+          method: '{{ settings.ajax_cart_method }}',
+          wrapperClass: 'wrapper',
+          formSelector: '.form-ajaxtocart',
+          addToCartSelector: '.ajax_addtocart',
+          cartCountSelector: '#CartCount',
+          cartCostSelector: '#CartCost',
+          toggleCartButton: '#CartToggle',
+          useCartTemplate: true,
+          btnClass: 'btn',
+          moneyFormat: {{ shop.money_format | json }},
+          disableAjaxCart: false,
+          enableQtySelectors: true,
+          prependDrawerTo: 'body'
+        });
+      }
+      jQuery(function($) {
+        initAjaxifyShopify();
+      });
+	</script>
+{% endif %}
+{{ 'fastclick.min.js' | asset_url | script_tag }}
+{{ 'owl.carousel.min.js' | asset_url | script_tag }}
+{% include 'new-currency' %}
+{% if settings.apollo_canvas_style == 'styletwo' %}
+{{ 'jquery.mmenu.min.all.js' | asset_url | script_tag }}
+{% endif%}
+<script>
+	!function ($) {
+		$(function(){
+			$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { 
+				e.stopPropagation(); 
+            });
+          	$(document.body).on('click', '[data-toggle="dropdown"]' ,function(){
+                if(!$(this).parent().hasClass('open') && this.href && this.href != '#'){
+                    window.location.href = this.href;
+                }
+            });
+		})
+	}(window.jQuery)
+</script>
